@@ -15,10 +15,11 @@ class BuildrootBuildManager:
         self,
         buildroot_dir: Path,
         output_base: Path,
+        timeout: int = 300,
     ):
         self.buildroot_dir = buildroot_dir
         self.output_base = output_base
-
+        self.timeout = timeout
     # ---------------------------------------------------------
     # helpers
     # ---------------------------------------------------------
@@ -33,10 +34,10 @@ class BuildrootBuildManager:
                 check=False,
             )
 
-    def _ensure_clean_build(self, pkg: str, log_file: Path)
+    def _ensure_clean_build(self, pkg: str, log_file: Path):
         self._run(
             ["make", pkg + "-dirclean"],
-            self.buildroot_dor,
+            self.buildroot_dir,
             log_file,
         )
 
@@ -48,18 +49,25 @@ class BuildrootBuildManager:
                 log_file,
             )
 
-    def _discover_binaries(self, out_dir: Path) -> List[Path]:
-        target_dir = out_dir / "target"
+    def _discover_binaries(self, target_dir: Path, pkg: str) -> List[Path]:
+        
         if not target_dir.exists():
             return []
+
+        pkg_lower = pkg.lower()
 
         bins = []
         for p in target_dir.rglob("*"):
             try:
-                if p.is_file() and (p.stat().st_mode & 0o111):
+                if (
+                    p.is_file()
+                    and (p.stat().st_mode & 0o111)
+                    and pkg_lower in p.name.lower() and ".so" in p.name.lower()
+                ):
                     bins.append(p)
-            except FileNotFoundError:
+            except OSError:
                 pass
+
         return bins
 
     # ---------------------------------------------------------
@@ -70,16 +78,16 @@ class BuildrootBuildManager:
         project.name MUST be the Buildroot package name.
         """
         pkg = project.name
+        
+        out_dir = self.buildroot_dir / "output/build/"
+        
 
-        out_dir = self.output_base / pkg
-        out_dir.mkdir(parents=True, exist_ok=True)
-
-        log_file = out_dir / "buildroot.log"
-
+        log_file = out_dir / Path("buildroot_" + pkg + ".log")
+        
         start = time.time()
 
         # ensure config
-        self._ensure_defconfig(out_dir, log_file)
+        self._ensure_defconfig(self.buildroot_dir, log_file)
 
         self._ensure_clean_build(pkg, log_file)
 
@@ -92,8 +100,15 @@ class BuildrootBuildManager:
         res = self._run(cmd, self.buildroot_dir, log_file)
         success = res.returncode == 0
 
+        matches = list(out_dir.glob(f"{pkg}-*"))
+        if not matches:
+            raise FileNotFoundError(f"No build dir for {pkg}")
+        target_dir = matches[0]
+
+        self.output_base = target_dir
+
         # discover binaries
-        binaries = self._discover_binaries(out_dir) if success else []
+        binaries = self._discover_binaries(target_dir, pkg) if success else []
 
         duration = time.time() - start
         with log_file.open("a") as f:

@@ -2,6 +2,7 @@ import subprocess
 import time
 from pathlib import Path
 
+import FlagRecovery
 from core.project import Project, RecoveryResult
 
 
@@ -13,19 +14,9 @@ class FlagRecoveryRunner:
         output_file = project.build_dir / "recovery.txt"
         start = time.time()
 
-        res = subprocess.run(
-            [str(self.tool_path), str(binary)],
-            stdout=output_file.open("w"),
-            stderr=subprocess.STDOUT,
-            check=False,
-        )
+        frr = FlagRecovery(project.files, binary, project.library_dir, project.config_h)
+        macros = frr.run()
 
-        runtime = time.time() - start
+        runtime = time.time() - start       
 
-        # VERY naive parser — replace with your format
-        flags: set[str] = set()
-        if output_file.exists():
-            for line in output_file.read_text().splitlines():
-                flags.add(line.strip())
-
-        return RecoveryResult(flags, output_file, runtime)
+        return RecoveryResult(macros, output_file, runtime)

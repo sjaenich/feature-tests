@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from core.project import Project
-from build.autotools import AutotoolsBuildManager
+from build.buildroot import BuildrootBuildManager
 from locate.config_locator import ConfigLocator
 from recovery.runner import FlagRecoveryRunner
 from truth.config_truth import GroundTruthExtractor
@@ -11,13 +11,13 @@ from pipeline.experiment import ExperimentRunner
 
 def main():
     project = Project(
-        name="demo",
+        name="libpng",
         source_dir=Path("/path/to/project"),
-        build_dir=Path("/tmp/ff_eval/demo"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
     )
 
     runner = ExperimentRunner(
-        build_manager=AutotoolsBuildManager(),
+        build_manager=BuildrootBuildManager(project.build_dir, project.build_dir),
         locator=ConfigLocator(),
         recovery=FlagRecoveryRunner(Path("/path/to/your/tool")),
         truth_extractor=GroundTruthExtractor(),
