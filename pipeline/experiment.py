@@ -36,7 +36,7 @@ class ExperimentRunner:
                 project.name, True, True, None, None, None, "no binaries"
             )
         print(build_res.binary_paths)
-        rec = self.recovery.run(project, build_res.binary_paths[0])
+        rec = self.recovery.run(project, build_res.binary_paths[0], config_h)
         cmp_res = self.comparator.compare(rec.flags, gt)
 
         return ExperimentResult(

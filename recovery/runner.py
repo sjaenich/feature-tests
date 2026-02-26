@@ -9,11 +9,11 @@ class FlagRecoveryRunner:
     def __init__(self, tool_path: Path):
         self.tool_path = tool_path
 
-    def run(self, project: Project, binary: Path) -> RecoveryResult:
+    def run(self, project: Project, binary: Path, config_h) -> RecoveryResult:
         output_file = project.build_dir / "recovery.txt"
         start = time.time()
 
-        frr = FlagRecovery(project.source_dir, binary, project.library_dir, project.config_h, project.name, project.include_dir)
+        frr = FlagRecovery(project.source_dir, binary, config_h, project.name, project.include_dir)
         macros = frr.run()
 
         runtime = time.time() - start       
