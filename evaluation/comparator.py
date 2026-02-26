@@ -11,6 +11,11 @@ class ResultComparator:
         fp = recovered - ground_truth
         fn = ground_truth - recovered
 
+        print("True Positives:", tp)
+        print("False Positives:", fp)
+        print("False Negatives:", fn)
+    
+
         precision = len(tp) / (len(tp) + len(fp)) if tp or fp else 0.0
         recall = len(tp) / (len(tp) + len(fn)) if tp or fn else 0.0
         f1 = (

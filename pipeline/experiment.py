@@ -23,7 +23,7 @@ class ExperimentRunner:
                 project.name, False, False, None, None, None, "build failed"
             )
 
-        config_h = self.locator.locate(project, self.build_manager.output_base)
+        config_h = self.locator.locate(project, project.source_dir)
         if not config_h:
             return ExperimentResult(
                 project.name, True, False, None, None, None, "config.h not found"
@@ -37,6 +37,8 @@ class ExperimentRunner:
             )
         print(build_res.binary_paths)
         rec = self.recovery.run(project, build_res.binary_paths[0], config_h)
+        print("Rec flags:", rec.flags)
+        print("GT flags:", gt)
         cmp_res = self.comparator.compare(rec.flags, gt)
 
         return ExperimentResult(

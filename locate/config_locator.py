@@ -19,8 +19,10 @@ class ConfigLocator:
             patterns.add(f"*{name}")  # optional broad match
 
         for root in [output_base]:
+            print(f"Searching for config files in: {root}")
             for pattern in patterns:
                 for p in root.rglob(pattern):
+                    print(f"Checking candidate: {p}")
                     if p.is_file():
                         print(f"Located config file: {p}")
                         return p

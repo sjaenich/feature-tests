@@ -18,7 +18,7 @@ def main():
     )
     print("*** Running experiment for project:", project.name, "***")
     runner = ExperimentRunner(
-        build_manager=BuildrootBuildManager(project.build_dir, project.build_dir),
+        build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
         locator=ConfigLocator(),
         recovery=FlagRecoveryRunner(Path("/path/to/your/tool")),
         truth_extractor=GroundTruthExtractor(),
