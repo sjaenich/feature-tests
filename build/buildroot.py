@@ -74,9 +74,7 @@ class BuildrootBuildManager:
     # main API
     # ---------------------------------------------------------
     def build(self, project: Project) -> BuildResult:
-        """
-        project.name MUST be the Buildroot package name.
-        """
+        
         pkg = project.name
         
         out_dir = self.buildroot_dir / "output/build/"

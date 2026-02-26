@@ -9,4 +9,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-compiler-provenance = { path = "../compiler-provenance" }
+compiler-provenance = { path = "../compiler" }

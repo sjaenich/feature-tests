@@ -1,8 +1,9 @@
 import subprocess
 import time
 from pathlib import Path
-
-import FlagRecovery
+import pkgutil
+print([m.name for m in pkgutil.iter_modules() if "compiler" in m.name])
+from compiler_provenance.flag_recovery import FlagRecovery
 from core.project import Project, RecoveryResult
 
 
@@ -14,7 +15,7 @@ class FlagRecoveryRunner:
         output_file = project.build_dir / "recovery.txt"
         start = time.time()
 
-        frr = FlagRecovery(project.files, binary, project.library_dir, project.config_h)
+        frr = FlagRecovery(project.files, binary, project.library_dir, project.config_h, project.name, project.include_dir)
         macros = frr.run()
 
         runtime = time.time() - start       

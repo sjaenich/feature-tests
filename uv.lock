@@ -14,7 +14,7 @@ wheels = [
 [[package]]
 name = "compiler-provenance"
 version = "0.1.0"
-source = { directory = "../compiler-provenance" }
+source = { directory = "../compiler" }
 dependencies = [
     { name = "tqdm" },
     { name = "tree-sitter" },
@@ -39,7 +39,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "compiler-provenance", directory = "../compiler-provenance" }]
+requires-dist = [{ name = "compiler-provenance", directory = "../compiler" }]
 
 [[package]]
 name = "tqdm"

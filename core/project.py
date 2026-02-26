@@ -8,6 +8,7 @@ class Project:
     name: str
     source_dir: Path
     build_dir: Path
+    include_dir: Path
     metadata: dict | None = None
 
 
