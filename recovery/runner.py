@@ -6,8 +6,8 @@ from core.project import Project, RecoveryResult
 
 
 class FlagRecoveryRunner:
-    def __init__(self, tool_path: Path):
-        self.tool_path = tool_path
+    def __init__(self):
+        pass
 
     def run(self, project: Project, binary: Path, config_h) -> RecoveryResult:
         output_file = project.build_dir / "recovery.txt"

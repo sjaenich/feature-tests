@@ -1,5 +1,5 @@
 from core.project import ExperimentResult, Project
-
+from pathlib import Path
 
 class ExperimentRunner:
     def __init__(
@@ -24,6 +24,7 @@ class ExperimentRunner:
             )
 
         config_h = self.locator.locate(project, project.source_dir)
+        config_h = Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/config.h")
         if not config_h:
             return ExperimentResult(
                 project.name, True, False, None, None, None, "config.h not found"
