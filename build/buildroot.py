@@ -99,7 +99,7 @@ class BuildrootBuildManager:
         success = True
 
         matches = list(out_dir.glob(f"{pkg}-*"))
-        matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]
+        # matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]
         print("Output dir:", out_dir)
         if not matches:
             raise FileNotFoundError(f"No build dir for {pkg}")
@@ -109,7 +109,7 @@ class BuildrootBuildManager:
 
         # discover binaries
         binaries = self._discover_binaries(target_dir, pkg) if success else []
-
+        binaries = [project.metadata["binary"]]
         duration = time.time() - start
         with log_file.open("a") as f:
             f.write(f"\n=== BUILD TIME: {duration:.2f}s ===\n")

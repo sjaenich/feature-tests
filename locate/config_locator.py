@@ -26,4 +26,5 @@ class ConfigLocator:
                     if p.is_file():
                         print(f"Located config file: {p}")
                         return p
+        p = Path(project.metadata["config_h"])
         return None

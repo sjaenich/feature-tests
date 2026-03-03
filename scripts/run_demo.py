@@ -11,7 +11,7 @@ from pipeline.experiment import ExperimentRunner
 
 def main():
 
-    project = Project(
+    project_a = Project(
         name = "alsa-lib",
         source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/"),
         build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
@@ -139,7 +139,7 @@ def main():
     )  
 
 
-    project = Project(
+    project_a = Project(
         name = "rsync",
         source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/"),
         build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
@@ -170,16 +170,16 @@ def main():
     )  
 
     
-    print("*** Running experiment for project:", project.name, "***")
+    print("*** Running experiment for project:", project_a.name, "***")
     runner = ExperimentRunner(
-        build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
+        build_manager=BuildrootBuildManager(project_a.build_dir, project_a.source_dir),
         locator=ConfigLocator(),
         recovery=FlagRecoveryRunner(), 
         truth_extractor=GroundTruthExtractor(),
         comparator=ResultComparator(),
     )
     print("Running experiment...")
-    result = runner.run_project(project)
+    result = runner.run_project(project_a)
     print(result)
 
 
