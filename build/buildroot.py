@@ -1,5 +1,6 @@
 import subprocess
 import time
+import os
 from pathlib import Path
 from typing import List
 
@@ -23,7 +24,12 @@ class BuildrootBuildManager:
     # ---------------------------------------------------------
     # helpers
     # ---------------------------------------------------------
-    def _run(self, cmd, cwd, log_file: Path):
+    def _run(self, cmd, cwd, log_file: Path, env=None):
+
+        if env is None:
+            env = os.environ.copy()
+
+
         with log_file.open("a") as f:
             return subprocess.run(
                 cmd,
@@ -32,6 +38,7 @@ class BuildrootBuildManager:
                 stderr=subprocess.STDOUT,
                 timeout=self.timeout,
                 check=False,
+                env=env,
             )
 
     def _ensure_clean_build(self, pkg: str, log_file: Path):
@@ -86,7 +93,7 @@ class BuildrootBuildManager:
         # ensure config
         # self._ensure_defconfig(self.buildroot_dir, log_file)
 
-        # self._ensure_clean_build(pkg, log_file)
+        self._ensure_clean_build(pkg, log_file)
 
         # build the specific package
         cmd = [
@@ -94,9 +101,14 @@ class BuildrootBuildManager:
             f"{pkg}",
         ]
 
-        # res = self._run(cmd, self.buildroot_dir, log_file)
-        # success = res.returncode == 0
-        success = True
+        env = os.environ.copy()
+
+        env["MY_REAL_COMPILER"]=f"{"/workspaces/RevEng/buildroot-2025.02.4/output/host/bin/gcc-13.real"}"
+        env["MY_EXTRA_FLAGS"]= project.metadata["cflags"]
+
+        res = self._run(cmd, self.buildroot_dir, log_file, env)
+        success = res.returncode == 0
+        # success = True
 
         matches = list(out_dir.glob(f"{pkg}-*"))
         # matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]

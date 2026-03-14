@@ -30,7 +30,8 @@ class ExperimentRunner:
                 project.name, True, False, None, None, None, "config.h not found"
             )
 
-        gt = self.truth_extractor.extract(config_h)
+        gt = self.truth_extractor.extract(config_h, project.name, project.source_dir)
+
 
         if not build_res.binary_paths:
             return ExperimentResult(
