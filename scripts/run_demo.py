@@ -8,7 +8,7 @@ from recovery.runner import FlagRecoveryRunner
 from truth.config_truth import GroundTruthExtractor
 from evaluation.comparator import ResultComparator
 from pipeline.experiment import ExperimentRunner
-
+from truth.sqlite import SqliteGroundTruth
 
 def main():
 
@@ -184,28 +184,76 @@ def main():
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/config.h")},
     # )  
 
-    # Project(
-    #     name="sqlite",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
-    #               "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
-    #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
-    #               }
-    # )
-
     Project(
-        name="libxml2",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+        name="sqlite",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
         build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
-                  "config_h": Path("/workspaces/RevEng/header/libraries/libxml2.h"),
-                  "cflags": ""
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
+                  "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
+                  "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
                   }
     )
 
+    # Project(
+    #     name="libxml2",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
+    #               "config_h": Path("/workspaces/RevEng/header/libraries/libxml2.h"),
+    #               "cflags": ""
+    #               }
+    # )
+
+
+    Project(
+        name="libxslt"
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
+                    "config_h": Path("/workspaces/RevEng/header/libraries/libxslt.h"),
+                    "cflags": ""
+                    }
+    )   
+
+    Project(
+        name="libssh2",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/.libs/libssh2.so"),
+                    "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/libssh2_config.h"),
+                    "cflags": ""
+                    }
+    )   
+
+    Project(
+        name="libjpeg",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libjpeg-9f")
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/")
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libjpeg-9f")
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libjpeg-9f/.libs/libjpeg.so"),
+                    "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libjpeg-9f/jconfig.h"),
+                    "cflags": ""
+                    }
+
+    )
+
+    
+    Project(
+        name="libvpx",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/")
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0")
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/libvpx.so"),
+                    "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/vpx_config.h"),
+                    "cflags": ""
+                    }
+    )
+
+    
 
 
 
@@ -222,7 +270,7 @@ def main():
                         build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
                         locator=ConfigLocator(),
                         recovery=FlagRecoveryRunner(), 
-                        truth_extractor=GroundTruthExtractor(),
+                        truth_extractor=SqliteGroundTruth(),
                         comparator=ResultComparator(),
                         )
             print("Running experiment...")
