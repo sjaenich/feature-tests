@@ -1,4 +1,4 @@
-from config_truth import GroundTruthExtractor
+from .config_truth import GroundTruthExtractor
 
 
 

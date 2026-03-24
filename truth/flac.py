@@ -9,34 +9,19 @@ class FlacGroundTruth(GroundTruthExtractor):
     def extract(self, config_h, name, src_dir):
         
         flags = set()
-
-        # Common FLAC / autotools-style macros
-        flags.add(("HAVE_OGG", "False"))
-        flags.add(("HAVE_STDINT_H", "True"))
-        flags.add(("HAVE_STDLIB_H", "True"))
-        flags.add(("HAVE_STRING_H", "True"))
-        flags.add(("HAVE_MEMORY_H", "True"))
-        flags.add(("HAVE_STRINGS_H", "True"))
-        flags.add(("HAVE_SYS_TYPES_H", "True"))
-        flags.add(("HAVE_SYS_STAT_H", "True"))
-        flags.add(("HAVE_UNISTD_H", "True"))
-        flags.add(("HAVE_INTTYPES_H", "True"))
-
         # FLAC-specific feature toggles
         flags.add(("FLAC__HAS_OGG", "False"))
-        flags.add(("FLAC__CPU_X86_64", "False"))
-        flags.add(("FLAC__CPU_IA32", "False"))
-        flags.add(("FLAC__HAS_X86INTRIN", "False"))
-        flags.add(("FLAC__USE_AVX", "False"))
-        flags.add(("FLAC__USE_SSE", "False"))
-        flags.add(("FLAC__USE_SSE2", "False"))
-        flags.add(("FLAC__USE_SSE3", "False"))
-        flags.add(("FLAC__USE_SSSE3", "False"))
-        flags.add(("FLAC__USE_SSE4_1", "False"))
-        flags.add(("FLAC__USE_SSE4_2", "False"))
-        flags.add(("FLAC__USE_AVX2", "False"))
-        flags.add(("FLAC__HAS_ASM", "False"))
-
+        flags.add(("FLAC__USE_AVX", "True"))
+        flags.add(("NDEBUG", "True"))
+        flags.add(("FLAC__HAS_X86INTRIN", "True"))
+        flags.add(("FLAC__HAS_NEONINTRIN", "False"))
+        flags.add(("FLAC__USE_AVX2", "True"))
+        flags.add(("FLAC__NO_ASM", "False"))
+        flags.add(("FLAC__HAS_PANDOC", "False"))
+        flags.add(("FLAC__ALIGN_MALLOC_DATA", "False"))
+        flags.add(("ENABLE_64_BIT_WORDS", "True"))
+        
+    
         # Remove unused macros
         flags = self.remove_dead_macros(src_dir, flags)
 
