@@ -48,7 +48,7 @@ class DropbearGroundTruth(GroundTruthExtractor):
         for (flag, _) in flags:
             only_flags.add(flag)
             
-        self.modify_config_h(config_h, name, only_flags)
+        flags = self.modify_config_h(config_h, name, only_flags)
         return flags
 
     def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:

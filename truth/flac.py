@@ -27,7 +27,7 @@ class FlacGroundTruth(GroundTruthExtractor):
 
         only_flags = {flag for (flag, _) in flags}
 
-        self.modify_config_h(config_h, name, only_flags)
+        flags = self.modify_config_h(config_h, name, only_flags)
         
         return flags
 

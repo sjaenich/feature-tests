@@ -38,7 +38,7 @@ class LibvpxGroundTruth(GroundTruthExtractor):
         for (flag, _) in flags:
             only_flags.add(flag)
 
-        self.modify_config_h(config_h,name, only_flags)
+        flags = self.modify_config_h(config_h,name, only_flags)
         
         return flags
 

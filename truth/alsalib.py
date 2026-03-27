@@ -39,12 +39,12 @@ class AlsaLibGroundTruth(GroundTruthExtractor):
         for (flag, _) in flags:
             only_flags.add(flag)
             
-        self.modify_config_h(config_h, name, only_flags)
+        flags = self.modify_config_h(config_h, name, only_flags)
         return flags
 
     def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:
         # ALSA uses standard #define MACRO 1 or /* #undef MACRO */
-        DEFINE_BOOL_RE = re.compile(r'^\s*#define\s+([A-Z0-9_]+)\s+(?:0|1)\s*$')
+        DEFINE_BOOL_RE = re.compile(r'^\s*#define\s+([A-Z0-9_]+)\s+(?:0|1|"[01]")\s*$')
         UNDEF_RE = re.compile(r'^\s*/\*\s*#undef\s+([A-Z0-9_]+)\s*\*/\s*$')
         # Matches ALSA paths and version strings
         DEFINE_OTHER_RE = re.compile(r'^\s*#define\s+(ALSA_[A-Z_]+|[A-Z_][A-Z0-9_]*)\b(?!\s*\()')

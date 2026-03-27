@@ -33,8 +33,8 @@ class LiblzmaFeatureTruth(GroundTruthExtractor):
         
         # Encoders/Decoders (--enable-encoders, --enable-decoders)
         # These are the big ones for reducing binary size.
-        flags.add("HAVE_DECODERS", "True")
-        flags.add("HAVE_ENCODERS","True")
+        flags.add(("HAVE_DECODERS", "True"))
+        flags.add(("HAVE_ENCODERS","True"))
         flags.add(("HAVE_ENCODER_LZMA1", "True"))
         flags.add(("HAVE_ENCODER_LZMA2", "True"))
         flags.add(("HAVE_DECODER_LZMA1", "True"))
@@ -59,7 +59,7 @@ class LiblzmaFeatureTruth(GroundTruthExtractor):
         for (flag, _) in flags:
             only_flags.add(flag)
             
-        self.modify_config_h(config_h, name, only_flags)
+        flags = self.modify_config_h(config_h, name, only_flags)
         return flags
 
     def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:

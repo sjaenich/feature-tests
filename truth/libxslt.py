@@ -9,7 +9,7 @@ class LibxsltFeatureTruth(GroundTruthExtractor):
         flags = set()
         
         # --- libxslt 1.1.42 Configure-Controllable Flags ---
-        
+        print("THIS WORKED")
         # Debugging and Profiling (--with-debug, --with-profiler)
         flags.add(("WITH_DEBUGGER", "True"))
         flags.add(("WITH_PROFILER", "True"))
@@ -19,16 +19,17 @@ class LibxsltFeatureTruth(GroundTruthExtractor):
 
         # Strip out macros that aren't actually present in the source files
         flags = self.remove_dead_macros(src_dir, flags)
-        
+        print("First Iteration", flags)
         only_flags = set()
         for (flag, _) in flags:
             only_flags.add(flag)
             
-        self.modify_config_h(config_h, name, only_flags)
+        flags = self.modify_config_h(config_h, name, only_flags)
+        print("Second Iteration", flags)
         return flags
 
     def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:
-        DEFINE_BOOL_RE = re.compile(r'^\s*#define\s+([A-Z0-9_]+)\s+(?:0|1)\s*$')
+        DEFINE_BOOL_RE = re.compile(r'^\s*#define\s+([A-Z0-9_]+)\b')  
         UNDEF_RE = re.compile(r'^\s*/\*\s*#undef\s+([A-Z0-9_]+)\s*\*/\s*$')
         # libxslt often uses #define WITH_... without a 1/0, or version strings
         DEFINE_OTHER_RE = re.compile(r'^\s*#define\s+([A-Za-z_][A-Za-z0-9_]*)\b(?!\s*\()')
@@ -47,10 +48,12 @@ class LibxsltFeatureTruth(GroundTruthExtractor):
             
             for line in f:
                 handled = False
-                
+                print("LINE", line)
                 match = DEFINE_BOOL_RE.match(line)
+                print("BEFORE MATCH", match)
                 if match:
                     macro_name = match.group(1)
+                    print("MATCH ", macro_name)
                     if macro_name in flags:
                         updated_flags.add((macro_name, "True"))
                         dest.write(line)
