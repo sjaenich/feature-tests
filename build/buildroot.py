@@ -96,7 +96,7 @@ class BuildrootBuildManager:
         # self._ensure_defconfig(self.buildroot_dir, log_file)
         
         # Use random generation of groundtruth 
-        gt.mix()
+        # gt.mix()
         print("Ground truth flags for project", project.name, ":", gt.flags)
         # Hook the groundtruth flags into the build environment
         self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
@@ -151,12 +151,24 @@ class BuildrootBuildManager:
             f.write("echo \"Updating macros in $CONFIG_H\"\n")
 
             for macro, value in ground_truth_flags:
+                # if value == "True":
+                # # Ensure the macro is defined as 1
+                #     f.write(f"sed -i 's/.*{macro}.*/#define {macro} 1/' \"$CONFIG_H\"\n")
+                # else:
+                # # Ensure the macro is undefined/commented out
+                #     f.write(f"sed -i 's/.*{macro}.*/#undef {macro}/' \"$CONFIG_H\"\n")
                 if value == "True":
-                # Ensure the macro is defined as 1
-                    f.write(f"sed -i 's/.*{macro}.*/#define {macro} 1/' \"$CONFIG_H\"\n")
+                    f.write(
+                        f"sed -i 's@^#define[[:space:]]\\+{macro}.*@#define {macro} 1@' \"$CONFIG_H\"\n"
+                    )
+                    f.write(
+                        f"sed -i 's@^/\\* #undef[[:space:]]\\+{macro} \\*/@#define {macro} 1@' \"$CONFIG_H\"\n"
+                    )
                 else:
-                # Ensure the macro is undefined/commented out
-                    f.write(f"sed -i 's/.*{macro}.*/#undef {macro}/' \"$CONFIG_H\"\n")
-            
+                    f.write(
+                        f"sed -i 's@^#define[[:space:]]\\+{macro}.*@/* #undef {macro} */@' \"$CONFIG_H\"\n"
+                    )
+
+
         os.chmod(script_path, 0o755)
 

@@ -1,6 +1,6 @@
 from sys import flags
-
-from .config_truth import GroundTruthExtractor
+import random
+from .config_truth import GroundTruthExtractor, dict_to_set, set_to_dict
 import subprocess
 import re
 import shutil
@@ -29,10 +29,59 @@ class DbusGroundTruth(GroundTruthExtractor):
         # Resource Limits & Debugging
         self.flags.add(("DBUS_ENABLE_ASSERT", "False"))
         self.flags.add(("DBUS_ENABLE_EMBEDDED_TESTS", "False"))
-        self.flags.add(("NDBUG", "True")) 
+        self.flags.add(("NDEBUG", "True")) 
+
+
+    def mix(self):
+        flags = set_to_dict(self.flags)
+
+        # --- Step 1: randomize independent flags ---
+        independent = [
+            "HAVE_UNIX_FD_PASSING",
+            "DBUS_ENABLE_STATS",
+            # "HAVE_SELINUX",
+            "HAVE_APPARMOR",
+            "HAVE_MONOTONIC_CLOCK",
+        ]
+
+        for key in independent:
+            if key in flags:
+                flags[key] = random.choice([True, False])
+
+        # --- Step 2: randomize base control flags ---
+        flags["NDEBUG"] = random.choice([True, False])
+        flags["DBUS_ENABLE_EMBEDDED_TESTS"] = random.choice([True, False])
+        flags["DBUS_DISABLE_CHECKS"] = random.choice([True, False])
+        flags["DBUS_DISABLE_ASSERT"] = random.choice([True, False])
+
+        # --- Step 3: enforce dependencies ---
+
+        # Assertions: ENABLE = not DISABLE
+        flags["DBUS_ENABLE_ASSERT"] = not flags["DBUS_DISABLE_ASSERT"]
+
+        # Checks: ENABLE = not DISABLE
+        flags["DBUS_ENABLE_CHECKS"] = not flags["DBUS_DISABLE_CHECKS"]
+
+        # NDEBUG implies assertions disabled
+        if flags["NDEBUG"]:
+            flags["DBUS_DISABLE_ASSERT"] = True
+            flags["DBUS_ENABLE_ASSERT"] = False
+
+        # Embedded tests require debug + checks + asserts
+        if flags["DBUS_ENABLE_EMBEDDED_TESTS"]:
+            flags["NDEBUG"] = False
+            flags["DBUS_DISABLE_ASSERT"] = False
+            flags["DBUS_ENABLE_ASSERT"] = True
+            flags["DBUS_DISABLE_CHECKS"] = False
+            flags["DBUS_ENABLE_CHECKS"] = True
+
+        # --- Step 4: write back ---
+        self.flags = dict_to_set(flags)
+
 
 
     def extract(self, config_h, name, src_dir):
+        print("DID THIS WORK", self.flags)
         flags = self.flags
         
         # --- D-Bus Configure-Controllable Flags ---

@@ -95,24 +95,92 @@ def run_project(project):
     # Select the correct GroundTruth class
     gt_class = groundtruth_map.get(project.name.lower(), default_gt)
  
-    # print("This is the gt_class", gt_class)
 
-    with open(log_file, "w") as f, redirect_stdout(f):
-        print("*** Running experiment for project:", project.name, "***")
+    # os.makedirs(log_dir, exist_ok=True)
 
-        runner = ExperimentRunner(
-            build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
-            locator=ConfigLocator(),
-            recovery=FlagRecoveryRunner(),
-            truth_extractor=gt_class(), 
-            comparator=ResultComparator(),
-        )
+    seen_flags = set()   # track unique configurations
+    collected = []
 
-        print("Running experiment...")
-        result = runner.run_project(project)
-        print(result)
+    run_id = 0
+    accepted_id = 0
+
+    while len(collected) < 3:
+        truth_extractor = gt_class()
+
+        # generate a new configuration
+        if hasattr(truth_extractor, "mix"):
+            truth_extractor.mix()
+
+        flags_key = frozenset(truth_extractor.flags)
+
+        # skip duplicate configurations BEFORE running expensive build
+        if flags_key in seen_flags:
+            print(f"[-] Duplicate flags skipped: {flags_key}")
+            run_id += 1
+            continue
+
+        seen_flags.add(flags_key)
+
+        # log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
+        log_file = f"{project.name}_{run_id}.log"
+        with open(log_file, "w") as f, redirect_stdout(f):
+            print(f"*** Run {run_id} for project: {project.name} ***")
+            print("FLAGS:", truth_extractor.flags)
+
+            runner = ExperimentRunner(
+                build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
+                locator=ConfigLocator(),
+                recovery=FlagRecoveryRunner(),
+                truth_extractor=truth_extractor,
+                comparator=ResultComparator(),
+            )
+
+            print("Running experiment...")
+            result = runner.run_project(project)
+            print("Result:", result)
+        if result.precision is not None:
+            collected.append(result)
+            print(f"[+] Accepted config #{accepted_id}")
+            accepted_id += 1
+        
+        run_id += 1
+        if run_id > 12:  # safety check to prevent infinite loops
+            print("Too many runs without enough unique configs. Stopping.")
+            return project.name
+
 
     return project.name
+
+
+
+
+
+
+
+
+"""
+THIS IS THE OLD VERSION THAT WORKS
+""" 
+    # print("This is the gt_class", gt_class)
+
+    # with open(log_file, "w") as f, redirect_stdout(f):
+    #     print("*** Running experiment for project:", project.name, "***")
+
+    #     runner = ExperimentRunner(
+    #         build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
+    #         locator=ConfigLocator(),
+    #         recovery=FlagRecoveryRunner(),
+    #         truth_extractor=gt_class(), 
+    #         comparator=ResultComparator(),
+    #     )
+
+    #     print("Running experiment...")
+    #     result = runner.run_project(project)
+    #     print(result)
+
+
+
+    # return project.name
 
 
 
@@ -343,3 +411,74 @@ if __name__ == "__main__":
                 print(f"✅ {res['project']} done")
             else:
                 print(f"❌ {res['project']} failed: {res['error']}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import os
+from contextlib import redirect_stdout
+
+def run_until_three(project, gt_class, log_dir):
+    os.makedirs(log_dir, exist_ok=True)
+
+    seen_flags = set()   # track unique configurations
+    collected = []
+
+    run_id = 0
+    accepted_id = 0
+
+    while len(collected) < 3:
+        truth_extractor = gt_class()
+
+        # generate a new configuration
+        if hasattr(truth_extractor, "mix"):
+            truth_extractor.mix()
+
+        flags_key = frozenset(truth_extractor.flags)
+
+        # skip duplicate configurations BEFORE running expensive build
+        if flags_key in seen_flags:
+            print(f"[-] Duplicate flags skipped: {flags_key}")
+            run_id += 1
+            continue
+
+        seen_flags.add(flags_key)
+
+        log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
+
+        with open(log_file, "w") as f, redirect_stdout(f):
+            print(f"*** Run {run_id} for project: {project.name} ***")
+            print("FLAGS:", truth_extractor.flags)
+
+            runner = ExperimentRunner(
+                build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
+                locator=ConfigLocator(),
+                recovery=FlagRecoveryRunner(),
+                truth_extractor=truth_extractor,
+                comparator=ResultComparator(),
+            )
+
+            print("Running experiment...")
+            result = runner.run_project(project)
+            print("Result:", result)
+        if result.precision is not None:
+            collected.append(result)
+        print(f"[+] Accepted config #{accepted_id}")
+
+        accepted_id += 1
+        run_id += 1
+
+    return collected
+
