@@ -5,37 +5,40 @@ import shutil
 from pathlib import Path
 
 class Pcre2GroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- PCRE2 10.44 Configure-Controllable Flags ---
-        
+
+    def __init__(self):
+          # --- PCRE2 10.44 Configure-Controllable Flags ---
+        self.flags = set()
         # JIT Support (--enable-jit)
         # This is a major performance flag that adds an entire compiler backend.
-        flags.add(("SUPPORT_JIT", "False"))
+        self.flags.add(("SUPPORT_JIT", "False"))
         
         # Library Bit-Widths (--enable-pcre2-8, --enable-pcre2-16, --enable-pcre2-32)
-        flags.add(("SUPPORT_PCRE2_8", "True"))
-        flags.add(("SUPPORT_PCRE2_16", "False"))
-        flags.add(("SUPPORT_PCRE2_32", "False"))
+        self.flags.add(("SUPPORT_PCRE2_8", "True"))
+        self.flags.add(("SUPPORT_PCRE2_16", "False"))
+        self.flags.add(("SUPPORT_PCRE2_32", "False"))
         
         # Unicode Support (--enable-unicode)
         # If disabled, PCRE2 only handles ASCII/EBCDIC.
-        flags.add(("SUPPORT_UNICODE", "True"))
+        self.flags.add(("SUPPORT_UNICODE", "True"))
         
         # Security & Recursion Limits (--enable-stack-for-recursion)
-        flags.add(("PCRE2_DEBUG", "False"))
+        self.flags.add(("PCRE2_DEBUG", "False"))
         
         # Feature Extensions
         # --enable-pcre2grep-libz, --enable-pcre2grep-libbz2
-        flags.add(("SUPPORT_LIBZ", "False"))
-        flags.add(("SUPPORT_LIBBZ2", "False"))
-        flags.add(("SUPPORT_LIBREADLINE", "False"))
-        flags.add(("SUPPORT_LIBEDIT", "False"))
+        self.flags.add(("SUPPORT_LIBZ", "False"))
+        self.flags.add(("SUPPORT_LIBBZ2", "False"))
+        self.flags.add(("SUPPORT_LIBREADLINE", "False"))
+        self.flags.add(("SUPPORT_LIBEDIT", "False"))
         # Character Tables (--enable-ebcdic)
-        flags.add(("EBCDIC", "False"))
-        flags.add(("EBCDIC_NL25", "False"))
-        flags.add(("SUPPORT_VALGRIND","False"))
+        self.flags.add(("EBCDIC", "False"))
+        self.flags.add(("EBCDIC_NL25", "False"))
+        self.flags.add(("SUPPORT_VALGRIND","False"))
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags  
 
         # Strip out macros that aren't actually present in the source files
         flags = self.remove_dead_macros(src_dir, flags)

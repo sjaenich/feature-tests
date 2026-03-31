@@ -5,39 +5,43 @@ import shutil
 from pathlib import Path
 
 class NanoGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
+
+    def __init__(self):
+        self.flags = set()
         # --- GNU nano Configure-Controllable Flags ---
         
         # Feature Stripping (--enable-tiny)
         # This is the "Master Flag" that disables almost everything else below.
-        flags.add(("NANO_TINY", "True"))
+        self.flags.add(("NANO_TINY", "True"))
         
         # High-Level Features
-        flags.add(("ENABLE_NANORC", "False"))      # --disable-nanorc
-        flags.add(("ENABLE_COLOR", "False"))       # --disable-color (Syntax highlighting)
-        flags.add(("ENABLE_SPELLER", "False"))     # --disable-speller
-        flags.add(("ENABLE_HELP", "False"))        # --disable-help
-        flags.add(("ENABLE_JUSTIFY", "False"))     # --disable-justify
-        flags.add(("ENABLE_HISTORIES", "False"))   # --disable-histories (Search/position history)
-        flags.add(("ENABLE_TABCOMP", "False"))     # --disable-tabcomp
-        flags.add(("ENABLE_WRAPPING", "False"))    # --disable-wrapping
-        flags.add(("ENABLE_BROWSER", "False"))     # --disable-browser (File browser)
-        flags.add(("ENABLE_NLS","False"))
-        flags.add(("ENABLE_WORDCOMPLETION","False"))
+        self.flags.add(("ENABLE_NANORC", "False"))      # --disable-nanorc
+        self.flags.add(("ENABLE_COLOR", "False"))       # --disable-color (Syntax highlighting)
+        self.flags.add(("ENABLE_SPELLER", "False"))     # --disable-speller
+        self.flags.add(("ENABLE_HELP", "False"))        # --disable-help
+        self.flags.add(("ENABLE_JUSTIFY", "False"))     # --disable-justify
+        self.flags.add(("ENABLE_HISTORIES", "False"))   # --disable-histories (Search/position history)
+        self.flags.add(("ENABLE_TABCOMP", "False"))     # --disable-tabcomp
+        self.flags.add(("ENABLE_WRAPPING", "False"))    # --disable-wrapping
+        self.flags.add(("ENABLE_BROWSER", "False"))     # --disable-browser (File browser)
+        self.flags.add(("ENABLE_NLS","False"))
+        self.flags.add(("ENABLE_WORDCOMPLETION","False"))
         # Input/Output & Encoding
-        flags.add(("ENABLE_UTF8", "False"))        # --disable-utf8
-        flags.add(("ENABLE_MULTIBUFFER", "False")) # --disable-multibuffer (Open multiple files)
-        flags.add(("ENABLE_LINENUMBERS", "False")) # --disable-linenumbers
-        flags.add(("ENABLE_MOUSE", "False"))       # --disable-mouse
+        self.flags.add(("ENABLE_UTF8", "False"))        # --disable-utf8
+        self.flags.add(("ENABLE_MULTIBUFFER", "False")) # --disable-multibuffer (Open multiple files)
+        self.flags.add(("ENABLE_LINENUMBERS", "False")) # --disable-linenumbers
+        self.flags.add(("ENABLE_MOUSE", "False"))       # --disable-mouse
         
         # Operating System / Environment
-        flags.add(("HAVE_LIBMAGIC", "False"))      # --with-libmagic (For file type detection)
-        flags.add(("HAVE_ZLIB_H", "False"))        # --enable-zlib
+        self.flags.add(("HAVE_LIBMAGIC", "False"))      # --with-libmagic (For file type detection)
+        self.flags.add(("HAVE_ZLIB_H", "False"))        # --enable-zlib
         
         # Security/Logic
-        flags.add(("ENABLE_OPERATINGDIR", "False")) # --enable-operatingdir=DIR
+        self.flags.add(("ENABLE_OPERATINGDIR", "False")) # --enable-operatingdir=DIR
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+ 
 
         # Filter out macros not used in the source code
         flags = self.remove_dead_macros(src_dir, flags)

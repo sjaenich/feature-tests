@@ -5,30 +5,36 @@ import shutil
 from pathlib import Path
 
 class RsyncGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
 
-        # CPU / Algorithm Optimizations
-        flags.add(("USE_ROLL_SIMD", "False"))  
+    def __init__(self):
+        self.flags = set()
+
+                # CPU / Algorithm Optimizations
+        self.flags.add(("USE_ROLL_SIMD", "False"))  
 
         # --- Crypto & Checksums (--with-openssl) ---
 
-        flags.add(("USE_OPENSSL", "True"))           # enables OpenSSL EVP usage
+        self.flags.add(("USE_OPENSSL", "True"))           # enables OpenSSL EVP usage
 
         # --- Compression Support ---
 
-        flags.add(("SUPPORT_LZ4", "False"))           # --enable-lz4
-        flags.add(("SUPPORT_ZSTD", "False"))          # --enable-zstd
+        self.flags.add(("SUPPORT_LZ4", "False"))           # --enable-lz4
+        self.flags.add(("SUPPORT_ZSTD", "False"))          # --enable-zstd
 
         # --- Filesystem Metadata ---
 
-        flags.add(("SUPPORT_ACLS", "False"))          # --enable-acl-support / --disable-acl-support
-        flags.add(("SUPPORT_XATTRS", "True"))        # --enable-xattr-support / --disable-xattr-support
+        self.flags.add(("SUPPORT_ACLS", "False"))          # --enable-acl-support / --disable-acl-support
+        self.flags.add(("SUPPORT_XATTRS", "True"))        # --enable-xattr-support / --disable-xattr-support
 
         # --- Networking & Encoding ---
 
-        flags.add(("INET6", "True"))                 # --enable-ipv6
-        flags.add(("ICONV_OPTION", "False"))          # --disable-iconv (note: not HAVE_ICONV)
+        self.flags.add(("INET6", "True"))                 # --enable-ipv6
+        self.flags.add(("ICONV_OPTION", "False"))  
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+
+        # --disable-iconv (note: not HAVE_ICONV)
 
         # Clean up based on source usage to avoid "dead" configuration tracking
         flags = self.remove_dead_macros(src_dir, flags)

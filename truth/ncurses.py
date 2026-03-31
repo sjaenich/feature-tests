@@ -5,39 +5,43 @@ import shutil
 from pathlib import Path
 
 class NcursesGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
+
+    def __init__(self):
+        self.flags = set()
         # --- ncurses 6.4 Configure-Controllable Flags ---
         
         # Wide Character Support (--enable-widec)
         # This is the most critical flag; it changes 'ncurses' to 'ncursesw'
-        flags.add(("USE_WIDEC_SUPPORT", "True"))
+        self.flags.add(("USE_WIDEC_SUPPORT", "True"))
         
         # Threading Support (--with-pthread / --enable-reentrant)
-        flags.add(("USE_REENTRANT", "False"))
-        flags.add(("HAVE_LIBPTHREAD", "True"))
+        self.flags.add(("USE_REENTRANT", "False"))
+        self.flags.add(("HAVE_LIBPTHREAD", "True"))
         
         # Terminal Database Options (--with-terminfo-dirs / --enable-termcap)
-        flags.add(("USE_TERMCAP", "False"))
-        flags.add(("USE_GETCAP", "False"))
-        flags.add(("HAVE_TERMINFO_CURSES_H", "True"))
+        self.flags.add(("USE_TERMCAP", "False"))
+        self.flags.add(("USE_GETCAP", "False"))
+        self.flags.add(("HAVE_TERMINFO_CURSES_H", "True"))
         
         # Extension Support (--disable-ext-funcs / --disable-ext-colors)
         # 256-color support and extended mouse functions
-        flags.add(("NCURSES_EXT_FUNCS", "True"))
-        flags.add(("NCURSES_EXT_COLORS", "True"))
-        flags.add(("NCURSES_MOUSE_VERSION", "2")) # Usually an integer, but often checked
+        self.flags.add(("NCURSES_EXT_FUNCS", "True"))
+        self.flags.add(("NCURSES_EXT_COLORS", "True"))
+        self.flags.add(("NCURSES_MOUSE_VERSION", "2")) # Usually an integer, but often checked
         
         # Trace and Debugging (--with-trace)
-        flags.add(("USE_TRACE", "False"))
+        self.flags.add(("USE_TRACE", "False"))
         
         # Mouse and Screen support
-        flags.add(("NCURSES_EXT_PUTWIN", "True"))
-        flags.add(("NCURSES_NO_PADDING", "False"))
+        self.flags.add(("NCURSES_EXT_PUTWIN", "True"))
+        self.flags.add(("NCURSES_NO_PADDING", "False"))
         
         # Fallback support (--enable-fallback-archs)
-        flags.add(("HAVE_FALLBACKS", "False"))
+        self.flags.add(("HAVE_FALLBACKS", "False"))
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+  
 
         # Clean up based on source usage
         flags = self.remove_dead_macros(src_dir, flags)

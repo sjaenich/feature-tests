@@ -5,52 +5,58 @@ import shutil
 from pathlib import Path
 
 class LiblzmaFeatureTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- liblzma / XZ Utils Configure-Controllable Flags ---
+
+    def __init__(self):
+        self.flags = set()
+              # --- liblzma / XZ Utils Configure-Controllable Flags ---
         
         # Threading Support (--enable-threads)
-        flags.add(("MYTHREAD_POSIX", "True"))
-        flags.add(("MYTHREAD_WIN95", "False"))
-        flags.add(("MYTHREAD_VISTA", "False"))
+        self.flags.add(("MYTHREAD_POSIX", "True"))
+        self.flags.add(("MYTHREAD_WIN95", "False"))
+        self.flags.add(("MYTHREAD_VISTA", "False"))
         
         # Integrity Checks (--enable-checks=...)
         # These are usually all enabled, but can be manually toggled.
-        flags.add(("HAVE_CHECK_CRC32", "True"))
-        flags.add(("HAVE_CHECK_CRC64", "True"))
-        flags.add(("HAVE_CHECK_SHA256", "True"))
+        self.flags.add(("HAVE_CHECK_CRC32", "True"))
+        self.flags.add(("HAVE_CHECK_CRC64", "True"))
+        self.flags.add(("HAVE_CHECK_SHA256", "True"))
         
     
         
         # Match Finders (--enable-match-finders=...)
         # hc3, hc4, bt2, bt3, bt4 are the standard set.
-        flags.add(("HAVE_MF_HC3", "True"))
-        flags.add(("HAVE_MF_HC4", "True"))
-        flags.add(("HAVE_MF_BT2", "True"))
-        flags.add(("HAVE_MF_BT3", "True"))
-        flags.add(("HAVE_MF_BT4", "True"))
+        self.flags.add(("HAVE_MF_HC3", "True"))
+        self.flags.add(("HAVE_MF_HC4", "True"))
+        self.flags.add(("HAVE_MF_BT2", "True"))
+        self.flags.add(("HAVE_MF_BT3", "True"))
+        self.flags.add(("HAVE_MF_BT4", "True"))
         
         # Encoders/Decoders (--enable-encoders, --enable-decoders)
         # These are the big ones for reducing binary size.
-        flags.add(("HAVE_DECODERS", "True"))
-        flags.add(("HAVE_ENCODERS","True"))
-        flags.add(("HAVE_ENCODER_LZMA1", "True"))
-        flags.add(("HAVE_ENCODER_LZMA2", "True"))
-        flags.add(("HAVE_DECODER_LZMA1", "True"))
-        flags.add(("HAVE_DECODER_LZMA2", "True"))
+        self.flags.add(("HAVE_DECODERS", "True"))
+        self.flags.add(("HAVE_ENCODERS","True"))
+        self.flags.add(("HAVE_ENCODER_LZMA1", "True"))
+        self.flags.add(("HAVE_ENCODER_LZMA2", "True"))
+        self.flags.add(("HAVE_DECODER_LZMA1", "True"))
+        self.flags.add(("HAVE_DECODER_LZMA2", "True"))
         archs = ["X86", "ARM", "ARM64", "ARMTHUMB", "POWERPC", "IA64", "SPARC", "RISCV"]
         for arch in archs:
-            flags.add((f"HAVE_ENCODER_{arch}", "True"))
-            flags.add((f"HAVE_DECODER_{arch}", "True"))
+            self.flags.add((f"HAVE_ENCODER_{arch}", "True"))
+            self.flags.add((f"HAVE_DECODER_{arch}", "True"))
 
         # Add core filters and LZMA
         for tech in ["LZMA1", "LZMA2", "DELTA"]:
-            flags.add((f"HAVE_ENCODER_{tech}", "True"))
-            flags.add((f"HAVE_DECODER_{tech}", "True"))
+            self.flags.add((f"HAVE_ENCODER_{tech}", "True"))
+            self.flags.add((f"HAVE_DECODER_{tech}", "True"))
         
         # Small-footprint mode (--enable-small)
-        flags.add(("HAVE_SMALL", "False"))
+        self.flags.add(("HAVE_SMALL", "False"))
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+        
+  
 
         # Filter based on actual source presence
         flags = self.remove_dead_macros(src_dir, flags)

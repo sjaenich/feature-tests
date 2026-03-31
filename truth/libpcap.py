@@ -5,40 +5,44 @@ import shutil
 from pathlib import Path
 
 class LibpcapGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- libpcap Configure-Controllable Flags ---
+
+    def __init__(self):
+        self.flags = set()
+                # --- libpcap Configure-Controllable Flags ---
         
         # Packet Capture Backends (--with-pcap=...)
         # These are usually autodetected but can be forced.
-        flags.add(("ENABLE_REMOTE", "False"))     # Linux
-        flags.add(("HAVE_OPENSSL", "False"))          # BSD/macOS
-        flags.add(("HAVE_SOLARIS", "False"))
+        self.flags.add(("ENABLE_REMOTE", "False"))     # Linux
+        self.flags.add(("HAVE_OPENSSL", "False"))          # BSD/macOS
+        self.flags.add(("HAVE_SOLARIS", "False"))
         
         # Specialized Link Layer Support
-        flags.add(("PCAP_SUPPORT_BT", "False"))    # --enable-usb
-        flags.add(("PCAP_SUPPORT_BT_MONITOR", "False")) # --enable-bluetooth
-        flags.add(("PCAP_SUPPORT_DBUS", "False")) # --enable-netfilter
-        flags.add(("PCAP_SUPPORT_DPDK", "False"))        # --enable-rdma
-        flags.add(("PCAP_SUPPORT_LINUX_USBMON", "True"))        # --enable-dbus
-        flags.add(("PCAP_SUPPORT_NETFILTER", "True"))   
-        flags.add(("PCAP_SUPPORT_NETMAP", "False"))        
-        flags.add(("PCAP_SUPPORT_RDMANIFF", "False"))      
+        self.flags.add(("PCAP_SUPPORT_BT", "False"))    # --enable-usb
+        self.flags.add(("PCAP_SUPPORT_BT_MONITOR", "False")) # --enable-bluetooth
+        self.flags.add(("PCAP_SUPPORT_DBUS", "False")) # --enable-netfilter
+        self.flags.add(("PCAP_SUPPORT_DPDK", "False"))        # --enable-rdma
+        self.flags.add(("PCAP_SUPPORT_LINUX_USBMON", "True"))        # --enable-dbus
+        self.flags.add(("PCAP_SUPPORT_NETFILTER", "True"))   
+        self.flags.add(("PCAP_SUPPORT_NETMAP", "False"))        
+        self.flags.add(("PCAP_SUPPORT_RDMANIFF", "False"))      
         # Remote Capture Support (--enable-remote)
-        flags.add(("HAVE_REMOTE", "False"))
-        flags.add(("HAVE_RPCAPD", "False"))
+        self.flags.add(("HAVE_REMOTE", "False"))
+        self.flags.add(("HAVE_RPCAPD", "False"))
         
         # IPv6 Support (--enable-ipv6)
-        flags.add(("INET6", "True"))
+        self.flags.add(("INET6", "True"))
     
         
-        flags.add(("YYDEBUG", "False"))
+        self.flags.add(("YYDEBUG", "False"))
         
         # Dag/Septel/Myricom High-Speed Cards
-        flags.add(("HAVE_DAG_API", "False"))
-        flags.add(("HAVE_SNF_API", "False"))
-    
+        self.flags.add(("HAVE_DAG_API", "False"))
+        self.flags.add(("HAVE_SNF_API", "False"))
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+        
         # Filter out macros not used in the source code
         flags = self.remove_dead_macros(src_dir, flags)
         

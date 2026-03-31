@@ -5,34 +5,35 @@ import shutil
 from pathlib import Path
 
 class ExpatGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- Expat 2.7.1 Configure-Controllable Flags ---
-        
+    def __init__(self):
+        self.flags = set()
+                
         # Encoding Support (--the most fundamental choice)
         # If XML_UNICODE is defined, Expat uses UTF-16 internally (2-byte chars).
         # Otherwise, it uses UTF-8 (1-byte chars).
     
         
         # Feature Toggles (--disable-dtd, --disable-ns)
-        flags.add(("XML_DTD", "True"))            # Support for Data Type Definitions
-        flags.add(("XML_NS", "True"))      
-        flags.add(("XML_GE", "True"))       # Support for XML Namespaces
+        self.flags.add(("XML_DTD", "True"))            # Support for Data Type Definitions
+        self.flags.add(("XML_NS", "True"))      
+        self.flags.add(("XML_GE", "True"))       # Support for XML Namespaces
         
         # Security & Entropy (--with-getrandom, --with-sys-getrandom)
         # These control how Expat seeds its hash salt to prevent HashDoS.
-        flags.add(("XML_DEV_URANDOM", "True"))
-        flags.add(("HAVE_GETRANDOM", "True"))
-        flags.add(("HAVE_SYSCALL_GETRANDOM", "True"))
-        flags.add(("HAVE_ARC4RANDOM_BUF", "True"))
-        flags.add(("HAVE_ARC4RANDOM", "False"))
+        self.flags.add(("XML_DEV_URANDOM", "True"))
+        self.flags.add(("HAVE_GETRANDOM", "True"))
+        self.flags.add(("HAVE_SYSCALL_GETRANDOM", "True"))
+        self.flags.add(("HAVE_ARC4RANDOM_BUF", "True"))
+        self.flags.add(("HAVE_ARC4RANDOM", "False"))
         
         # Memory & Context (--with-context-bytes)
         # Determines how much prefix context is kept for error reporting.
         
-        flags.add(("XML_ATTR_INFO", "False"))     # Track byte offsets for attributes
+        self.flags.add(("XML_ATTR_INFO", "False")) 
 
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+    # Track byte offsets for attributes
         # Filter out macros not used in the actual source code
         flags = self.remove_dead_macros(src_dir, flags)
         

@@ -5,41 +5,43 @@ import shutil
 from pathlib import Path
 
 class DropbearGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- Dropbear Feature Macros (from default_options.h) ---
-        
+
+    def __init__(self): 
+        self.flags = set()
+        print("Initializing DropbearGroundTruth with default flags")
         # Protocol Features
-        flags.add(("DROPBEAR_X11FWD", "False"))       # X11 Forwarding
-        flags.add(("DROPBEAR_AGENTFWD", "True"))     # Agent Forwarding
-        flags.add(("DROPBEAR_SFTPSERVER", "True"))   # SFTP Server support
+        self.flags.add(("DROPBEAR_X11FWD", "False"))       # X11 Forwarding
+        self.flags.add(("DROPBEAR_AGENTFWD", "True"))     # Agent Forwarding
+        self.flags.add(("DROPBEAR_SFTPSERVER", "True"))   # SFTP Server support
         
         # Authentication Methods
-        flags.add(("DROPBEAR_PASSWORD_AUTH", "True"))
-        flags.add(("DROPBEAR_PUBKEY_AUTH", "True"))
+        self.flags.add(("DROPBEAR_PASSWORD_AUTH", "True"))
+        self.flags.add(("DROPBEAR_PUBKEY_AUTH", "True"))
         
         
         # Encryption Algorithms (Ciphers)
-        flags.add(("DROPBEAR_AES128", "True"))
-        flags.add(("DROPBEAR_AES256", "True"))
-        flags.add(("DROPBEAR_CHACHA20POLY1305", "True"))
-        flags.add(("DROPBEAR_3DES", "False"))        # Usually disabled for security
+        self.flags.add(("DROPBEAR_AES128", "True"))
+        self.flags.add(("DROPBEAR_AES256", "True"))
+        self.flags.add(("DROPBEAR_CHACHA20POLY1305", "True"))
+        self.flags.add(("DROPBEAR_3DES", "False"))        # Usually disabled for security
         
         # Message Authentication Codes (MACs)
-        flags.add(("DROPBEAR_SHA1_MAC", "False"))
-        flags.add(("DROPBEAR_SHA2_256_MAC", "True"))
-        flags.add(("DROPBEAR_ENABLE_GCM_MODE", "False"))
+        self.flags.add(("DROPBEAR_SHA1_MAC", "False"))
+        self.flags.add(("DROPBEAR_SHA2_256_MAC", "True"))
+        self.flags.add(("DROPBEAR_ENABLE_GCM_MODE", "False"))
         
         # Key Exchange (KEX)
-        flags.add(("DROPBEAR_CURVE25519", "True"))
-        flags.add(("DROPBEAR_ECDH", "True"))
-        flags.add(("DROPBEAR_DH_GROUP14_SHA1", "False"))
-        flags.add(("DROBPBEAR_DH_GROUP14_SHA256","False"))
+        self.flags.add(("DROPBEAR_CURVE25519", "True"))
+        self.flags.add(("DROPBEAR_ECDH", "True"))
+        self.flags.add(("DROPBEAR_DH_GROUP14_SHA1", "False"))
+        self.flags.add(("DROBPBEAR_DH_GROUP14_SHA256","False"))
         
         # Server Options
-        flags.add(("DO_HOST_LOOKUP", "False"))
+        self.flags.add(("DO_HOST_LOOKUP", "False"))
 
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+        # --- Dropbear Feature Macros (from default_options.h) ---
 
         # Filter out macros not used in the source code
         flags = self.remove_dead_macros(src_dir, flags)

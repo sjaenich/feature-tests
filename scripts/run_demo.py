@@ -1,4 +1,5 @@
 from contextlib import redirect_stdout
+import glob
 from pathlib import Path
 from multiprocessing import Pool
 
@@ -73,7 +74,7 @@ def run_project(project):
         "rsync": RsyncGroundTruth,
         "alsa-lib": AlsaLibGroundTruth,
         "dbus": DbusGroundTruth,
-        "drobpear": DropbearGroundTruth,
+        "dropbear": DropbearGroundTruth,
         "expat": ExpatGroundTruth,
         "flac": FlacGroundTruth,
         "libarchive": LibarchiveGroundTruth,
@@ -94,9 +95,9 @@ def run_project(project):
 
     # Select the correct GroundTruth class
     gt_class = groundtruth_map.get(project.name.lower(), default_gt)
- 
-
-    # os.makedirs(log_dir, exist_ok=True)
+    
+    log_dir = f"/workspaces/RevEng/Tools/feature-tests/logs/{project.name}"
+    os.makedirs(log_dir, exist_ok=True)
 
     seen_flags = set()   # track unique configurations
     collected = []
@@ -106,10 +107,16 @@ def run_project(project):
 
     while len(collected) < 3:
         truth_extractor = gt_class()
-
+        
         # generate a new configuration
         if hasattr(truth_extractor, "mix"):
             truth_extractor.mix()
+
+        print("Generated flags for project", project.name, ":", truth_extractor.flags)
+
+        
+        
+
 
         flags_key = frozenset(truth_extractor.flags)
 
@@ -123,6 +130,7 @@ def run_project(project):
 
         # log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
         log_file = f"{project.name}_{run_id}.log"
+        log_file = os.path.join(log_dir, log_file)
         with open(log_file, "w") as f, redirect_stdout(f):
             print(f"*** Run {run_id} for project: {project.name} ***")
             print("FLAGS:", truth_extractor.flags)
@@ -141,6 +149,7 @@ def run_project(project):
         if result.precision is not None:
             collected.append(result)
             print(f"[+] Accepted config #{accepted_id}")
+            delete_all_superc_files_silent(project.name)
             accepted_id += 1
         
         run_id += 1
@@ -196,23 +205,23 @@ if __name__ == "__main__":
     #               "cflags": ""},
     # )
     # # ,
-    Project(
-        name = "dbus",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/config.h"),
-                   "cflags": ""},
-    )
-    # ,
+    # Project(
+    #     name = "dbus",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/config.h"),
+    #                "cflags": ""},
+    # )
+    # # ,
     # Project(
     #     name = "dropbear",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
     #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/default_options_guard.h"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
     #               "cflags": ""},
     # )
 
@@ -387,16 +396,16 @@ if __name__ == "__main__":
     # )
     # ,
 
-    # Project(
-        # name="libarchive",
-        # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
-        # build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        # include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
-        # metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/.libs/libarchive.so"),
-                #   "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/config.h"),
-                    # "cflags": ''
-                #   }
-    # )
+    Project(
+        name="libarchive",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/.libs/libarchive.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/config.h"),
+                    "cflags": ''
+                  }
+    )
 
 
 
@@ -418,9 +427,34 @@ if __name__ == "__main__":
 
 
 
+def delete_all_superc_files_silent(project_name):
+    """
+    Silently deletes all files in workspaces/RevEng/all_strings
+    matching all_strings_{project_name}_*
+    """
+    folder = "workspaces/RevEng/all_strings"
+    pattern = f"all_strings_{project_name}_*"
+    files = glob.glob(os.path.join(folder, pattern))
+    
+    for file_path in files:
+        try:
+            os.remove(file_path)
+        except FileNotFoundError:
+            pass  # File might already be gone
+        except Exception:
+            print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
 
-
-
+    folder = "workspaces/RevEng/superc_output"
+    pattern = f"output_{project_name}_*"
+    files = glob.glob(os.path.join(folder, pattern))
+    
+    for file_path in files:
+        try:
+            os.remove(file_path)
+        except FileNotFoundError:
+            pass  # File might already be gone
+        except Exception:
+            print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
 
 
 

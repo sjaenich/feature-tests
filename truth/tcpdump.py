@@ -5,35 +5,41 @@ import shutil
 from pathlib import Path
 
 class TcpdumpFeatureTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
+
+    def __init__(self):
+        self.flags = set()
         print("THIS WORKED WELL")
         # --- tcpdump Configure-Controllable Flags ---
         
         # Security Sandboxing (--with-sandbox)
         # These are mutually exclusive based on the OS.
-        flags.add(("HAVE_CAP_NG_H", "False"))      # Linux libcap-ng
-        flags.add(("HAVE_CASPER", "False"))       # FreeBSD Casper
+        self.flags.add(("HAVE_CAP_NG_H", "False"))      # Linux libcap-ng
+        self.flags.add(("HAVE_CASPER", "False"))       # FreeBSD Casper
                 
         # Privilege Dropping (--with-user, --with-chroot)
-        flags.add(("WITH_USER", "False"))
-        flags.add(("WITH_CHROOT", "False"))
+        self.flags.add(("WITH_USER", "False"))
+        self.flags.add(("WITH_CHROOT", "False"))
         
         # Protocol Support Toggles
         # Some builds disable SMI (SNMP) or Crypto to reduce size/attack surface
-        flags.add(("USE_LIBSMI", "False"))       # --with-smi
-        flags.add(("HAVE_LIBCRYPTO", "False"))     # --with-crypto (OpenSSL)
-        flags.add(("HAVE_OS_PROTO_H", "False"))
+        self.flags.add(("USE_LIBSMI", "False"))       # --with-smi
+        self.flags.add(("HAVE_LIBCRYPTO", "False"))     # --with-crypto (OpenSSL)
+        self.flags.add(("HAVE_OS_PROTO_H", "False"))
         
         # IPv6 Support (--enable-ipv6)
-        flags.add(("HAVE_OS_IPV6_SUPPORT", "True"))
+        self.flags.add(("HAVE_OS_IPV6_SUPPORT", "True"))
         
         # SMB Printing (--enable-smb)
-        flags.add(("ENABLE_SMB", "False"))
+        self.flags.add(("ENABLE_SMB", "False"))
         
         # Local Networking Headers
-        flags.add(("HAVE_PCAP_DEBUG", "False"))
-        flags.add(("HAVE_PCAP_LIST_DATALINKS", "True"))
+        self.flags.add(("HAVE_PCAP_DEBUG", "False"))
+        self.flags.add(("HAVE_PCAP_LIST_DATALINKS", "True"))
+
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
 
         # Clean up based on source usage
         flags = self.remove_dead_macros(src_dir, flags)

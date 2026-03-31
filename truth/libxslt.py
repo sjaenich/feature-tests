@@ -5,17 +5,24 @@ import shutil
 from pathlib import Path
 
 class LibxsltFeatureTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- libxslt 1.1.42 Configure-Controllable Flags ---
+
+    def __init__(self):
+        self.flags = set()
+                # --- libxslt 1.1.42 Configure-Controllable Flags ---
         print("THIS WORKED")
         # Debugging and Profiling (--with-debug, --with-profiler)
-        flags.add(("WITH_DEBUGGER", "True"))
-        flags.add(("WITH_PROFILER", "True"))
+        self.flags.add(("WITH_DEBUGGER", "True"))
+        self.flags.add(("WITH_PROFILER", "True"))
                 
-        flags.add(("HAVE_GCRYPT", "False"))
+        self.flags.add(("HAVE_GCRYPT", "False"))
         
+
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+        
+
 
         # Strip out macros that aren't actually present in the source files
         flags = self.remove_dead_macros(src_dir, flags)

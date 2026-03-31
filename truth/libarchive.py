@@ -5,30 +5,32 @@ import shutil
 from pathlib import Path
 
 class LibarchiveGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
+
+    def __init__(self):
+        self.flags = set()
+                # These control high-level library capabilities and codec inclusion.
         
-        # --- libarchive 3.7.9 Manual Feature Flags ---
-        # These control high-level library capabilities and codec inclusion.
-        
-        flags.add(("HAVE_LIBBZ2", "True"))
-        flags.add(("HAVE_LIBLZMA", "True"))
-        flags.add(("HAVE_LIBZSTD", "False"))
-        flags.add(("HAVE_LZ4_H", "False"))
-        flags.add(("HAVE_LIBLZ4", "True"))
-        flags.add(("HAVE_ACL","False"))
+        self.flags.add(("HAVE_LIBBZ2", "True"))
+        self.flags.add(("HAVE_LIBLZMA", "True"))
+        self.flags.add(("HAVE_LIBZSTD", "False"))
+        self.flags.add(("HAVE_LZ4_H", "False"))
+        self.flags.add(("HAVE_LIBLZ4", "True"))
+        self.flags.add(("HAVE_ACL","False"))
         
         # Crypto/Security Backends (Usually a manual choice)
-        flags.add(("HAVE_LIBCRYPTO", "True")) 
-        flags.add(("HAVE_LIBEXPAT", "True")) # OpenSSL
-        flags.add(("HAVE_LIBNETTLE", "False"))
-        flags.add(("HAVE_LIBMBEDTLS", "False"))
+        self.flags.add(("HAVE_LIBCRYPTO", "True")) 
+        self.flags.add(("HAVE_LIBEXPAT", "True")) # OpenSSL
+        self.flags.add(("HAVE_LIBNETTLE", "False"))
+        self.flags.add(("HAVE_LIBMBEDTLS", "False"))
         
         # Specific Format Logic
-        flags.add(("ARCHIVE_CRYPTO_MD5_OPENSSL", "True"))
-        # flags.add(("ARCHIVE_ACL_FREEBSD", "False"))
-        # flags.add(("ARCHIVE_ACL_LIBACL", "True"))
-        # flags.add(("ARCHIVE_ACL_SUNOS", "False"))
+        self.flags.add(("ARCHIVE_CRYPTO_MD5_OPENSSL", "True"))
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+        
+        
         # Strip out macros that aren't referenced in the source files
         flags = self.remove_dead_macros(src_dir, flags)
         
