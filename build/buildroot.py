@@ -3,6 +3,7 @@ import time
 import os
 from pathlib import Path
 from typing import List
+from truth.config_truth import GroundTruthExtractor
 
 from core.project import Project, BuildResult
 
@@ -21,6 +22,7 @@ class BuildrootBuildManager:
         self.buildroot_dir = buildroot_dir
         self.output_base = output_base
         self.timeout = timeout
+        
     # ---------------------------------------------------------
     # helpers
     # ---------------------------------------------------------
@@ -80,7 +82,7 @@ class BuildrootBuildManager:
     # ---------------------------------------------------------
     # main API
     # ---------------------------------------------------------
-    def build(self, project: Project) -> BuildResult:
+    def build(self, project: Project, gt: GroundTruthExtractor) -> BuildResult:
         
         pkg = project.name
         
@@ -92,6 +94,12 @@ class BuildrootBuildManager:
 
         # ensure config
         # self._ensure_defconfig(self.buildroot_dir, log_file)
+        
+        # Use random generation of groundtruth 
+        gt.mix()
+        print("Ground truth flags for project", project.name, ":", gt.flags)
+        # Hook the groundtruth flags into the build environment
+        self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
 
         self._ensure_clean_build(pkg, log_file)
 
@@ -130,3 +138,25 @@ class BuildrootBuildManager:
             log_file=log_file,
             binary_paths=binaries,
         )
+
+
+    def write_buildroot_hook_script(self, ground_truth_flags, script_path, project):
+        """
+        Writes a shell script that uses sed to toggle specific macros 
+        in the _config.h file.
+        """
+        with open(script_path, 'w') as f:
+            f.write("#!/bin/sh\n")
+            f.write("CONFIG_H=\""+ str(project.metadata.get("config_h", "")) +"\"\n")
+            f.write("echo \"Updating macros in $CONFIG_H\"\n")
+
+            for macro, value in ground_truth_flags:
+                if value == "True":
+                # Ensure the macro is defined as 1
+                    f.write(f"sed -i 's/.*{macro}.*/#define {macro} 1/' \"$CONFIG_H\"\n")
+                else:
+                # Ensure the macro is undefined/commented out
+                    f.write(f"sed -i 's/.*{macro}.*/#undef {macro}/' \"$CONFIG_H\"\n")
+            
+        os.chmod(script_path, 0o755)
+

@@ -52,7 +52,7 @@ class LibvpxGroundTruth(GroundTruthExtractor):
         path = str(config_h)
         out_path = "/workspaces/RevEng/header/other_defines/other_defines" + name + ".h"
         destination = "/workspaces/RevEng/header/libraries/" + name + ".h"
-        
+        updated_flags = set()
         with open(path, "r", encoding="utf-8", errors="ignore") as f, \
             open(destination, "w", encoding="utf-8") as dest, \
             open(out_path, "w", encoding="utf-8") as out:
@@ -65,7 +65,7 @@ class LibvpxGroundTruth(GroundTruthExtractor):
                     macro_name = match.group(1)
                     print("LINE", line, macro_name)
                     if macro_name in flags:
-                        flags.add((macro_name,"True"))
+                        updated_flags.add((macro_name,"True"))
                         dest.write(line)
                         handled = True
                 m_undef = UNDEF_RE.match(line)
@@ -73,7 +73,7 @@ class LibvpxGroundTruth(GroundTruthExtractor):
                     macro_name = m_undef.group(1)                    
                     if macro_name in flags:
                         handled = True
-                        flags.add((macro_name,"False"))
+                        updated_flags.add((macro_name,"False"))
                         dest.write(line)
                 if not handled:
                     m_other = DEFINE_OTHER_RE.match(line)
@@ -83,7 +83,7 @@ class LibvpxGroundTruth(GroundTruthExtractor):
         
         shutil.move(path, "/workspaces/RevEng/header/libraries/" + name + ".old.h")   
 
-        return flags
+        return updated_flags
 
 
 

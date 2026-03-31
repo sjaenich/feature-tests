@@ -9,16 +9,17 @@ class ResultComparator:
     ) -> ComparisonResult:
         # tp = recovered & ground_truth
         tp = set()
-        fp = recovered - ground_truth
+        fp = set()
         fn = set()
 
         recovered_single = set()
         for (m,_) in recovered:
             recovered_single.add(m)
-        
+        print("Recovered single:", recovered_single)
         ground_truth_single = set()
         for (m,_) in ground_truth:
             ground_truth_single.add(m)
+        print("Ground truth single:", ground_truth_single)
 
         tp_single = recovered_single & ground_truth_single
 
@@ -27,7 +28,7 @@ class ResultComparator:
                 if (m,b) in ground_truth:
                     tp.add((m,b))
                 else:
-                    fn.add((m,b))
+                    fp.add((m,b))
         for (m,b) in ground_truth:
             if m not in recovered_single:
                 fn.add((m,b)) 

@@ -1,3 +1,5 @@
+from sys import flags
+
 from .config_truth import GroundTruthExtractor
 import subprocess
 import re
@@ -5,37 +7,42 @@ import shutil
 from pathlib import Path
 
 class DbusGroundTruth(GroundTruthExtractor):
-    def extract(self, config_h, name, src_dir):
-        flags = set()
-        
-        # --- D-Bus Configure-Controllable Flags ---
-        
-        # Transport Mechanisms (--enable-unix-fds, --enable-tcp-transport)
-        flags.add(("HAVE_UNIX_FD_PASSING", "True"))
-        flags.add(("DBUS_ENABLE_STATS", "True"))
+    def __init__(self):
+        self.flags = set()
+        self.flags.add(("HAVE_UNIX_FD_PASSING", "True"))
+        self.flags.add(("DBUS_ENABLE_STATS", "True"))
         
         # Security & Mandatory Access Control (--enable-selinux, --enable-apparmor)
-        flags.add(("HAVE_SELINUX", "False"))
-        flags.add(("HAVE_APPARMOR", "False"))
+        self.flags.add(("HAVE_SELINUX", "False"))
+        self.flags.add(("HAVE_APPARMOR", "False"))
 
         
         # Authentication Mechanisms (--enable-checks)
         # These determine which 'AUTH' commands are accepted during the handshake
-        flags.add(("DBUS_DISABLE_CHECKS", "False"))
-        flags.add(("DBUS_DISABLE_ASSERT", "True"))
+        self.flags.add(("DBUS_DISABLE_CHECKS", "False"))
+        self.flags.add(("DBUS_DISABLE_ASSERT", "True"))
         
         # System Integration (--with-systemdsystemunitdir)
-        flags.add(("DBUS_ENABLE_CHECKS", "True"))
-        flags.add(("HAVE_MONOTONIC_CLOCK", "True"))
+        self.flags.add(("DBUS_ENABLE_CHECKS", "True"))
+        self.flags.add(("HAVE_MONOTONIC_CLOCK", "True"))
         
         # Resource Limits & Debugging
-        flags.add(("DBUS_ENABLE_ASSERT", "False"))
-        flags.add(("DBUS_ENABLE_EMBEDDED_TESTS", "False"))
-        flags.add(("NDBUG", "True")) 
+        self.flags.add(("DBUS_ENABLE_ASSERT", "False"))
+        self.flags.add(("DBUS_ENABLE_EMBEDDED_TESTS", "False"))
+        self.flags.add(("NDBUG", "True")) 
+
+
+    def extract(self, config_h, name, src_dir):
+        flags = self.flags
+        
+        # --- D-Bus Configure-Controllable Flags ---
+        
+        # Transport Mechanisms (--enable-unix-fds, --enable-tcp-transport)
+
 
         # Filter based on actual source usage
         flags = self.remove_dead_macros(src_dir, flags)
-        
+        print("Remaining macros after removing unused ones:", flags)
         only_flags = set()
         for (flag, _) in flags:
             only_flags.add(flag)

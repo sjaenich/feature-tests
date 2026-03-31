@@ -1,5 +1,6 @@
 from core.project import ExperimentResult, Project
 from pathlib import Path
+from truth.config_truth import GroundTruthExtractor
 
 class ExperimentRunner:
     def __init__(
@@ -17,7 +18,7 @@ class ExperimentRunner:
         self.comparator = comparator
 
     def run_project(self, project: Project) -> ExperimentResult:
-        build_res = self.build_manager.build(project)
+        build_res = self.build_manager.build(project, self.truth_extractor)
         if not build_res.success:
             return ExperimentResult(
                 project.name, False, False, None, None, None, "build failed"
