@@ -9,6 +9,10 @@ class GroundTruthExtractor:
     def __init__(self):
         self.flags = set()
 
+    def mix_cflags(self, project):
+        return ""
+
+
     def mix(self):
         
         flags = set_to_dict(self.flags)

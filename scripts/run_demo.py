@@ -2,7 +2,8 @@ from contextlib import redirect_stdout
 import glob
 from pathlib import Path
 from multiprocessing import Pool
-
+import os
+import shutil
 from core.project import Project
 from build.buildroot import BuildrootBuildManager
 from locate.config_locator import ConfigLocator
@@ -28,7 +29,7 @@ from truth.ncurses import NcursesGroundTruth
 from truth.pcre2 import Pcre2GroundTruth
 from truth.xz import LiblzmaFeatureTruth
 from truth.tcpdump import TcpdumpFeatureTruth
-
+from truth.libcurl import LibcurlGroundTruth
 
     # for project in projects:
     #     log_file = f"{project.name}.log"
@@ -86,7 +87,9 @@ def run_project(project):
         "ncurses": NcursesGroundTruth,
         "pcre2": Pcre2GroundTruth,
         "tcpdump": TcpdumpFeatureTruth,
-        "xz": LiblzmaFeatureTruth
+        "xz": LiblzmaFeatureTruth,
+        "libcurl": LibcurlGroundTruth,
+        "sqlite": SqliteGroundTruth
         # add more projects here
     }
 
@@ -149,9 +152,12 @@ def run_project(project):
         if result.precision is not None:
             collected.append(result)
             print(f"[+] Accepted config #{accepted_id}")
-            delete_all_superc_files_silent(project.name)
+            
+            # Save a groundtruth config to a separate file so that it can be used to eliminate strings
+            save_groundtruth_to_separate_file(project)
+
             accepted_id += 1
-        
+        # delete_all_superc_files_silent(project.name)
         run_id += 1
         if run_id > 12:  # safety check to prevent infinite loops
             print("Too many runs without enough unique configs. Stopping.")
@@ -195,6 +201,18 @@ THIS IS THE OLD VERSION THAT WORKS
 
 if __name__ == "__main__":
     projects = [
+ 
+    # Project(
+    #     name = "libcurl",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
+    #               "cflags": ""}
+
+    # )
+
     # Project(
     #     name = "alsa-lib",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/"),
@@ -333,16 +351,16 @@ if __name__ == "__main__":
     # )  
 
     # ,
-    # Project(
-    #     name="sqlite",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
-    #               "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
-    #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
-    #               }
-    # )
+    Project(
+        name="sqlite",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
+                  "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
+                  "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
+                  }
+    )
 
     # ,
     # Project(
@@ -396,16 +414,16 @@ if __name__ == "__main__":
     # )
     # ,
 
-    Project(
-        name="libarchive",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/.libs/libarchive.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/config.h"),
-                    "cflags": ''
-                  }
-    )
+    # Project(
+    #     name="libarchive",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/.libs/libarchive.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/config.h"),
+    #                 "cflags": ''
+    #               }
+    # )
 
 
 
@@ -432,23 +450,28 @@ def delete_all_superc_files_silent(project_name):
     Silently deletes all files in workspaces/RevEng/all_strings
     matching all_strings_{project_name}_*
     """
-    folder = "workspaces/RevEng/all_strings"
+    folder = "/workspaces/RevEng/all_strings"
     pattern = f"all_strings_{project_name}_*"
     files = glob.glob(os.path.join(folder, pattern))
     
+    print(f"Deleting all files matching {pattern} in {folder}...")
+
     for file_path in files:
+        print(f"Deleting {file_path}...")
         try:
             os.remove(file_path)
         except FileNotFoundError:
+            print(f"File {file_path} not found, skipping.")
             pass  # File might already be gone
         except Exception:
             print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
 
-    folder = "workspaces/RevEng/superc_output"
+    folder = "/workspaces/RevEng/superc_output"
     pattern = f"output_{project_name}_*"
     files = glob.glob(os.path.join(folder, pattern))
     
     for file_path in files:
+        print(f"Deleting {file_path}...")
         try:
             os.remove(file_path)
         except FileNotFoundError:
@@ -457,62 +480,12 @@ def delete_all_superc_files_silent(project_name):
             print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
 
 
+def save_groundtruth_to_separate_file(project):
+    config_h = f"/workspaces/RevEng/header/libraries/{project.name}.h"
 
-
-
-
-import os
-from contextlib import redirect_stdout
-
-def run_until_three(project, gt_class, log_dir):
-    os.makedirs(log_dir, exist_ok=True)
-
-    seen_flags = set()   # track unique configurations
-    collected = []
-
-    run_id = 0
-    accepted_id = 0
-
-    while len(collected) < 3:
-        truth_extractor = gt_class()
-
-        # generate a new configuration
-        if hasattr(truth_extractor, "mix"):
-            truth_extractor.mix()
-
-        flags_key = frozenset(truth_extractor.flags)
-
-        # skip duplicate configurations BEFORE running expensive build
-        if flags_key in seen_flags:
-            print(f"[-] Duplicate flags skipped: {flags_key}")
-            run_id += 1
-            continue
-
-        seen_flags.add(flags_key)
-
-        log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
-
-        with open(log_file, "w") as f, redirect_stdout(f):
-            print(f"*** Run {run_id} for project: {project.name} ***")
-            print("FLAGS:", truth_extractor.flags)
-
-            runner = ExperimentRunner(
-                build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
-                locator=ConfigLocator(),
-                recovery=FlagRecoveryRunner(),
-                truth_extractor=truth_extractor,
-                comparator=ResultComparator(),
-            )
-
-            print("Running experiment...")
-            result = runner.run_project(project)
-            print("Result:", result)
-        if result.precision is not None:
-            collected.append(result)
-        print(f"[+] Accepted config #{accepted_id}")
-
-        accepted_id += 1
-        run_id += 1
-
-    return collected
-
+    if not os.path.isfile(config_h):
+        raise FileNotFoundError(f"{config_h} does not exist or is not a file")
+    output_path = f"/workspaces/RevEng/header/groundtruth/{project.name}_groundtruth.h"
+    if os.path.exists(output_path):
+        return
+    shutil.copy(str(config_h), output_path)

@@ -112,7 +112,10 @@ class BuildrootBuildManager:
         env = os.environ.copy()
 
         env["MY_REAL_COMPILER"]=f"{"/workspaces/RevEng/buildroot-2025.02.4/output/host/bin/gcc-13.real"}"
-        env["MY_EXTRA_FLAGS"]= project.metadata["cflags"]
+        env["MY_EXTRA_FLAGS"]= gt.mix_cflags(project)
+            
+
+
 
         res = self._run(cmd, self.buildroot_dir, log_file, env)
         success = res.returncode == 0
