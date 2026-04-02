@@ -210,7 +210,6 @@ if __name__ == "__main__":
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
     #               "cflags": ""}
-
     # )
 
     # Project(
@@ -233,17 +232,17 @@ if __name__ == "__main__":
     #                "cflags": ""},
     # )
     # # ,
-    # Project(
-    #     name = "dropbear",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
-    #               "cflags": ""},
-    # )
+    Project(
+        name = "dropbear",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
+                  "cflags": ""},
+    )
 
-    # ,
+    # # ,
     # Project(
     #     name = "expat",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
@@ -351,16 +350,16 @@ if __name__ == "__main__":
     # )  
 
     # ,
-    Project(
-        name="sqlite",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
-                  "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
-                  "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
-                  }
-    )
+    # Project(
+    #     name="sqlite",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
+    #               "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
+    #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
+    #               }
+    # )
 
     # ,
     # Project(

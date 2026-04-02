@@ -50,6 +50,32 @@ class BuildrootBuildManager:
             log_file,
         )
 
+
+    def _strip_library(self, project, log_file: Path):
+        """
+        Strip a compiled library using Buildroot's toolchain.
+        """
+
+        lib_path = project.metadata["binary"]
+
+        
+        
+        
+            
+
+        strip = f"/workspaces/RevEng/buildroot-2025.02.4/output/host/bin/arm-buildroot-linux-gnueabihf-strip"
+
+        if not lib_path.exists():
+            raise FileNotFoundError(f"Library not found: {lib_path}")
+
+        cmd = [str(strip), "--strip-unneeded", str(lib_path)]
+
+        self._run(cmd, self.buildroot_dir, log_file)
+
+
+
+
+
     def _ensure_defconfig(self, out_dir: Path, log_file: Path):
         if not (out_dir / ".config").exists():
             self._run(
@@ -132,6 +158,8 @@ class BuildrootBuildManager:
 
         # discover binaries
         # binaries = self._discover_binaries(target_dir, pkg) if success else []
+        self._strip_library(project, log_file)
+
         binaries = [project.metadata["binary"]]
         duration = time.time() - start
         with log_file.open("a") as f:
