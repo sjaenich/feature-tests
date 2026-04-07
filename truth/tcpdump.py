@@ -1,6 +1,7 @@
 from .config_truth import GroundTruthExtractor
 import subprocess
 import re
+import random
 import shutil
 from pathlib import Path
 
@@ -35,6 +36,70 @@ class TcpdumpFeatureTruth(GroundTruthExtractor):
         # Local Networking Headers
         self.flags.add(("HAVE_PCAP_DEBUG", "False"))
         self.flags.add(("HAVE_PCAP_LIST_DATALINKS", "True"))
+
+
+
+    def mix(self):
+        # Convert set of tuples to a dictionary for easier logic
+        flags = {k: v == "True" for k, v in self.flags}
+        
+        # 1. MUTUAL EXCLUSION: Security Sandboxing
+        # You generally only use one sandbox type per OS.
+        # On Linux, you'd use cap-ng; on FreeBSD, Casper.
+        sandbox_options = ["HAVE_CAP_NG_H", "HAVE_CASPER"]
+        
+        # Pick at most one sandbox, or none.
+        for opt in sandbox_options:
+            flags[opt] = False
+        
+        # chosen_sandbox = random.choice(sandbox_options + [None])
+        # if chosen_sandbox:
+        #     flags[chosen_sandbox] = True
+
+        # 2. DEPENDENCY: Privilege Dropping
+        # It makes little sense to have a CHROOT without a USER to drop to.
+        flags["WITH_USER"] = random.choice([True, False])
+        if flags["WITH_USER"]:
+            flags["WITH_CHROOT"] = random.choice([True, False])
+        else:
+            # If we aren't dropping to a user, we usually don't chroot.
+            flags["WITH_CHROOT"] = False
+
+        # 3. FEATURE TOGGLES: Protocol Support
+        # These are independent but affect the binary size/capabilities.
+        proto_flags = [
+        # IPsec/crypto support
+            "ENABLE_SMB",       # SMB printer
+            "HAVE_OS_IPV6_SUPPORT"
+        ]
+        for key in proto_flags:
+            if key in flags:
+                flags[key] = random.choice([True, False])
+
+    
+
+        flags["USE_LIBSMI"]= False
+        flags["HAVE_LIBCRYPTO"] = False
+        flags["ENABLE_SMB"] = False
+
+        flags["WITH_USER"] = False
+        flags["WITH_CHROOT"] = False
+        flags["HAVE_CAP_NG_H"] = False
+        flags["HAVE_CASPER"] = False
+
+        # 4. LOW-LEVEL/DEBUG FLAGS
+        # PCAP_DEBUG is usually kept False unless you want a very noisy binary.
+        flags["HAVE_PCAP_DEBUG"] = False
+        # random.choice([True, False])
+        
+        # Essential capabilities are usually kept True to ensure a working tool.
+        flags["HAVE_PCAP_LIST_DATALINKS"] = True 
+
+        # Convert back to set of tuples with string "True"/"False"
+        self.flags = {(k, str(v)) for k, v in flags.items()}
+        print("tcpdump Flags after dependency-aware mixing:", self.flags)
+
+
 
 
 

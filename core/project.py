@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
+from compiler_provenance.flag_recovery import FlagRecovery
+
 
 @dataclass
 class Project:
@@ -24,7 +26,7 @@ class RecoveryResult:
     flags: set[str]
     raw_output: Path
     runtime_sec: float
-
+    recovery_obj: FlagRecovery
 
 @dataclass
 class ComparisonResult:

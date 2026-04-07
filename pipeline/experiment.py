@@ -1,7 +1,7 @@
 from core.project import ExperimentResult, Project
 from pathlib import Path
 from truth.config_truth import GroundTruthExtractor
-
+import logging
 class ExperimentRunner:
     def __init__(
         self,
@@ -43,6 +43,31 @@ class ExperimentRunner:
         print("Rec flags:", rec.flags)
         print("GT flags:", gt)
         cmp_res = self.comparator.compare(rec.flags, gt)
+
+
+        with open(f"/workspaces/RevEng/{project.name}_stripped_strings.txt", "r") as f:
+            unique_strings = list(set(line.strip() for line in f if line.strip()))
+            string_count = len(unique_strings)
+
+        logger =logging.getLogger("telemetry")
+        logger.info({ 
+            "project": project.name,
+            "negative_string_count": string_count,
+            "precision": cmp_res.precision,
+            "recall": cmp_res.recall,
+            "f1": cmp_res.f1,
+        })
+
+
+        approach_logger = logging.getLogger("approach")
+        approach_logger.info({
+            "project": project.name,
+            "success": True,
+            "precision": cmp_res.precision,
+            "recall": cmp_res.recall,
+            "f1": cmp_res.f1,
+            "approach": rec.recovery_obj.approach,
+        })
 
         return ExperimentResult(
             project.name,

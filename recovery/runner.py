@@ -18,4 +18,4 @@ class FlagRecoveryRunner:
 
         runtime = time.time() - start       
 
-        return RecoveryResult(macros, output_file, runtime)
+        return RecoveryResult(macros, output_file, runtime, frr)

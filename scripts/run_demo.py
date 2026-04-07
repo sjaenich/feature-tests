@@ -1,5 +1,6 @@
 from contextlib import redirect_stdout
 import glob
+from .setup_logging import setup_logging
 from pathlib import Path
 from multiprocessing import Pool
 import os
@@ -49,20 +50,32 @@ from truth.libcurl import LibcurlGroundTruth
     #         print(result)
     #     # except Exception as e:
             # print(f"Error processing project {project.name}: {e}")
+
+def save_groundtruth_to_separate_file(project):
+    config_h = f"/workspaces/RevEng/header/libraries/{project.name}.h"
+
+    if not os.path.isfile(config_h):
+        raise FileNotFoundError(f"{config_h} does not exist or is not a file")
+    output_path = f"/workspaces/RevEng/header/groundtruth/{project.name}_groundtruth.h"
+    if os.path.exists(output_path):
+        return
+    shutil.copy(str(config_h), output_path) 
+
+
 def run_project_safe(project):
-    try:
-        result = run_project(project)
-        return {
-                "project": project.name,
-                "status": "ok",
-                "result": result,
-        }
-    except Exception as e:
-        return {
+    # try:
+    result = run_project(project)
+    return {
             "project": project.name,
-            "status": "error",
-            "error": str(e),
-        }
+            "status": "ok",
+            "result": result,
+    }
+    # except Exception as e:
+    #     return {
+    #         "project": project.name,
+    #         "status": "error",
+    #         "error": str(e),
+    #     }
 
 
 
@@ -209,7 +222,9 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
-    #               "cflags": ""}
+    #               "cflags": "",
+    #               "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
+    # },  
     # )
 
     # # Project(
@@ -222,15 +237,17 @@ if __name__ == "__main__":
     # #               "cflags": ""},
     # # )
     # ,
-    # Project(
-    #     name = "dbus",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/config.h"),
-    #                "cflags": ""},
-    # )
+    Project(
+        name = "dbus",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/config.h"),
+                   "cflags": "",
+                   "include": ""
+                   },
+    )
     # ,
     # Project(
     #     name = "dropbear",
@@ -239,7 +256,9 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
-    #               "cflags": ""},
+    #               "cflags": "",
+                #    "include": ""
+                #    },
     # )
 
     # ,
@@ -250,7 +269,9 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/.libs/libexpat.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/expat_config.h"),
-    #               "cflags": ""},
+    #               "cflags": "",
+                #    "include": ""
+                #    },
     # )    
 
     # # , 
@@ -273,7 +294,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/libpcap.so.1.10.5"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/config.h"),
-    #                "cflags": ""},
+    #                "cflags": "",
+                #    "include": ""},
     # )  
 
 
@@ -285,7 +307,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/nano"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/config.h"),
-    #               "cflags": ""},
+    #               "cflags": "",
+                #    "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/lib/"},
     # )  
 
     # ,
@@ -296,21 +319,23 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/ncurses/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/lib/libncurses.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/include/ncurses_cfg.h"),
-    #               "cflags":""},
+    #               "cflags":"",
+                #    "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/include/"},
     # )  
 
    
     
     # ,
-    Project(
-        name = "pcre2",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/config.h"),
-                   "cflags": ""},
-    )  
+    # Project(
+    #     name = "pcre2",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/config.h"),
+    #                "cflags": "",
+                #    "include": ""},
+    # )  
 
 
 
@@ -322,7 +347,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/rsync"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/config.h"),
-    #                "cflags": ""
+    #                "cflags": "",
+                    # "include": ""
     #               },
     # )  
 
@@ -335,7 +361,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/tcpdump"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/config.h"),
-    #                "cflags": ""
+    #                "cflags": "",
+                #    "include": ""
     #               },
     # )  
     # ,
@@ -346,7 +373,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/common/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/.libs/liblzma.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/config.h"),
-    #                "cflags": ""}
+    #                "cflags": "",
+                #    "include": ""}
     # )  
 
     # ,
@@ -357,7 +385,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
     #               "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
-    #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS"
+    #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS",
+                #    "include": ""
     #               }
     # )
 
@@ -368,8 +397,9 @@ if __name__ == "__main__":
     #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
-    #               "config_h": Path("/workspaces/RevEng/header/libraries/libxml2.h"),
-    #               "cflags": ""
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
+    #               "cflags": "",
+                #    "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/"
     #               }
     # )
 
@@ -382,7 +412,8 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
     #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/config.h"),
-    #                 "cflags": ""
+    #                 "cflags": "",
+                #    "include": ""
     #                 }
     # )   
 
@@ -430,17 +461,21 @@ if __name__ == "__main__":
         ]
 
 
-
-    with Pool(processes=1) as p:
-        for res in p.imap_unordered(run_project_safe, projects):
-            if res["status"] == "ok":
-                print(f"✅ {res['project']} done")
-            else:
-                print(f"❌ {res['project']} failed: {res['error']}")
-
-
-
-
+    setup_logging()
+    for project in projects:
+        res = run_project_safe(project)
+        if res["status"] == "ok":
+            print(f"✅ {res['project']} done")
+        else:
+            print(f"❌ {res['project']} failed: {res['error']}")
+   
+   
+    # with Pool(processes=1) as p:
+    #     for res in p.imap_unordered(run_project_safe, projects):
+    #         if res["status"] == "ok":
+    #             print(f"✅ {res['project']} done")
+    #         else:
+    #             print(f"❌ {res['project']} failed: {res['error']}")
 
 
 
@@ -478,13 +513,3 @@ def delete_all_superc_files_silent(project_name):
         except Exception:
             print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
 
-
-def save_groundtruth_to_separate_file(project):
-    config_h = f"/workspaces/RevEng/header/libraries/{project.name}.h"
-
-    if not os.path.isfile(config_h):
-        raise FileNotFoundError(f"{config_h} does not exist or is not a file")
-    output_path = f"/workspaces/RevEng/header/groundtruth/{project.name}_groundtruth.h"
-    if os.path.exists(output_path):
-        return
-    shutil.copy(str(config_h), output_path)
