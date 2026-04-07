@@ -3,6 +3,7 @@ import subprocess
 import re
 import shutil
 from pathlib import Path
+import random
 
 class LibcurlGroundTruth(GroundTruthExtractor):
 
@@ -25,7 +26,7 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         # Feature Toggles
         self.flags.add(("CURL_DISABLE_COOKIES", "False"))
         self.flags.add(("CURL_DISABLE_CRYPTO_AUTH", "False"))
-        self.flags.add(("CURL_DISABLE_VERBOSE_STRINGS", "False"))
+        self.flags.add(("CURL_DISABLE_VERBOSE_STRINGS", "True"))
         self.flags.add(("CURL_DISABLE_PROXY", "False"))
         
         # TLS Backend Selection (Usually only one is True)
@@ -36,14 +37,75 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         self.flags.add(("USE_WOLFSSL", "False"))
         
         # Library Features
-        self.flags.add(("USE_NGHTTP2", "True"))   # HTTP/2 support
-        self.flags.add(("USE_LIBIDN2", "True"))   # International Domain Names
-        self.flags.add(("USE_LIBSSH2", "True"))   # SCP/SFTP support
+        self.flags.add(("USE_NGHTTP2", "False"))   # HTTP/2 support
+        self.flags.add(("USE_LIBIDN2", "False"))   # International Domain Names
+        self.flags.add(("USE_LIBSSH2", "False"))   # SCP/SFTP support
         self.flags.add(("USE_LIBZ", "True"))      # Gzip decompression
         
         # System/Security Logic
         self.flags.add(("USE_ARES", "False"))     # C-Ares for async DNS
-        self.flags.add(("USE_THREADS_POSIX", "True"))
+        self.flags.add(("USE_THREADS_POSIX", "False"))
+
+
+    
+    
+
+    def mix(self):
+        
+        flags = set()
+         # Randomize ZLIB independently
+        toggle_flags = [
+            "CURL_DISABLE_FTP", "CURL_DISABLE_HTTP", "CURL_DISABLE_FILE",
+            "CURL_DISABLE_SMTP", "CURL_DISABLE_POP3", "CURL_DISABLE_IMAP",
+            "CURL_DISABLE_SMB", "CURL_DISABLE_MQTT", "CURL_DISABLE_COOKIES",
+            "CURL_DISABLE_CRYPTO_AUTH", "CURL_DISABLE_VERBOSE_STRINGS",
+            "CURL_DISABLE_PROXY", "USE_LIBZ" 
+        ]
+        
+        # Legacy/Obscure protocols you might want to keep disabled more often
+        heavy_disable_flags = [
+            "CURL_DISABLE_LDAP", "CURL_DISABLE_TELNET", 
+            "CURL_DISABLE_DICT", "CURL_DISABLE_TFTP", "CURL_DISABLE_GOPHER"
+        ]
+
+        # Mutually Exclusive (Pick exactly one)
+        tls_backends = [
+            "USE_OPENSSL", "USE_GNUTLS", "USE_NSS", "USE_MBEDTLS", "USE_WOLFSSL"
+        ]
+
+
+        for flag in toggle_flags:
+            value = random.choice(["True", "False"])
+            flags.add((flag, value))
+
+        # 2. Randomize legacy protocols (weighted towards "True" to keep them disabled)
+        for flag in heavy_disable_flags:
+            value = random.choices(["True", "False"], weights=[0.8, 0.2])[0]
+            flags.add((flag, value))
+
+        # 3. Pick exactly one TLS backend
+        
+        flags.add(("USE_OPENSSL", "True"))
+            
+
+        # 4. System Logic (e.g., POSIX threads usually True on Linux)
+        flags.add(("USE_THREADS_POSIX", "False"))
+
+        flags.add(("USE_NGHTTP2", "False"))
+        flags.add(("USE_LIBIDN2", "False"))
+        flags.add(("USE_LIBSSH2","False"))
+        flags.add(("USE_ARES", "False"))
+
+
+        self.flags = flags
+
+        self.flags.add(("USE_GNUTLS", "False"))
+        self.flags.add(("USE_NSS", "False"))
+        self.flags.add(("USE_MBEDTLS", "False"))
+        self.flags.add(("USE_WOLFSSL", "False"))
+
+
+
 
     def extract(self, config_h, name, src_dir):
         flags = self.flags

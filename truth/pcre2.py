@@ -1,7 +1,10 @@
+from sys import flags
+
 from .config_truth import GroundTruthExtractor
 import subprocess
 import re
 import shutil
+import random
 from pathlib import Path
 
 class Pcre2GroundTruth(GroundTruthExtractor):
@@ -35,6 +38,71 @@ class Pcre2GroundTruth(GroundTruthExtractor):
         self.flags.add(("EBCDIC", "False"))
         self.flags.add(("EBCDIC_NL25", "False"))
         self.flags.add(("SUPPORT_VALGRIND","False"))
+
+
+
+    import random
+
+    def mix(self):
+        # Convert set of tuples back to a working dictionary
+        flags = {k: v == "True" for k, v in self.flags}
+        
+        # 1. CORE SELECTION: Bit-widths
+        # PCRE2 must have at least one of 8, 16, or 32-bit enabled.
+        # We'll pick a random combination but ensure it's not all False.
+        bit_widths = ["SUPPORT_PCRE2_8", "SUPPORT_PCRE2_16", "SUPPORT_PCRE2_32"]
+        for bw in bit_widths:
+            flags[bw] = random.choice([True, False])
+        
+        if not any(flags[bw] for bw in bit_widths):
+            # Fallback: force 8-bit if the dice rolled all False
+            flags["SUPPORT_PCRE2_8"] = True
+
+        # 2. DEPENDENCY: JIT Support
+        # JIT can only be True if at least one bit-width is enabled (guaranteed above).
+        # However, JIT is hardware-dependent.
+        flags["SUPPORT_JIT"] = random.choice([True, False])
+
+        # 3. DEPENDENCY: Unicode & Unicode Properties
+        # SUPPORT_UNICODE_PROPERTIES requires SUPPORT_UNICODE to be True.
+        flags["SUPPORT_UNICODE"] = random.choice([True, False])
+        if flags["SUPPORT_UNICODE"]:
+            flags["SUPPORT_UNICODE_PROPERTIES"] = random.choice([True, False])
+        else:
+            flags["SUPPORT_UNICODE_PROPERTIES"] = False
+
+        # 4. INDEPENDENT FEATURES: Greedy randomization
+        # These don't usually break the build if toggled.
+        independents = [
+            "PCRE2_DEBUG", "EBCDIC", "EBCDIC_NL25", 
+        ]
+
+
+
+
+
+        for key in independents:
+            if key in flags:
+                flags[key] = random.choice([True, False])
+
+
+        flags["SUPPORT_LIBZ"] = False
+        flags["SUPPORT_LIBBZ2"] = False
+        flags["SUPPORT_LIBREADLINE"] = False
+        flags["SUPPORT_LIBEDIT"] = False
+        flags["SUPPORT_VALGRIND"] = False
+
+        # 5. MUTUAL EXCLUSION: Stack vs Heap
+        # If using stack for recursion is False, it defaults to heap.
+        if "HAVE_STACK_FOR_RECURSION" in flags:
+            flags["HAVE_STACK_FOR_RECURSION"] = random.choice([True, False])
+
+        # Convert back to your set of tuples format (String "True"/"False")
+        self.flags = {(k, str(v)) for k, v in flags.items()}
+        
+
+
+
 
 
     def extract(self, config_h, name, src_dir):

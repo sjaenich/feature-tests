@@ -50,19 +50,19 @@ from truth.libcurl import LibcurlGroundTruth
     #     # except Exception as e:
             # print(f"Error processing project {project.name}: {e}")
 def run_project_safe(project):
-    # try:
-    result = run_project(project)
-    return {
+    try:
+        result = run_project(project)
+        return {
+                "project": project.name,
+                "status": "ok",
+                "result": result,
+        }
+    except Exception as e:
+        return {
             "project": project.name,
-            "status": "ok",
-            "result": result,
-    }
-    # except Exception as e:
-        # return {
-            # "project": project.name,
-            # "status": "error",
-            # "error": str(e),
-        # }
+            "status": "error",
+            "error": str(e),
+        }
 
 
 
@@ -212,37 +212,37 @@ if __name__ == "__main__":
     #               "cflags": ""}
     # )
 
-    # Project(
-    #     name = "alsa-lib",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/include/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/.libs/libasound.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/include/config.h"),
-    #               "cflags": ""},
-    # )
-    # # ,
+    # # Project(
+    # #     name = "alsa-lib",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/include/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/.libs/libasound.so"),
+    # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/include/config.h"),
+    # #               "cflags": ""},
+    # # )
+    # ,
     # Project(
     #     name = "dbus",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
     #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/config.h"),
     #                "cflags": ""},
     # )
-    # # ,
-    Project(
-        name = "dropbear",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
-                  "cflags": ""},
-    )
+    # ,
+    # Project(
+    #     name = "dropbear",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
+    #               "cflags": ""},
+    # )
 
-    # # ,
+    # ,
     # Project(
     #     name = "expat",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
@@ -253,16 +253,16 @@ if __name__ == "__main__":
     #               "cflags": ""},
     # )    
 
-    # ,
-    # Project(
-    #     name = "flac",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/include/private/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/.libs/libFLAC.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/config.h"),
-    #                "cflags": ""},
-    # )
+    # # , 
+    # # Project(
+    # #     name = "flac",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/include/private/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/.libs/libFLAC.so"),
+    # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/config.h"),
+    # #                "cflags": ""},
+    # # )
 
 
     # ,
@@ -302,15 +302,15 @@ if __name__ == "__main__":
    
     
     # ,
-    # Project(
-    #     name = "pcre2",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/config.h"),
-    #                "cflags": ""},
-    # )  
+    Project(
+        name = "pcre2",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/config.h"),
+                   "cflags": ""},
+    )  
 
 
 
@@ -386,32 +386,32 @@ if __name__ == "__main__":
     #                 }
     # )   
 
-    # ,
-    # Project(
-    #     name="libssh2",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/.libs/libssh2.so"),
-    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/libssh2_config.h"),
-    #                 "cflags": ""
-    #                 }
-    # )   
+    # # ,
+    # # Project(
+    # #     name="libssh2",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/.libs/libssh2.so"),
+    # #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/libssh2_config.h"),
+    # #                 "cflags": ""
+    # #                 }
+    # # )   
     # ,
 
 
     
-    # Project(
-    #     name="libvpx",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/libvpx.so"),
-    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/vpx_config.h"),
-    #                 "cflags": ""
-    #                 }
-    # )
-    # ,
+    # # Project(
+    # #     name="libvpx",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/libvpx.so"),
+    # #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/vpx_config.h"),
+    # #                 "cflags": ""
+    # #                 }
+    # # )
+    # # ,
 
     # Project(
     #     name="libarchive",
@@ -427,11 +427,11 @@ if __name__ == "__main__":
 
 
 
-    ]
+        ]
 
 
 
-    with Pool(processes=10) as p:
+    with Pool(processes=1) as p:
         for res in p.imap_unordered(run_project_safe, projects):
             if res["status"] == "ok":
                 print(f"✅ {res['project']} done")

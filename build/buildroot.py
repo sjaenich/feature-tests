@@ -1,3 +1,4 @@
+import cmd
 import subprocess
 import time
 import os
@@ -70,9 +71,13 @@ class BuildrootBuildManager:
 
         cmd = [str(strip), "--strip-unneeded", str(lib_path)]
 
+
+
         self._run(cmd, self.buildroot_dir, log_file)
 
-
+        cmd = f"strings {str(lib_path)} >> /workspaces/RevEng/{project.name}_stripped_strings.txt"
+        subprocess.run(cmd, shell=True)
+        
 
 
 
@@ -158,13 +163,15 @@ class BuildrootBuildManager:
 
         # discover binaries
         # binaries = self._discover_binaries(target_dir, pkg) if success else []
-        self._strip_library(project, log_file)
+        if success:
+            self._strip_library(project, log_file)
 
         binaries = [project.metadata["binary"]]
         duration = time.time() - start
         with log_file.open("a") as f:
             f.write(f"\n=== BUILD TIME: {duration:.2f}s ===\n")
-
+        print(f"Build completed in {duration:.2f} seconds. Success: {success}. Binaries: {binaries}")
+        
         return BuildResult(success=success,
             log_file=log_file,
             binary_paths=binaries,
