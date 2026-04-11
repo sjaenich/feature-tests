@@ -2,10 +2,11 @@ import cmd
 import subprocess
 import time
 import os
+import re
 from pathlib import Path
 from typing import List
 from truth.config_truth import GroundTruthExtractor
-
+import shutil
 from core.project import Project, BuildResult
 
 
@@ -110,6 +111,59 @@ class BuildrootBuildManager:
 
         return bins
 
+    def _move_stripped_binary_and_config(self, project, log_file: Path, time):
+        config_h = project.metadata.get("config_h", None)
+        binary = project.metadata.get("binary", None)
+        if not config_h or not binary:
+            raise ValueError("Missing config_h or binary in project metadata")
+
+        config_h = Path(config_h)
+        binary = Path(binary)
+        time = str(time)
+        # Create a unique output directory per project
+        output_dir = log_file.parent / f"{project.name}_{time}_bundle"
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Define destination paths
+        dst_config = output_dir / config_h.name
+        dst_binary = output_dir / binary.name
+
+        # Copy instead of move (preserves metadata like timestamps)
+        shutil.copy2(config_h, dst_config)
+        shutil.copy2(binary, dst_binary)
+
+
+
+    def _toggle_post_configure_hooks(self,file_path: Path, uncomment: bool = True):
+        """
+        Comment or uncomment all lines matching *_POST_CONFIGURE_HOOKS += ...
+
+        :param file_path: Path to the .mk file
+        :param uncomment: True -> uncomment, False -> comment
+        """
+        pattern = re.compile(r'^\s*#?\s*([A-Z0-9_]+_POST_CONFIGURE_HOOKS\s*\+=.*)$')
+
+        lines = file_path.read_text().splitlines()
+        new_lines = []
+
+        for line in lines:
+            match = pattern.match(line)
+
+            if match:
+                content = match.group(1).strip()
+                indent = len(line) - len(line.lstrip())
+
+                if uncomment:
+                    line = " " * indent + content
+                else:
+                    line = " " * indent + "# " + content
+
+            new_lines.append(line)
+
+        file_path.write_text("\n".join(new_lines) + "\n")
+
+
+
     # ---------------------------------------------------------
     # main API
     # ---------------------------------------------------------
@@ -130,10 +184,10 @@ class BuildrootBuildManager:
         # gt.mix()
         print("Ground truth flags for project", project.name, ":", gt.flags)
         # Hook the groundtruth flags into the build environment
-        self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
+        # self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
 
-        self._ensure_clean_build(pkg, log_file)
-
+        # self._ensure_clean_build(pkg, log_file)
+        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
         # build the specific package
         cmd = [
             "make",
@@ -143,14 +197,14 @@ class BuildrootBuildManager:
         env = os.environ.copy()
 
         env["MY_REAL_COMPILER"]=f"{"/workspaces/RevEng/buildroot-2025.02.4/output/host/bin/gcc-13.real"}"
-        env["MY_EXTRA_FLAGS"]= gt.mix_cflags(project)
+        # env["MY_EXTRA_FLAGS"]= gt.mix_cflags(project)
             
 
 
 
-        res = self._run(cmd, self.buildroot_dir, log_file, env)
-        success = res.returncode == 0
-        # success = True
+        # res = self._run(cmd, self.buildroot_dir, log_file, env)
+        # success = res.returncode == 0
+        success = True
 
         # matches = list(out_dir.glob(f"{pkg}-*"))
         # # matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]
@@ -163,9 +217,13 @@ class BuildrootBuildManager:
 
         # discover binaries
         # binaries = self._discover_binaries(target_dir, pkg) if success else []
-        if success:
-            self._strip_library(project, log_file)
+        # if success:
+            # self._strip_library(project, log_file)
+            # self._move_stripped_binary_and_config(project, log_file, time.time())
 
+        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
+
+  
         binaries = [project.metadata["binary"]]
         duration = time.time() - start
         with log_file.open("a") as f:

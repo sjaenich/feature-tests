@@ -13,6 +13,45 @@ class GroundTruthExtractor:
         return ""
 
 
+    def load_flags_from_config(self, config_path):
+  
+        # Extract only the flag names we care about
+        
+        flag_names = {name for name, _ in self.flags}
+
+        parsed_flags = {}
+
+        with open(config_path, "r") as f:
+            for line in f:
+                line = line.strip()
+
+                # Match: #define FLAG ...
+                m_define = re.match(r"#define\s+(\w+)", line)
+                if m_define:
+                    flag = m_define.group(1)
+                    if flag in flag_names:
+                        parsed_flags[flag] = "True"
+                    continue
+
+                # Match: /* #undef FLAG */
+                m_undef = re.match(r"/\*\s*#undef\s+(\w+)\s*\*/", line)
+                if m_undef:
+                    flag = m_undef.group(1)
+                    if flag in flag_names:
+                        parsed_flags[flag] = "False"
+
+        # Rebuild the flags_set with updated values
+        updated_flags = set()
+        for flag, _ in self.flags:
+            if flag in parsed_flags:
+                updated_flags.add((flag, parsed_flags[flag]))
+        print("THOSE ARE THE UPDATED FLAGS:", updated_flags)
+        self.flags = updated_flags
+        
+
+
+
+
     def mix(self):
         
         flags = set_to_dict(self.flags)
@@ -92,7 +131,7 @@ class GroundTruthExtractor:
 
 
 
-    def remove_dead_macros(self, config_h: Path, src_dir: Path, macros) -> set[str]:
+    def remove_dead_macros(self, src_dir: Path, macros) -> set[str]:
         
         unused = []
 

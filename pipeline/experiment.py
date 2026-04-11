@@ -17,7 +17,7 @@ class ExperimentRunner:
         self.truth_extractor = truth_extractor
         self.comparator = comparator
 
-    def run_project(self, project: Project) -> ExperimentResult:
+    def run_project(self, project: Project, stage:str) -> ExperimentResult:
         build_res = self.build_manager.build(project, self.truth_extractor)
         if not build_res.success:
             return ExperimentResult(
@@ -31,15 +31,18 @@ class ExperimentRunner:
                 project.name, True, False, None, None, None, "config.h not found"
             )
 
-        gt = self.truth_extractor.extract(config_h, project.name, project.source_dir)
+        # gt = self.truth_extractor.extract(config_h, project.name, project.source_dir)
+        gt = self.truth_extractor.remove_dead_macros(project.source_dir, self.truth_extractor.flags)
 
+        
 
         if not build_res.binary_paths:
             return ExperimentResult(
                 project.name, True, True, None, None, None, "no binaries"
             )
-        print(build_res.binary_paths)
-        rec = self.recovery.run(project, build_res.binary_paths[0], config_h)
+        print("THIS IS BIN", build_res.binary_paths)
+
+        rec = self.recovery.run(project, build_res.binary_paths[0], config_h, stage)
         print("Rec flags:", rec.flags)
         print("GT flags:", gt)
         cmp_res = self.comparator.compare(rec.flags, gt)
