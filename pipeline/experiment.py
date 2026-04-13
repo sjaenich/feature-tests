@@ -31,8 +31,8 @@ class ExperimentRunner:
                 project.name, True, False, None, None, None, "config.h not found"
             )
 
-        # gt = self.truth_extractor.extract(config_h, project.name, project.source_dir)
-        gt = self.truth_extractor.remove_dead_macros(project.source_dir, self.truth_extractor.flags)
+        gt = self.truth_extractor.extract(config_h, project.name, project.source_dir)
+        # gt = self.truth_extractor.remove_dead_macros(project.source_dir, self.truth_extractor.flags)
 
         
 
@@ -52,17 +52,20 @@ class ExperimentRunner:
             unique_strings = list(set(line.strip() for line in f if line.strip()))
             string_count = len(unique_strings)
 
-        logger =logging.getLogger("telemetry")
+        logger =logging.getLogger(project.name + '_telemetry')
         logger.info({ 
             "project": project.name,
             "negative_string_count": string_count,
             "precision": cmp_res.precision,
             "recall": cmp_res.recall,
             "f1": cmp_res.f1,
+            "binary_strings": len(self.recovery.binary_strings),
+            "source_code_strings": len(self.recovery.source_code_strings),
+            "number of Macros in GT": len(gt),
         })
 
 
-        approach_logger = logging.getLogger("approach")
+        approach_logger = logging.getLogger(project.name + '_approach')
         approach_logger.info({
             "project": project.name,
             "success": True,

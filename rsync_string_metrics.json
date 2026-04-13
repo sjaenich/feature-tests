@@ -1,0 +1,2 @@
+{"timestamp": "2026-04-12 20:36:46,609", "logger": "rsync_telemetry", "level": "INFO", "event": {"project": "rsync", "negative_string_count": 2085, "precision": 0.0, "recall": 0.0, "f1": 0.0, "binary_strings": 2108, "source_code_strings": 2110, "number of Macros in GT": 8}}
+{"timestamp": "2026-04-12 20:37:40,611", "logger": "rsync_telemetry", "level": "INFO", "event": {"project": "rsync", "negative_string_count": 2085, "precision": 1.0, "recall": 0.75, "f1": 0.8571428571428571, "binary_strings": 2108, "source_code_strings": 2110, "number of Macros in GT": 8}}

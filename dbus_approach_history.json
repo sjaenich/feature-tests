@@ -1,0 +1,6 @@
+{"timestamp": "2026-04-12 20:36:53,692", "logger": "dbus_approach", "level": "INFO", "event": {"project": "dbus", "success": true, "precision": 0.75, "recall": 0.6, "f1": 0.6666666666666665, "approach": "initial_no_negative_constraints"}}
+{"timestamp": "2026-04-12 20:38:00,033", "logger": "dbus_approach", "level": "INFO", "event": {"project": "dbus", "success": true, "precision": 0.75, "recall": 0.6, "f1": 0.6666666666666665, "approach": "filter_no_negative_constraints"}}
+{"timestamp": "2026-04-12 20:38:55,179", "logger": "dbus_approach", "level": "INFO", "event": {"project": "dbus", "success": true, "precision": 0.75, "recall": 0.6, "f1": 0.6666666666666665, "approach": "initial"}}
+{"timestamp": "2026-04-12 20:40:02,482", "logger": "dbus_approach", "level": "INFO", "event": {"project": "dbus", "success": true, "precision": 1.0, "recall": 0.6666666666666666, "f1": 0.8, "approach": "filter"}}
+{"timestamp": "2026-04-12 20:40:57,890", "logger": "dbus_approach", "level": "INFO", "event": {"project": "dbus", "success": true, "precision": 0.5, "recall": 0.5, "f1": 0.5, "approach": "initial"}}
+{"timestamp": "2026-04-12 20:42:04,166", "logger": "dbus_approach", "level": "INFO", "event": {"project": "dbus", "success": true, "precision": 0.75, "recall": 0.6, "f1": 0.6666666666666665, "approach": "filter"}}
