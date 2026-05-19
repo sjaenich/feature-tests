@@ -77,19 +77,19 @@ def save_groundtruth_to_separate_file(project):
 
 def run_project_safe(project):
     setup_logging(project)
-    try:
-        result = run_project(project)
-        return {
+    # try:
+    result = run_project(project)
+    return {
                 "project": project.name,
                 "status": "ok",
                 "result": result,
-        }
-    except Exception as e:
-        return {
-            "project": project.name,
-            "status": "error",
-            "error": str(e),
-        }
+    }
+    # except Exception as e:
+        # return {
+            # "project": project.name,
+            # "status": "error",
+            # "error": str(e),
+        # }
 
 
 
@@ -134,46 +134,47 @@ def run_project(project):
     seen_flags = set()   # track unique configurations
     collected = []
 
-    run_id = 0
+    run_id = 11
     accepted_id = 0
 
 
     # test_dirs = get_bundle_dirs_for_project("/workspaces/RevEng/buildroot-2025.02.4/output/build", project.name, n=3)
-    # print("Found test directories:", test_dirs)
-    # for test_dir in test_dirs:
-    while len(collected) < 3:
+    test_dirs = [project.metadata["binary"]]
+    print("Found test directories:", test_dirs)
+    for test_dir in test_dirs:
+    # while len(collected) < 3:
         truth_extractor = gt_class()
         
         # generate a new configuration
-        if hasattr(truth_extractor, "mix"):
-            truth_extractor.mix()
+        # if hasattr(truth_extractor, "mix"):
+        #     truth_extractor.mix()
 
         # print("Test directory:", test_dir)
         # headers = list(Path(test_dir).glob("*.h"))
         # project.metadata["config_h"] = headers[0] 
-        # print("Generated flags for project", project.name, ":", truth_extractor.flags)
+        print("Generated flags for project", project.name, ":", truth_extractor.flags)
         # truth_extractor.load_flags_from_config(project.metadata["config_h"])
         
                
         # files = [p for p in Path(test_dir).iterdir() if p.is_file() and not p.name.endswith(".h")]
         # project.metadata["binary"] = files[0] if files else None   
 
-        flags_key = frozenset(truth_extractor.flags)
+        # flags_key = frozenset(truth_extractor.flags)
 
-        # skip duplicate configurations BEFORE running expensive build
-        if flags_key in seen_flags:
-            print(f"[-] Duplicate flags skipped: {flags_key}")
-            run_id += 1
-            if run_id > 12:  # safety check to prevent infinite loops
-                print("Too many runs without enough unique configs. Stopping.")
-                return project.name
-            continue
+        # # skip duplicate configurations BEFORE running expensive build
+        # if flags_key in seen_flags:
+        #     print(f"[-] Duplicate flags skipped: {flags_key}")
+        #     run_id += 1
+        #     if run_id > 12:  # safety check to prevent infinite loops
+        #         print("Too many runs without enough unique configs. Stopping.")
+        #         return project.name
+        #     continue
 
-        seen_flags.add(flags_key)
+        # seen_flags.add(flags_key)
 
         # log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
         # stages = ["initial", "filter"]
-        stages = ["initial"]
+        stages = ["filter"]
         for stage in stages:
             log_file = f"{project.name}_{run_id}.log"
             log_file = os.path.join(log_dir, log_file)
@@ -215,6 +216,22 @@ def run_project(project):
 
 if __name__ == "__main__":
     projects = [
+
+    Project(
+        name = "libcurl",
+        source_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
+        metadata={"binary": Path("/workspaces/RevEng/libcurl-karonte"),
+                  "config_h": Path("/workspaces/RevEng/libcurl-7.29.0/lib/curl_config.h"),
+                  "cflags": "",
+                  "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
+    },  
+    )
+
+
+
+
  
     # Project(
     #     name = "libcurl",
@@ -228,15 +245,6 @@ if __name__ == "__main__":
     # },  
     # )
 
-    # Project(
-    #     name = "alsa-lib",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/include/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/src/.libs/libasound.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/alsa-lib-1.2.13/include/config.h"),
-    #               "cflags": ""},
-    # )
     # ,
     # Project(
     #     name = "dbus",
@@ -354,18 +362,18 @@ if __name__ == "__main__":
     # )  
 
 
-    # ,
-    # Project(
-    #     name = "tcpdump",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/tcpdump"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/config.h"),
-    #                "cflags": "",
-    #                "include": ""
-    #               },
-    # )  
+    # # ,
+    # # Project(
+    # #     name = "tcpdump",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/tcpdump"),
+    # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/config.h"),
+    # #                "cflags": "",
+    # #                "include": ""
+    # #               },
+    # # )  
     # ,
     # Project(
     #     name = "xz",
@@ -405,18 +413,18 @@ if __name__ == "__main__":
     # )
 
 
-    # ,
-    # Project(
-    #     name="libxslt",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
-    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/config.h"),
-    #                 "cflags": "",
-    #                "include": ""
-    #                 }
-    # )   
+    # # ,
+    # # Project(
+    # #     name="libxslt",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
+    # #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/config.h"),
+    # #                 "cflags": "",
+    # #                "include": ""
+    # #                 }
+    # # )   
 
     # ,
     # Project(
@@ -453,56 +461,56 @@ if __name__ == "__main__":
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/.libs/libarchive.so"),
     #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/config.h"),
-    #                 "cflags": ''
-                    # "include":""
+    #                 "cflags": '',
+    #                 "include":""
     #               }
     # )
 
+    # # ,
+    # # Project(
+    # # name="libopenssl",
+    # # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
+    # # build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # # include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
+    # # metadata={
+    # #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
+    # #     "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/opensslconf.h"),
+    # #     "cflags": "",
+    # #     "include": ""
+    # # })
     # ,
     # Project(
     # name="libopenssl",
-    # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
+    # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/ssl"),
     # build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
     # include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
     # metadata={
-    #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
-    #     "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/opensslconf.h"),
+    #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libssl.so"),
+    #     "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/configuration.h"),
     #     "cflags": "",
     #     "include": ""
-    # })
-    # ,
-    Project(
-    name="libopenssl",
-    source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/ssl"),
-    build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
-    metadata={
-        "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libssl.so"),
-        "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/configuration.h"),
-        "cflags": "",
-        "include": ""
-    }
-    )   
+    # }
+    # )   
 
     ]
 
 
-    # for project in projects:
+    for project in projects:
     #     setup_logging(project)
-    #     res = run_project_safe(project)
-    #     if res["status"] == "ok":
-    #         print(f"✅ {res['project']} done")
-    #     else:
-    #         print(f"❌ {res['project']} failed: {res['error']}")
+        res = run_project_safe(project)
+        if res["status"] == "ok":
+            print(f"✅ {res['project']} done")
+        else:
+            print(f"❌ {res['project']} failed: {res['error']}")
    
    
-    with Pool(processes=1) as p:
-        for res in p.imap_unordered(run_project_safe, projects):
+    # with Pool(processes=1) as p:
+    #     for res in p.imap_unordered(run_project_safe, projects):
             
-            if res["status"] == "ok":
-                print(f"✅ {res['project']} done")
-            else:
-                print(f"❌ {res['project']} failed: {res['error']}")
+    #         if res["status"] == "ok":
+    #             print(f"✅ {res['project']} done")
+    #         else:
+    #             print(f"❌ {res['project']} failed: {res['error']}")
 
 
 

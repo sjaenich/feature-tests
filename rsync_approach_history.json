@@ -1,2 +1,4 @@
 {"timestamp": "2026-04-12 20:36:46,609", "logger": "rsync_approach", "level": "INFO", "event": {"project": "rsync", "success": true, "precision": 0.0, "recall": 0.0, "f1": 0.0, "approach": "initial_no_negative_constraints"}}
 {"timestamp": "2026-04-12 20:37:40,611", "logger": "rsync_approach", "level": "INFO", "event": {"project": "rsync", "success": true, "precision": 1.0, "recall": 0.75, "f1": 0.8571428571428571, "approach": "filter"}}
+{"timestamp": "2026-04-13 20:12:12,853", "logger": "rsync_approach", "level": "INFO", "event": {"project": "rsync", "success": true, "precision": 1.0, "recall": 0.75, "f1": 0.8571428571428571, "approach": "standard"}}
+{"timestamp": "2026-04-14 07:49:27,438", "logger": "rsync_approach", "level": "INFO", "event": {"project": "rsync", "success": true, "precision": 1.0, "recall": 0.75, "f1": 0.8571428571428571, "approach": "standard"}}

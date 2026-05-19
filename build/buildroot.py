@@ -181,13 +181,13 @@ class BuildrootBuildManager:
         # self._ensure_defconfig(self.buildroot_dir, log_file)
         
         # Use random generation of groundtruth 
-        gt.mix()
+        # gt.mix()
         print("Ground truth flags for project", project.name, ":", gt.flags)
         # Hook the groundtruth flags into the build environment
         self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
 
-        self._ensure_clean_build(pkg, log_file)
-        self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
+        # self._ensure_clean_build(pkg, log_file)
+        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
         # build the specific package
         cmd = [
             "make",
@@ -202,9 +202,9 @@ class BuildrootBuildManager:
 
 
 
-        res = self._run(cmd, self.buildroot_dir, log_file, env)
-        success = res.returncode == 0
-        # success = True
+        # res = self._run(cmd, self.buildroot_dir, log_file, env)
+        # success = res.returncode == 0
+        success = True
 
         # matches = list(out_dir.glob(f"{pkg}-*"))
         # # matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]
@@ -217,11 +217,11 @@ class BuildrootBuildManager:
 
         # discover binaries
         # binaries = self._discover_binaries(target_dir, pkg) if success else []
-        if success:
-            self._strip_library(project, log_file)
-            self._move_stripped_binary_and_config(project, log_file, time.time())
+        # if success:
+        #     self._strip_library(project, log_file)
+        #     self._move_stripped_binary_and_config(project, log_file, time.time())
 
-        self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
+        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
 
   
         binaries = [project.metadata["binary"]]
@@ -229,7 +229,7 @@ class BuildrootBuildManager:
         with log_file.open("a") as f:
             f.write(f"\n=== BUILD TIME: {duration:.2f}s ===\n")
         print(f"Build completed in {duration:.2f} seconds. Success: {success}. Binaries: {binaries}")
-        
+        # raise KeyError
         return BuildResult(success=success,
             log_file=log_file,
             binary_paths=binaries,
