@@ -8,7 +8,8 @@ from typing import List
 from truth.config_truth import GroundTruthExtractor
 import shutil
 from core.project import Project, BuildResult
-
+from build.builderror import BuildErrorPresenceExtractor
+from z3.z3 import *
 
 class BuildrootBuildManager:
     """
@@ -24,6 +25,8 @@ class BuildrootBuildManager:
         self.buildroot_dir = buildroot_dir
         self.output_base = output_base
         self.timeout = timeout
+        self.stdout = None
+        self.stderr = None
         
     # ---------------------------------------------------------
     # helpers
@@ -131,6 +134,7 @@ class BuildrootBuildManager:
         # Copy instead of move (preserves metadata like timestamps)
         shutil.copy2(config_h, dst_config)
         shutil.copy2(binary, dst_binary)
+        return dst_binary
 
 
 
@@ -163,11 +167,32 @@ class BuildrootBuildManager:
         file_path.write_text("\n".join(new_lines) + "\n")
 
 
+    def rebuild_with_macros(self, project, gt: GroundTruthExtractor, frr: FlagRecovery, build_res: BuildResult):
+        for pc in build_res.error[0].presence_conditions:
+            print("Adding negation of presence condition to solver:", pc, type(pc))
+            frr.solver.add(Not(pc))
+        
+        if frr.solver.check() == sat:
+            m = frr.solver.model()
+            macros = set()
+            for ms in m.decls():
+                if str(ms).startswith("InBinary"):
+                    continue    
+                macros.add((str(ms), str(m[ms])))
+                print("decl", m[ms], ms)
+                
+            gt.flags = macros 
+            self.build(project, gt)
+            return True
+        else:
+            print("Cannot be compiled we need to install the corresponding libraries")
+            return False
+    
 
     # ---------------------------------------------------------
     # main API
     # ---------------------------------------------------------
-    def build(self, project: Project, gt: GroundTruthExtractor) -> BuildResult:
+    def build(self, project: Project, gt: GroundTruthExtractor, iteration=None) -> BuildResult:
         
         pkg = project.name
         
@@ -179,15 +204,15 @@ class BuildrootBuildManager:
 
         # ensure config
         # self._ensure_defconfig(self.buildroot_dir, log_file)
-        
+        self._ensure_clean_build(pkg, log_file)
+
         # Use random generation of groundtruth 
         # gt.mix()
         print("Ground truth flags for project", project.name, ":", gt.flags)
         # Hook the groundtruth flags into the build environment
         self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
 
-        # self._ensure_clean_build(pkg, log_file)
-        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
+        self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
         # build the specific package
         cmd = [
             "make",
@@ -202,29 +227,40 @@ class BuildrootBuildManager:
 
 
 
-        # res = self._run(cmd, self.buildroot_dir, log_file, env)
-        # success = res.returncode == 0
-        success = True
+        res = self._run(cmd, self.buildroot_dir, log_file, env)
+        success = res.returncode == 0
+        # success = True
+        
 
-        # matches = list(out_dir.glob(f"{pkg}-*"))
+
+        matches = list(out_dir.glob(f"{pkg}-*"))
         # # matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]
         # print("Output dir:", out_dir)
-        # if not matches:
-        #     raise FileNotFoundError(f"No build dir for {pkg}")
-        # target_dir = matches[0]
+        if not matches:
+            raise FileNotFoundError(f"No build dir for {pkg}")
+        target_dir = matches[0]
 
         # self.output_base = target_dir
-
+        dst_binary = None
         # discover binaries
-        # binaries = self._discover_binaries(target_dir, pkg) if success else []
-        # if success:
-        #     self._strip_library(project, log_file)
-        #     self._move_stripped_binary_and_config(project, log_file, time.time())
+        binaries = self._discover_binaries(target_dir, pkg) if success else []
+        if success:
+            self._strip_library(project, log_file)
+            if iteration == 1:
+                dst_binary = self._move_stripped_binary_and_config(project, log_file, time.time())
 
-        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
+        self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
+
+        if not success:
+            extractor = BuildErrorPresenceExtractor(
+                source_root=project.source_dir,
+            )
+            error = extractor.parse_log_file(log_file, project.source_dir)
+
+
 
   
-        binaries = [project.metadata["binary"]]
+        binaries = [project.metadata["binary"], dst_binary]
         duration = time.time() - start
         with log_file.open("a") as f:
             f.write(f"\n=== BUILD TIME: {duration:.2f}s ===\n")
@@ -233,6 +269,7 @@ class BuildrootBuildManager:
         return BuildResult(success=success,
             log_file=log_file,
             binary_paths=binaries,
+            error=error if not success else None
         )
 
 

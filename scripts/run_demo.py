@@ -77,19 +77,19 @@ def save_groundtruth_to_separate_file(project):
 
 def run_project_safe(project):
     setup_logging(project)
-    # try:
-    result = run_project(project)
-    return {
+    try:
+        result = run_project(project)
+        return {
                 "project": project.name,
                 "status": "ok",
                 "result": result,
-    }
-    # except Exception as e:
-        # return {
-            # "project": project.name,
-            # "status": "error",
-            # "error": str(e),
-        # }
+        }   
+    except Exception as e:
+        return {
+            "project": project.name,
+            "status": "error",
+            "error": str(e),
+        }
 
 
 
@@ -146,8 +146,8 @@ def run_project(project):
         truth_extractor = gt_class()
         
         # generate a new configuration
-        # if hasattr(truth_extractor, "mix"):
-        #     truth_extractor.mix()
+        if hasattr(truth_extractor, "mix"):
+            truth_extractor.mix()
 
         # print("Test directory:", test_dir)
         # headers = list(Path(test_dir).glob("*.h"))
@@ -191,7 +191,7 @@ def run_project(project):
                 )
 
                 print("Running experiment...")
-                result = runner.run_project(project,stage)
+                result = runner.run_project_iteratively(project,stage)
                 print("Result:", result)
             if result.precision is not None:
                 collected.append(result)
@@ -217,33 +217,33 @@ def run_project(project):
 if __name__ == "__main__":
     projects = [
 
-    Project(
-        name = "libcurl",
-        source_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
-        metadata={"binary": Path("/workspaces/RevEng/libcurl-karonte"),
-                  "config_h": Path("/workspaces/RevEng/libcurl-7.29.0/lib/curl_config.h"),
-                  "cflags": "",
-                  "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
-    },  
-    )
+    # Project(
+    #     name = "libcurl",
+    #     source_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/libcurl-karonte"),
+    #               "config_h": Path("/workspaces/RevEng/libcurl-7.29.0/lib/curl_config.h"),
+    #               "cflags": "",
+    #               "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
+    # },  
+    # )
 
 
 
 
  
-    # Project(
-    #     name = "libcurl",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
-    #               "cflags": "",
-    #               "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
-    # },  
-    # )
+    Project(
+        name = "libcurl",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
+                  "cflags": "",
+                  "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
+    },  
+    )
 
     # ,
     # Project(
@@ -270,7 +270,7 @@ if __name__ == "__main__":
     #                },
     # )
 
-    # ,
+    # # ,
     # Project(
     #     name = "expat",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
@@ -362,18 +362,18 @@ if __name__ == "__main__":
     # )  
 
 
-    # # ,
-    # # Project(
-    # #     name = "tcpdump",
-    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
-    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
-    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/tcpdump"),
-    # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/config.h"),
-    # #                "cflags": "",
-    # #                "include": ""
-    # #               },
-    # # )  
+    # ,
+    # Project(
+    #     name = "tcpdump",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/tcpdump"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/config.h"),
+    #                "cflags": "",
+    #                "include": ""
+    #               },
+    # )  
     # ,
     # Project(
     #     name = "xz",
@@ -497,7 +497,7 @@ if __name__ == "__main__":
 
     for project in projects:
     #     setup_logging(project)
-        res = run_project_safe(project)
+        res = run_project(project)
         if res["status"] == "ok":
             print(f"✅ {res['project']} done")
         else:

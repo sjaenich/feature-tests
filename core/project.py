@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional
 
 from compiler_provenance.flag_recovery import FlagRecovery
-
+from build.builderror import BuildErrorLocation
 
 @dataclass
 class Project:
@@ -19,6 +19,7 @@ class BuildResult:
     success: bool
     log_file: Path
     binary_paths: list[Path]
+    error: BuildErrorLocation
 
 
 @dataclass
@@ -26,7 +27,7 @@ class RecoveryResult:
     flags: set[str]
     raw_output: Path
     runtime_sec: float
-    recovery_obj: FlagRecovery
+    frr: FlagRecovery
 
 @dataclass
 class ComparisonResult:

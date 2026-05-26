@@ -45,7 +45,7 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         # # System/Security Logic
         # self.flags.add(("USE_ARES", "False"))     # C-Ares for async DNS
         # self.flags.add(("USE_THREADS_POSIX", "False"))
-
+        
 
         self.flags.add(('CURL_DISABLE_PROXY', 'False'))
         self.flags.add(('CURL_DISABLE_IMAP', 'False'))
@@ -56,31 +56,31 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         self.flags.add(('USE_GNUTLS', 'True'))
         self.flags.add(('CURL_DISABLE_VERBOSE_STRINGS', 'True'))
         self.flags.add(('CURL_DISABLE_CRYPTO_AUTH', 'False')) 
-        self.flags.add(('CURL_DISABLE_GOPHER', 'False'))
+        self.flags.add(('CURL_DISABLE_GOPHER', 'True'))
         self.flags.add(('USE_OPENSSL', 'True'))
         self.flags.add(('CURL_DISABLE_FILE', 'False'))
         self.flags.add(('USE_ARES', 'False'))
         self.flags.add(('USE_THREADS_POSIX', 'False'))
-        # self.flags.add(('CURL_DISABLE_LDAP', 'True'))
+        self.flags.add(('CURL_DISABLE_LDAP', 'True'))
         self.flags.add(('CURL_DISABLE_COOKIES', 'False'))
         self.flags.add(('CURL_DISABLE_TELNET', 'True'))
         self.flags.add(('USE_WOLFSSL', 'False'))
         self.flags.add(('CURL_DISABLE_RTSP', 'False'))
         self.flags.add(('CURL_DISABLE_TFTP', 'False'))
         self.flags.add(('CURL_DISABLE_SMTP', 'False'))
-        self.flags.add(('USE_LIBSSH2', 'False'))
+        self.flags.add(('USE_LIBSSH2', 'True'))
         self.flags.add(('CURL_DISABLE_HTTP', 'False'))
         self.flags.add(('USE_MBEDTLS', 'False'))
         self.flags.add(('CURL_DISABLE_FTP', 'False'))
         self.flags.add(('CURL_DISABLE_HTTP_AUTH', 'False'))
-        # self.flags.add(('CURL_DISABLE_LDAPS', 'True'))
+        self.flags.add(('CURL_DISABLE_LDAPS', 'True'))
         self.flags.add(('HAVE_LIBZ', 'True'))
         self.flags.add(('HAVE_LIBSSL', 'True'))
         self.flags.add(('NTLM_WB_ENABLED', 'True'))
         self.flags.add(("ENABLE_IPV6", "True"))
 
 
-        {('CURL_DISABLE_DICT', 'True'), ('CURL_DISABLE_FTP', 'False'), ('CURL_DISABLE_TFTP', 'False'), ('NTLM_WB_ENABLED', 'True'), ('CURL_DISABLE_LDAP', 'True'), ('USE_LIBSSH2', 'True'), ('CURL_DISABLE_FILE', 'False'), ('CURL_DISABLE_RTSP', 'False'), ('ENABLE_IPV6', 'True'), ('HAVE_LIBZ', 'True'), ('USE_GNUTLS', 'True'), ('CURL_DISABLE_PROXY', 'False'), ('CURL_DISABLE_CRYPTO_AUTH', 'False'), ('CURL_DISABLE_COOKIES', 'False'), ('CURL_DISABLE_SMTP', 'False'), ('CURL_DISABLE_GOPHER', 'True'), ('CURL_DISABLE_TELNET', 'True'), ('CURL_DISABLE_POP3', 'False'), ('CURL_DISABLE_VERBOSE_STRINGS', 'True'), ('USE_GNUTLS_PRIORITY_SET_DIRECT', 'False'), ('CURL_DISABLE_IMAP', 'False'), ('CURL_DISABLE_HTTP', 'False'), ('USE_ARES', 'True')}
+        # {('CURL_DISABLE_DICT', 'True'), ('CURL_DISABLE_FTP', 'False'), ('CURL_DISABLE_TFTP', 'False'), ('NTLM_WB_ENABLED', 'True'), ('CURL_DISABLE_LDAP', 'True'), ('USE_LIBSSH2', 'True'), ('CURL_DISABLE_FILE', 'False'), ('CURL_DISABLE_RTSP', 'False'), ('ENABLE_IPV6', 'True'), ('HAVE_LIBZ', 'True'), ('USE_GNUTLS', 'True'), ('CURL_DISABLE_PROXY', 'False'), ('CURL_DISABLE_CRYPTO_AUTH', 'False'), ('CURL_DISABLE_COOKIES', 'False'), ('CURL_DISABLE_SMTP', 'False'), ('CURL_DISABLE_GOPHER', 'True'), ('CURL_DISABLE_TELNET', 'True'), ('CURL_DISABLE_POP3', 'False'), ('CURL_DISABLE_VERBOSE_STRINGS', 'True'), ('USE_GNUTLS_PRIORITY_SET_DIRECT', 'False'), ('CURL_DISABLE_IMAP', 'False'), ('CURL_DISABLE_HTTP', 'False'), ('USE_ARES', 'True')}
 
 
 
@@ -89,7 +89,7 @@ class LibcurlGroundTruth(GroundTruthExtractor):
     def mix(self):
         
         flags = set()
-         # Randomize ZLIB independently
+        # Randomize ZLIB independently
         toggle_flags = [
             "CURL_DISABLE_FTP", "CURL_DISABLE_HTTP", "CURL_DISABLE_FILE",
             "CURL_DISABLE_SMTP", "CURL_DISABLE_POP3", "CURL_DISABLE_IMAP",
