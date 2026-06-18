@@ -8,7 +8,7 @@ import subprocess
 def extract_strings_from_binary(binary_path: str) -> set[str]:
     try:
         result = subprocess.run(
-            ["strings", binary_path],
+            ["strings","-n3", binary_path],
             capture_output=True,
             text=True,
             check=True,
@@ -40,8 +40,9 @@ def load_strings(path: str) -> set[str]:
 def append_new_strings(path: str, strings: set[str]) -> int:
     p = Path(path)
     existing = load_strings(str(p))
+    print(f"Existing strings in {p}: {len(existing)}, {existing}")
     new_strings = [s for s in strings if s not in existing]
-
+    print(f"New strings to add to {p}: {len(new_strings)}, {new_strings}")
     if new_strings:
         with open(p, "a") as f:
             for s in new_strings:
@@ -202,7 +203,7 @@ class ExperimentRunner:
             build_res = self.build_manager.build(project, self.truth_extractor, iteration)
 
             if iteration > 1 and not build_res.success:
-                print("Build failed. Investigat macros")
+                print("Build failed. Investigate macros")
                 build_res.success = self.build_manager.rebuild_with_macros(project, self.truth_extractor, rec.frr, build_res)
 
             if not build_res.success:
@@ -235,7 +236,8 @@ class ExperimentRunner:
 
                 # if not self_compiled_strings:
                 #     self_compiled_strings = load_strings(target_strings_path)
-
+                print("Self compiled strings:", len(self_compiled_strings), self_compiled_strings)
+                print("Recreate binary strings:", len(recreate_binary_strings), recreate_binary_strings)
                 negative_strings = self_compiled_strings - recreate_binary_strings
                 positive_strings = recreate_binary_strings - self_compiled_strings
 
@@ -251,13 +253,21 @@ class ExperimentRunner:
             rec = self.recovery.run(project, recover_binary, config_h, stage, iteration)
             last_rec = rec
 
-            print("Rec flags:", rec.flags)
-            print("GT flags:", gt)
-            
+            macros = set()
+            ground_truth_single = set()
+            for (m,_) in gt:
+                ground_truth_single.add(m)
+            print("Ground truth single:", ground_truth_single)
+
+            for (m,b) in rec.flags:
+                if m in ground_truth_single:
+                    macros.add((m,b))
+            print("Rec: ", macros)
             cmp_res = self.comparator.compare(rec.flags, gt)
             last_cmp_res = cmp_res
 
-            self.truth_extractor.flags = rec.flags
+
+            self.truth_extractor.flags = macros
 
 
 

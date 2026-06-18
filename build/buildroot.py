@@ -251,7 +251,7 @@ class BuildrootBuildManager:
 
         self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
 
-        if not success:
+        if iteration > 1 and not success:
             extractor = BuildErrorPresenceExtractor(
                 source_root=project.source_dir,
             )
@@ -269,7 +269,7 @@ class BuildrootBuildManager:
         return BuildResult(success=success,
             log_file=log_file,
             binary_paths=binaries,
-            error=error if not success else None
+            error=error if not success and iteration > 1 else None
         )
 
 

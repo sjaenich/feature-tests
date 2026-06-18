@@ -51,10 +51,17 @@ class BuildErrorPresenceExtractor:
             if resolved is not None:
                 try:
                     print("Running SuperC for error line")
-                    superc = SuperC(logger=None)
+                    superc = SuperC()
                     print("SuperC instance created")
-                    presence_conditions = superc.get_pc_and_macro_values(str(resolved), library_dir=library_dir, line_number=line_no, macro=None, config_h=None, name="build_error")
+                    presence_conditions = superc.get_pc_and_macro_values(str(resolved), library_dir=library_dir, line_number=line_no)
                     print("Presence conditions for error:", presence_conditions)
+                    results.append(
+                    BuildErrorLocation(
+                        file=file_name,
+                        line=line_no,
+                        presence_conditions=presence_conditions,
+                    ))
+                    return results
                 except Exception as e:
                     presence_conditions = f"<superc failed: {e}>"
                     print("SuperC failed for error line:", e)
@@ -66,6 +73,7 @@ class BuildErrorPresenceExtractor:
                     presence_conditions=presence_conditions,
                 )
             )
+
 
         return results
 

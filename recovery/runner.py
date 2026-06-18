@@ -18,18 +18,18 @@ class FlagRecoveryRunner:
         extra_include = project.metadata["include"]
         if iteration == 1:
             print("Initialization of FlagRecovery")
-            frr = FlagRecovery(project.source_dir, binary, config_h, project.name, project.include_dir, extra_include)
-            frr.run(stage)
+            self.frr = FlagRecovery(project.source_dir, binary, config_h, project.name, project.include_dir, extra_include)
+            self.frr.run(stage)
 
         print("Running only macro recovery")
-        macros = frr.run_only_macros()
+        macros = self.frr.run_only_macros()
 
-        self.binary_strings = frr.binary_strings.strings
-        self.source_code_strings = frr.SourceStrings
+        self.binary_strings = self.frr.binary_strings
+        self.source_code_strings = self.frr.SourceStrings
 
         runtime = time.time() - start       
    
-        return RecoveryResult(macros, output_file, runtime, frr)
+        return RecoveryResult(macros, output_file, runtime, self.frr)
 
 
 

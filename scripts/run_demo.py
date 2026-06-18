@@ -134,15 +134,15 @@ def run_project(project):
     seen_flags = set()   # track unique configurations
     collected = []
 
-    run_id = 11
+    run_id = 0
     accepted_id = 0
 
 
     # test_dirs = get_bundle_dirs_for_project("/workspaces/RevEng/buildroot-2025.02.4/output/build", project.name, n=3)
     test_dirs = [project.metadata["binary"]]
     print("Found test directories:", test_dirs)
-    for test_dir in test_dirs:
-    # while len(collected) < 3:
+    # for test_dir in test_dirs:
+    while len(collected) < 3:
         truth_extractor = gt_class()
         
         # generate a new configuration
@@ -216,7 +216,6 @@ def run_project(project):
 
 if __name__ == "__main__":
     projects = [
-
     # Project(
     #     name = "libcurl",
     #     source_dir=Path("/workspaces/RevEng/libcurl-7.29.0/lib/"),
@@ -227,12 +226,7 @@ if __name__ == "__main__":
     #               "cflags": "",
     #               "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
     # },  
-    # )
-
-
-
-
- 
+    # ) 
     Project(
         name = "libcurl",
         source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
@@ -270,7 +264,7 @@ if __name__ == "__main__":
     #                },
     # )
 
-    # # ,
+    # ,
     # Project(
     #     name = "expat",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
@@ -283,16 +277,16 @@ if __name__ == "__main__":
     #                },
     # )    
 
-    # # , 
-    # # Project(
-    # #     name = "flac",
-    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/"),
-    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/include/private/"),
-    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/.libs/libFLAC.so"),
-    # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/config.h"),
-    # #                "cflags": ""},
-    # # )
+    # # # , 
+    # # # Project(
+    # # #     name = "flac",
+    # # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/"),
+    # # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    # # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/include/private/"),
+    # # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/.libs/libFLAC.so"),
+    # # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/config.h"),
+    # # #                "cflags": ""},
+    # # # )
 
 
     # ,
@@ -413,18 +407,18 @@ if __name__ == "__main__":
     # )
 
 
-    # # ,
-    # # Project(
-    # #     name="libxslt",
-    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/"),
-    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
-    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
-    # #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/config.h"),
-    # #                 "cflags": "",
-    # #                "include": ""
-    # #                 }
-    # # )   
+    # ,
+    # Project(
+    #     name="libxslt",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
+    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/config.h"),
+    #                 "cflags": "",
+    #                "include": ""
+    #                 }
+    # )   
 
     # ,
     # Project(
@@ -442,17 +436,17 @@ if __name__ == "__main__":
 
 
     
-    # # Project(
-    # #     name="libvpx",
-    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/"),
-    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0"),
-    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/libvpx.so"),
-    # #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/vpx_config.h"),
-    # #                 "cflags": ""
-    # #                 }
-    # # )
-    # # ,
+    # Project(
+    #     name="libvpx",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/libvpx.so"),
+    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/vpx_config.h"),
+    #                 "cflags": ""
+    #                 }
+    # )
+    # ,
 
     # Project(
     #     name="libarchive",
@@ -478,7 +472,7 @@ if __name__ == "__main__":
     # #     "cflags": "",
     # #     "include": ""
     # # })
-    # ,
+    ,
     # Project(
     # name="libopenssl",
     # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/ssl"),
@@ -495,22 +489,22 @@ if __name__ == "__main__":
     ]
 
 
-    for project in projects:
-    #     setup_logging(project)
-        res = run_project(project)
-        if res["status"] == "ok":
-            print(f"✅ {res['project']} done")
-        else:
-            print(f"❌ {res['project']} failed: {res['error']}")
+    # for project in projects:
+    # #     setup_logging(project)
+    #     res = run_project(project)
+    #     if res["status"] == "ok":
+    #         print(f"✅ {res['project']} done")
+    #     else:
+    #         print(f"❌ {res['project']} failed: {res['error']}")
    
    
-    # with Pool(processes=1) as p:
-    #     for res in p.imap_unordered(run_project_safe, projects):
+    with Pool(processes=1) as p:
+        for res in p.imap_unordered(run_project_safe, projects):
             
-    #         if res["status"] == "ok":
-    #             print(f"✅ {res['project']} done")
-    #         else:
-    #             print(f"❌ {res['project']} failed: {res['error']}")
+            if res["status"] == "ok":
+                print(f"✅ {res['project']} done")
+            else:
+                print(f"❌ {res['project']} failed: {res['error']}")
 
 
 
