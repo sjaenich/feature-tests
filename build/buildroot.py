@@ -189,6 +189,35 @@ class BuildrootBuildManager:
             return False
     
 
+    def build_config(self, project: Project, gt: GroundTruthExtractor, iteration=None) -> Bool:
+        pkg = project.name
+        print(f"Building package {pkg} with ground truth flags: {gt.flags}")
+        out_dir = self.buildroot_dir / "output/build/"
+        log_file = out_dir / Path("buildroot_" + pkg + ".log")
+
+        self._ensure_clean_build(pkg, log_file)
+
+        cmd = [
+            "make",
+            f"{pkg}",
+        ]
+
+        env = os.environ.copy()
+
+        env["MY_REAL_COMPILER"]=f"{"/workspaces/RevEng/buildroot-2025.02.4/output/host/bin/gcc-13.real"}"
+        env["MY_EXTRA_FLAGS"]= gt.mix_cflags(project)
+            
+
+        
+
+
+        res = self._run(cmd, self.buildroot_dir, log_file, env)
+
+        success = res.returncode == 0
+
+        return success
+
+
     # ---------------------------------------------------------
     # main API
     # ---------------------------------------------------------
@@ -225,7 +254,7 @@ class BuildrootBuildManager:
         env["MY_EXTRA_FLAGS"]= gt.mix_cflags(project)
             
 
-
+        
 
         res = self._run(cmd, self.buildroot_dir, log_file, env)
         success = res.returncode == 0
@@ -251,25 +280,26 @@ class BuildrootBuildManager:
 
         self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
 
-        if iteration > 1 and not success:
-            extractor = BuildErrorPresenceExtractor(
-                source_root=project.source_dir,
-            )
-            error = extractor.parse_log_file(log_file, project.source_dir)
+        # if iteration > 1 and not success:
+        #     extractor = BuildErrorPresenceExtractor(
+        #         source_root=project.source_dir,
+        #     )
+        #     error = extractor.parse_log_file(log_file, project.source_dir)
 
 
 
-  
+        os.remove(project.metadata.get("config_h", None))
         binaries = [project.metadata["binary"], dst_binary]
         duration = time.time() - start
         with log_file.open("a") as f:
             f.write(f"\n=== BUILD TIME: {duration:.2f}s ===\n")
+        
         print(f"Build completed in {duration:.2f} seconds. Success: {success}. Binaries: {binaries}")
         # raise KeyError
         return BuildResult(success=success,
             log_file=log_file,
             binary_paths=binaries,
-            error=error if not success and iteration > 1 else None
+            error="Rebuild Macros" if not success and iteration > 1 else None
         )
 
 

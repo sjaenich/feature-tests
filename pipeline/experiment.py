@@ -14,11 +14,12 @@ def extract_strings_from_binary(binary_path: str) -> set[str]:
             check=True,
         )
 
-        return {
-            line.strip()
-            for line in result.stdout.splitlines()
-            if line.strip()
-        }
+        return set(result.stdout.splitlines())
+            # line.strip()
+            # for line in result.stdout.splitlines()
+        
+            # if line.strip()
+        
 
     except subprocess.CalledProcessError:
         return set()

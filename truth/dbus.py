@@ -100,7 +100,8 @@ class DbusGroundTruth(GroundTruthExtractor):
         return flags
 
     def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:
-        DEFINE_BOOL_RE = re.compile(r'^\s*#define\s+([A-Z0-9_]+)\s+(?:0|1)\s*$')
+        DEFINE_BOOL_RE = re.compile(r'^\s*#\s*define\s+([A-Z0-9_]+)\s+([01])\s*$')
+        # DEFINE_BOOL_RE = re.compile(r'^\s*#define\s+([A-Z0-9_]+)\s+(?:0|1)\s*$')
         UNDEF_RE = re.compile(r'^\s*/\*\s*#undef\s+([A-Z0-9_]+)\s*\*/\s*$')
         # Matches DBUS_ specific constants and paths
         DEFINE_OTHER_RE = re.compile(r'^\s*#define\s+(DBUS_[A-Z_]+|[A-Z_][A-Z0-9_]*)\b(?!\s*\()')
@@ -119,26 +120,34 @@ class DbusGroundTruth(GroundTruthExtractor):
             
             for line in f:
                 handled = False
-                
+                print("Processing line:", line.strip())
                 match = DEFINE_BOOL_RE.match(line)
                 if match:
                     macro_name = match.group(1)
+                    print("Macro name 1", macro_name)
                     if macro_name in flags:
                         updated_flags.add((macro_name, "True"))
-                        dest.write(line)
+                        print("Writing line to destination:", line.strip())
+                        new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2', line)
+                        dest.write(new_line)
                         handled = True
 
                 m_undef = UNDEF_RE.match(line)
                 if m_undef:
                     macro_name = m_undef.group(1)
+                    print("Macro name 1", macro_name)
                     if macro_name in flags:
                         updated_flags.add((macro_name, "False"))
-                        dest.write(line)
+                        print("Writing line to destination:", line.strip())
+                        new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2', line)
+                        dest.write(new_line)
                         handled = True
 
                 if not handled:
+                    print("Line not handled, checking for other defines:", line.strip())
                     m_other = DEFINE_OTHER_RE.match(line)
                     if m_other:
+                        print("Other define found:", line.strip())
                         out.write(line)
 
         shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")

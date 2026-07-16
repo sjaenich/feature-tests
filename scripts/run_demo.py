@@ -193,6 +193,7 @@ def run_project(project):
                 print("Running experiment...")
                 result = runner.run_project_iteratively(project,stage)
                 print("Result:", result)
+                runner.build_manager.build_config(project, truth_extractor)
             if result.precision is not None:
                 collected.append(result)
                 print(f"[+] Accepted config #{accepted_id}")
@@ -227,17 +228,17 @@ if __name__ == "__main__":
     #               "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
     # },  
     # ) 
-    Project(
-        name = "libcurl",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
-                  "cflags": "",
-                  "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
-    },  
-    )
+    # Project(
+    #     name = "libcurl",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
+    #               "cflags": "",
+    #               "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
+    # },  
+    # )
 
     # ,
     # Project(
@@ -328,7 +329,7 @@ if __name__ == "__main__":
 
    
     
-    # ,
+    # # ,
     # Project(
     #     name = "pcre2",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
@@ -394,17 +395,17 @@ if __name__ == "__main__":
     # )
 
     # ,
-    # Project(
-    #     name="libxml2",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
-    #               "cflags": "",
-    #                "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/"
-    #               }
-    # )
+    Project(
+        name="libxml2",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
+                  "cflags": "",
+                   "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/"
+                  }
+    )
 
 
     # ,

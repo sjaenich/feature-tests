@@ -12,9 +12,9 @@ class LibpcapGroundTruth(GroundTruthExtractor):
         
         # Packet Capture Backends (--with-pcap=...)
         # These are usually autodetected but can be forced.
-        self.flags.add(("ENABLE_REMOTE", "False"))     # Linux
-        self.flags.add(("HAVE_OPENSSL", "False"))          # BSD/macOS
-        self.flags.add(("HAVE_SOLARIS", "False"))
+        # self.flags.add(("ENABLE_REMOTE", "False"))     # Linux
+        # self.flags.add(("HAVE_OPENSSL", "False"))          # BSD/macOS
+        # self.flags.add(("HAVE_SOLARIS", "False"))
         
         # Specialized Link Layer Support
         self.flags.add(("PCAP_SUPPORT_BT", "False"))    # --enable-usb
@@ -94,8 +94,12 @@ class LibpcapGroundTruth(GroundTruthExtractor):
                     m_other = DEFINE_OTHER_RE.match(line)
                     if m_other:
                         out.write(line)
-
+        print("Move config", path)
         shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
+        if config_h.exists():
+            print("CONFIG EXISTS", config_h)
+        else:
+            print("CONFIG DOES NOT EXIST", config_h)
         return updated_flags
 
     def remove_dead_macros(self, src_dir: Path, macros) -> set:
