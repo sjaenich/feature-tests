@@ -13,8 +13,8 @@ class DbusGroundTruth(GroundTruthExtractor):
         self.flags.add(("DBUS_ENABLE_STATS", "True"))
         
         # Security & Mandatory Access Control (--enable-selinux, --enable-apparmor)
-        self.flags.add(("HAVE_SELINUX", "False"))
-        self.flags.add(("HAVE_APPARMOR", "False"))
+        # self.flags.add(("HAVE_SELINUX", "False"))
+        # self.flags.add(("HAVE_APPARMOR", "False"))
 
         
         # Authentication Mechanisms (--enable-checks)
@@ -29,7 +29,7 @@ class DbusGroundTruth(GroundTruthExtractor):
         # Resource Limits & Debugging
         self.flags.add(("DBUS_ENABLE_ASSERT", "False"))
         self.flags.add(("DBUS_ENABLE_EMBEDDED_TESTS", "False"))
-        self.flags.add(("NDEBUG", "True")) 
+        # self.flags.add(("NDEBUG", "True")) 
 
 
     def mix(self):
@@ -40,7 +40,7 @@ class DbusGroundTruth(GroundTruthExtractor):
             "HAVE_UNIX_FD_PASSING",
             "DBUS_ENABLE_STATS",
             # "HAVE_SELINUX",
-            "HAVE_APPARMOR",
+            # "HAVE_APPARMOR",
             "HAVE_MONOTONIC_CLOCK",
         ]
 
@@ -49,7 +49,7 @@ class DbusGroundTruth(GroundTruthExtractor):
                 flags[key] = random.choice([True, False])
 
         # --- Step 2: randomize base control flags ---
-        flags["NDEBUG"] = random.choice([True, False])
+        # flags["NDEBUG"] = random.choice([True, False])
         flags["DBUS_ENABLE_EMBEDDED_TESTS"] = random.choice([True, False])
         flags["DBUS_DISABLE_CHECKS"] = random.choice([True, False])
         flags["DBUS_DISABLE_ASSERT"] = random.choice([True, False])
@@ -63,19 +63,34 @@ class DbusGroundTruth(GroundTruthExtractor):
         flags["DBUS_ENABLE_CHECKS"] = not flags["DBUS_DISABLE_CHECKS"]
 
         # NDEBUG implies assertions disabled
-        if flags["NDEBUG"]:
-            flags["DBUS_DISABLE_ASSERT"] = True
-            flags["DBUS_ENABLE_ASSERT"] = False
+        # if flags["NDEBUG"]:
+        #     flags["DBUS_DISABLE_ASSERT"] = True
+        #     flags["DBUS_ENABLE_ASSERT"] = False
 
         # Embedded tests require debug + checks + asserts
         if flags["DBUS_ENABLE_EMBEDDED_TESTS"]:
-            flags["NDEBUG"] = False
+            # flags["NDEBUG"] = False
             flags["DBUS_DISABLE_ASSERT"] = False
             flags["DBUS_ENABLE_ASSERT"] = True
             flags["DBUS_DISABLE_CHECKS"] = False
             flags["DBUS_ENABLE_CHECKS"] = True
 
         # --- Step 4: write back ---
+        self.flags = dict_to_set(flags)
+
+
+
+    def clean_conflicts(self):
+        flags = set_to_dict(self.flags)
+
+        # Assertions: ENABLE = not DISABLE
+        if flags["DBUS_DISABLE_ASSERT"]:
+            flags["DBUS_ENABLE_ASSERT"] = False
+
+        if flags["DBUS_DISABLE_CHECKS"]:
+            flags["DBUS_ENABLE_CHECKS"] = False
+            
+            
         self.flags = dict_to_set(flags)
 
 
@@ -128,7 +143,7 @@ class DbusGroundTruth(GroundTruthExtractor):
                     if macro_name in flags:
                         updated_flags.add((macro_name, "True"))
                         print("Writing line to destination:", line.strip())
-                        new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2', line)
+                        new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2\n', line)
                         dest.write(new_line)
                         handled = True
 
@@ -139,7 +154,7 @@ class DbusGroundTruth(GroundTruthExtractor):
                     if macro_name in flags:
                         updated_flags.add((macro_name, "False"))
                         print("Writing line to destination:", line.strip())
-                        new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2', line)
+                        new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2\n', line)
                         dest.write(new_line)
                         handled = True
 

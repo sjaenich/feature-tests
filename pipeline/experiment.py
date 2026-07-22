@@ -269,7 +269,7 @@ class ExperimentRunner:
 
 
             self.truth_extractor.flags = macros
-
+            self.truth_extractor.clean_conflicts()
 
 
             logger = logging.getLogger(project.name + "_telemetry")

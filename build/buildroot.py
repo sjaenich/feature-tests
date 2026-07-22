@@ -168,25 +168,25 @@ class BuildrootBuildManager:
 
 
     def rebuild_with_macros(self, project, gt: GroundTruthExtractor, frr: FlagRecovery, build_res: BuildResult):
-        for pc in build_res.error[0].presence_conditions:
-            print("Adding negation of presence condition to solver:", pc, type(pc))
-            frr.solver.add(Not(pc))
+        # for pc in build_res.error[0].presence_conditions:
+        #     print("Adding negation of presence condition to solver:", pc, type(pc))
+        #     frr.solver.add(Not(pc))
         
-        if frr.solver.check() == sat:
-            m = frr.solver.model()
-            macros = set()
-            for ms in m.decls():
-                if str(ms).startswith("InBinary"):
-                    continue    
-                macros.add((str(ms), str(m[ms])))
-                print("decl", m[ms], ms)
+        # if frr.solver.check() == sat:
+        #     m = frr.solver.model()
+        #     macros = set()
+        #     for ms in m.decls():
+        #         if str(ms).startswith("InBinary"):
+        #             continue    
+        #         macros.add((str(ms), str(m[ms])))
+        #         print("decl", m[ms], ms)
                 
-            gt.flags = macros 
-            self.build(project, gt)
-            return True
-        else:
-            print("Cannot be compiled we need to install the corresponding libraries")
-            return False
+        #     gt.flags = macros 
+        #     self.build(project, gt)
+        #     return True
+        # else:
+        print("Cannot be compiled we need to install the corresponding libraries")
+        return False
     
 
     def build_config(self, project: Project, gt: GroundTruthExtractor, iteration=None) -> Bool:
@@ -252,6 +252,8 @@ class BuildrootBuildManager:
 
         env["MY_REAL_COMPILER"]=f"{"/workspaces/RevEng/buildroot-2025.02.4/output/host/bin/gcc-13.real"}"
         env["MY_EXTRA_FLAGS"]= gt.mix_cflags(project)
+        
+                            
             
 
         

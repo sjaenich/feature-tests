@@ -34,7 +34,7 @@ class NanoGroundTruth(GroundTruthExtractor):
         
         # Operating System / Environment
         self.flags.add(("HAVE_LIBMAGIC", "False"))      # --with-libmagic (For file type detection)
-        self.flags.add(("HAVE_ZLIB_H", "False"))        # --enable-zlib
+        # self.flags.add(("HAVE_ZLIB_H", "False"))        # --enable-zlib
         
         # Security/Logic
         self.flags.add(("ENABLE_OPERATINGDIR", "False")) # --enable-operatingdir=DIR

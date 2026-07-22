@@ -21,7 +21,14 @@ class SqliteGroundTruth(GroundTruthExtractor):
         self.flags.add(("SQLITE_ENABLE_MEMSYS5", "False"))
 
 
-
+    def clean_conflicts(self):
+        flags = set_to_dict(self.flags)
+        
+        # Example conflict resolution: If FTS5 is enabled, disable FTS4
+        if flags["SQLITE_ENABLE_SESSION"]:
+            flags["SQLITE_ENABLE_SESSION"] = False
+        
+        self.flags = dict_to_set(flags)
 
 
     def mix_cflags(self, project):

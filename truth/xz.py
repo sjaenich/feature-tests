@@ -11,9 +11,9 @@ class LiblzmaFeatureTruth(GroundTruthExtractor):
               # --- liblzma / XZ Utils Configure-Controllable Flags ---
         
         # Threading Support (--enable-threads)
-        self.flags.add(("MYTHREAD_POSIX", "True"))
-        self.flags.add(("MYTHREAD_WIN95", "False"))
-        self.flags.add(("MYTHREAD_VISTA", "False"))
+        # self.flags.add(("MYTHREAD_POSIX", "True"))
+        # self.flags.add(("MYTHREAD_WIN95", "False"))
+        # self.flags.add(("MYTHREAD_VISTA", "False"))
         
         # Integrity Checks (--enable-checks=...)
         # These are usually all enabled, but can be manually toggled.

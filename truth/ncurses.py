@@ -12,32 +12,32 @@ class NcursesGroundTruth(GroundTruthExtractor):
         
         # Wide Character Support (--enable-widec)
         # This is the most critical flag; it changes 'ncurses' to 'ncursesw'
-        self.flags.add(("USE_WIDEC_SUPPORT", "True"))
+        # self.flags.add(("USE_WIDEC_SUPPORT", "True"))
         
         # Threading Support (--with-pthread / --enable-reentrant)
-        self.flags.add(("USE_REENTRANT", "False"))
-        self.flags.add(("HAVE_LIBPTHREAD", "True"))
+        # self.flags.add(("USE_REENTRANT", "False"))
+        # self.flags.add(("HAVE_LIBPTHREAD", "True"))
         
         # Terminal Database Options (--with-terminfo-dirs / --enable-termcap)
-        self.flags.add(("USE_TERMCAP", "False"))
-        self.flags.add(("USE_GETCAP", "False"))
-        self.flags.add(("HAVE_TERMINFO_CURSES_H", "True"))
+        # self.flags.add(("USE_TERMCAP", "False"))
+        # self.flags.add(("USE_GETCAP", "False"))
+        # self.flags.add(("HAVE_TERMINFO_CURSES_H", "True"))
         
         # Extension Support (--disable-ext-funcs / --disable-ext-colors)
         # 256-color support and extended mouse functions
         self.flags.add(("NCURSES_EXT_FUNCS", "True"))
-        self.flags.add(("NCURSES_EXT_COLORS", "True"))
-        self.flags.add(("NCURSES_MOUSE_VERSION", "2")) # Usually an integer, but often checked
+        # self.flags.add(("NCURSES_EXT_COLORS", "True"))
+        # self.flags.add(("NCURSES_MOUSE_VERSION", "2")) # Usually an integer, but often checked
         
         # Trace and Debugging (--with-trace)
-        self.flags.add(("USE_TRACE", "False"))
+        # self.flags.add(("USE_TRACE", "False"))
         
         # Mouse and Screen support
         self.flags.add(("NCURSES_EXT_PUTWIN", "True"))
         self.flags.add(("NCURSES_NO_PADDING", "False"))
         
         # Fallback support (--enable-fallback-archs)
-        self.flags.add(("HAVE_FALLBACKS", "False"))
+        # self.flags.add(("HAVE_FALLBACKS", "False"))
 
     def extract(self, config_h, name, src_dir):
         flags = self.flags

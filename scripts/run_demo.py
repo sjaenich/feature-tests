@@ -142,7 +142,7 @@ def run_project(project):
     test_dirs = [project.metadata["binary"]]
     print("Found test directories:", test_dirs)
     # for test_dir in test_dirs:
-    while len(collected) < 3:
+    while len(collected) < 5:
         truth_extractor = gt_class()
         
         # generate a new configuration
@@ -159,18 +159,18 @@ def run_project(project):
         # files = [p for p in Path(test_dir).iterdir() if p.is_file() and not p.name.endswith(".h")]
         # project.metadata["binary"] = files[0] if files else None   
 
-        # flags_key = frozenset(truth_extractor.flags)
+        flags_key = frozenset(truth_extractor.flags)
 
         # # skip duplicate configurations BEFORE running expensive build
-        # if flags_key in seen_flags:
-        #     print(f"[-] Duplicate flags skipped: {flags_key}")
-        #     run_id += 1
-        #     if run_id > 12:  # safety check to prevent infinite loops
-        #         print("Too many runs without enough unique configs. Stopping.")
-        #         return project.name
-        #     continue
+        if flags_key in seen_flags:
+            print(f"[-] Duplicate flags skipped: {flags_key}")
+            run_id += 1
+            if run_id > 22:  # safety check to prevent infinite loops
+                print("Too many runs without enough unique configs. Stopping.")
+                return project.name
+            continue
 
-        # seen_flags.add(flags_key)
+        seen_flags.add(flags_key)
 
         # log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
         # stages = ["initial", "filter"]
@@ -204,7 +204,7 @@ def run_project(project):
                 accepted_id += 1
             # delete_all_superc_files_silent(project.name)
             run_id += 1
-            if run_id > 12:  # safety check to prevent infinite loops
+            if run_id > 22:  # safety check to prevent infinite loops
                 print("Too many runs without enough unique configs. Stopping.")
                 return project.name
 
@@ -388,24 +388,24 @@ if __name__ == "__main__":
     #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
     #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
     #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
-    #               "config_h": Path("/workspaces/RevEng/header/libraries/sqlite.h"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/README.txt"),
     #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS",
     #                "include": ""
     #               }
     # )
 
     # ,
-    Project(
-        name="libxml2",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
-                  "cflags": "",
-                   "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/"
-                  }
-    )
+    # Project(
+    #     name="libxml2",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
+    #               "cflags": "",
+    #                "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/"
+    #               }
+    # )
 
 
     # ,
@@ -462,18 +462,18 @@ if __name__ == "__main__":
     # )
 
     # # ,
-    # # Project(
-    # # name="libopenssl",
-    # # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
-    # # build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    # # include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
-    # # metadata={
-    # #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
-    # #     "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/opensslconf.h"),
-    # #     "cflags": "",
-    # #     "include": ""
-    # # })
-    ,
+    Project(
+    name="libopenssl",
+    source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
+    build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
+    metadata={
+        "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
+        "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/opensslconf.h"),
+        "cflags": "",
+        "include": ""
+    })
+    # ,
     # Project(
     # name="libopenssl",
     # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/ssl"),

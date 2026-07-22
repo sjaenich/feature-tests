@@ -65,11 +65,11 @@ class Pcre2GroundTruth(GroundTruthExtractor):
 
         # 3. DEPENDENCY: Unicode & Unicode Properties
         # SUPPORT_UNICODE_PROPERTIES requires SUPPORT_UNICODE to be True.
-        flags["SUPPORT_UNICODE"] = random.choice([True, False])
-        if flags["SUPPORT_UNICODE"]:
-            flags["SUPPORT_UNICODE_PROPERTIES"] = random.choice([True, False])
-        else:
-            flags["SUPPORT_UNICODE_PROPERTIES"] = False
+        # flags["SUPPORT_UNICODE"] = random.choice([True, False])
+        # if flags["SUPPORT_UNICODE"]:
+            # flags["SUPPORT_UNICODE_PROPERTIES"] = random.choice([True, False])
+        # else:
+            # flags["SUPPORT_UNICODE_PROPERTIES"] = False
 
         # 4. INDEPENDENT FEATURES: Greedy randomization
         # These don't usually break the build if toggled.
@@ -84,6 +84,16 @@ class Pcre2GroundTruth(GroundTruthExtractor):
         for key in independents:
             if key in flags:
                 flags[key] = random.choice([True, False])
+
+
+        flags["SUPPORT_UNICODE"] = random.choice([True, False])
+        # flags["SUPPORT_UNICODE"] = False
+        if flags["SUPPORT_UNICODE"]:
+            # flags["SUPPORT_UNICODE_PROPERTIES"] = random.choice([True, False])
+            flags["EBCDIC"] = False
+        # else:
+            # flags["SUPPORT_UNICODE_PROPERTIES"] = False
+
 
 
         flags["SUPPORT_LIBZ"] = False
@@ -101,6 +111,16 @@ class Pcre2GroundTruth(GroundTruthExtractor):
         self.flags = {(k, str(v)) for k, v in flags.items()}
         
 
+
+
+    def clean_conflicts(self):
+        flags = {k: v == "True" for k, v in self.flags}
+
+
+        if flags["EBCDIC"]:
+            flags["SUPPORT_UNICODE"] = False
+            
+        self.flags = {(k, str(v)) for k, v in flags.items()}
 
 
 

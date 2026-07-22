@@ -24,10 +24,10 @@ class LibpcapGroundTruth(GroundTruthExtractor):
         self.flags.add(("PCAP_SUPPORT_LINUX_USBMON", "True"))        # --enable-dbus
         self.flags.add(("PCAP_SUPPORT_NETFILTER", "True"))   
         self.flags.add(("PCAP_SUPPORT_NETMAP", "False"))        
-        self.flags.add(("PCAP_SUPPORT_RDMANIFF", "False"))      
+        # self.flags.add(("PCAP_SUPPORT_RDMANIFF", "False"))      
         # Remote Capture Support (--enable-remote)
-        self.flags.add(("HAVE_REMOTE", "False"))
-        self.flags.add(("HAVE_RPCAPD", "False"))
+        # self.flags.add(("HAVE_REMOTE", "False"))
+        # self.flags.add(("HAVE_RPCAPD", "False"))
         
         # IPv6 Support (--enable-ipv6)
         self.flags.add(("INET6", "True"))

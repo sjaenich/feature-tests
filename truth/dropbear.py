@@ -11,12 +11,12 @@ class DropbearGroundTruth(GroundTruthExtractor):
         print("Initializing DropbearGroundTruth with default flags")
         # Protocol Features
         self.flags.add(("DROPBEAR_X11FWD", "False"))       # X11 Forwarding
-        self.flags.add(("DROPBEAR_AGENTFWD", "True"))     # Agent Forwarding
+        # self.flags.add(("DROPBEAR_AGENTFWD", "True"))     # Agent Forwarding
         self.flags.add(("DROPBEAR_SFTPSERVER", "True"))   # SFTP Server support
         
         # Authentication Methods
-        self.flags.add(("DROPBEAR_PASSWORD_AUTH", "True"))
-        self.flags.add(("DROPBEAR_PUBKEY_AUTH", "True"))
+        # self.flags.add(("DROPBEAR_PASSWORD_AUTH", "True"))
+        # self.flags.add(("DROPBEAR_PUBKEY_AUTH", "True"))
         
         
         # Encryption Algorithms (Ciphers)
@@ -26,15 +26,15 @@ class DropbearGroundTruth(GroundTruthExtractor):
         self.flags.add(("DROPBEAR_3DES", "False"))        # Usually disabled for security
         
         # Message Authentication Codes (MACs)
-        self.flags.add(("DROPBEAR_SHA1_MAC", "False"))
-        self.flags.add(("DROPBEAR_SHA2_256_MAC", "True"))
+        # self.flags.add(("DROPBEAR_SHA1_MAC", "False"))
+        # self.flags.add(("DROPBEAR_SHA2_256_MAC", "True"))
         self.flags.add(("DROPBEAR_ENABLE_GCM_MODE", "False"))
         
         # Key Exchange (KEX)
         self.flags.add(("DROPBEAR_CURVE25519", "True"))
         self.flags.add(("DROPBEAR_ECDH", "True"))
         self.flags.add(("DROPBEAR_DH_GROUP14_SHA1", "False"))
-        self.flags.add(("DROBPBEAR_DH_GROUP14_SHA256","False"))
+        # self.flags.add(("DROBPBEAR_DH_GROUP14_SHA256","False"))
         
         # Server Options
         self.flags.add(("DO_HOST_LOOKUP", "False"))

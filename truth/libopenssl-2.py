@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 
 
-class LibopensslGroundTruth(GroundTruthExtractor):
+class OpensslGroundTruth(GroundTruthExtractor):
     def __init__(self):
         self.flags = set()
 

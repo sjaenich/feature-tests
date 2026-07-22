@@ -22,8 +22,9 @@ class ExpatGroundTruth(GroundTruthExtractor):
         # These control how Expat seeds its hash salt to prevent HashDoS.
         self.flags.add(("XML_DEV_URANDOM", "True"))
         self.flags.add(("HAVE_GETRANDOM", "True"))
+
         self.flags.add(("HAVE_SYSCALL_GETRANDOM", "True"))
-        self.flags.add(("HAVE_ARC4RANDOM_BUF", "True"))
+        # self.flags.add(("HAVE_ARC4RANDOM_BUF", "True"))
         self.flags.add(("HAVE_ARC4RANDOM", "False"))
         
         # Memory & Context (--with-context-bytes)

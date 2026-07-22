@@ -13,6 +13,9 @@ class GroundTruthExtractor:
         return ""
 
 
+    def clean_conflicts(self):
+        pass
+
     def load_flags_from_config(self, config_path):
   
         # Extract only the flag names we care about

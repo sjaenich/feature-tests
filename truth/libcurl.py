@@ -1,4 +1,4 @@
-from .config_truth import GroundTruthExtractor
+from .config_truth import GroundTruthExtractor, dict_to_set, set_to_dict
 import subprocess
 import re
 import shutil
@@ -65,7 +65,7 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         self.flags.add(('CURL_DISABLE_COOKIES', 'False'))
         self.flags.add(('CURL_DISABLE_TELNET', 'True'))
         self.flags.add(('USE_WOLFSSL', 'False'))
-        self.flags.add(('CURL_DISABLE_RTSP', 'False'))
+        # self.flags.add(('CURL_DISABLE_RTSP', 'False'))
         self.flags.add(('CURL_DISABLE_TFTP', 'False'))
         self.flags.add(('CURL_DISABLE_SMTP', 'False'))
         self.flags.add(('USE_LIBSSH2', 'True'))
@@ -74,10 +74,10 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         self.flags.add(('CURL_DISABLE_FTP', 'False'))
         self.flags.add(('CURL_DISABLE_HTTP_AUTH', 'False'))
         self.flags.add(('CURL_DISABLE_LDAPS', 'True'))
-        self.flags.add(('HAVE_LIBZ', 'True'))
-        self.flags.add(('HAVE_LIBSSL', 'True'))
-        self.flags.add(('NTLM_WB_ENABLED', 'True'))
-        self.flags.add(("ENABLE_IPV6", "True"))
+        # self.flags.add(('HAVE_LIBZ', 'True'))
+        # self.flags.add(('HAVE_LIBSSL', 'True'))
+        # self.flags.add(('NTLM_WB_ENABLED', 'True'))
+        # self.flags.add(("ENABLE_IPV6", "True"))
 
 
         # {('CURL_DISABLE_DICT', 'True'), ('CURL_DISABLE_FTP', 'False'), ('CURL_DISABLE_TFTP', 'False'), ('NTLM_WB_ENABLED', 'True'), ('CURL_DISABLE_LDAP', 'True'), ('USE_LIBSSH2', 'True'), ('CURL_DISABLE_FILE', 'False'), ('CURL_DISABLE_RTSP', 'False'), ('ENABLE_IPV6', 'True'), ('HAVE_LIBZ', 'True'), ('USE_GNUTLS', 'True'), ('CURL_DISABLE_PROXY', 'False'), ('CURL_DISABLE_CRYPTO_AUTH', 'False'), ('CURL_DISABLE_COOKIES', 'False'), ('CURL_DISABLE_SMTP', 'False'), ('CURL_DISABLE_GOPHER', 'True'), ('CURL_DISABLE_TELNET', 'True'), ('CURL_DISABLE_POP3', 'False'), ('CURL_DISABLE_VERBOSE_STRINGS', 'True'), ('USE_GNUTLS_PRIORITY_SET_DIRECT', 'False'), ('CURL_DISABLE_IMAP', 'False'), ('CURL_DISABLE_HTTP', 'False'), ('USE_ARES', 'True')}
@@ -93,9 +93,10 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         toggle_flags = [
             "CURL_DISABLE_FTP", "CURL_DISABLE_HTTP", "CURL_DISABLE_FILE",
             "CURL_DISABLE_SMTP", "CURL_DISABLE_POP3", "CURL_DISABLE_IMAP",
-            "CURL_DISABLE_SMB", "CURL_DISABLE_MQTT", "CURL_DISABLE_COOKIES",
+            "CURL_DISABLE_SMB",  "CURL_DISABLE_COOKIES",
             "CURL_DISABLE_CRYPTO_AUTH", "CURL_DISABLE_VERBOSE_STRINGS",
-            "CURL_DISABLE_PROXY", "USE_LIBZ" 
+            "CURL_DISABLE_PROXY"
+            # "USE_LIBZ" "CURL_DISABLE_MQTT",
         ]
         
         # Legacy/Obscure protocols you might want to keep disabled more often
@@ -128,7 +129,7 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         flags.add(("USE_THREADS_POSIX", "False"))
 
         flags.add(("USE_NGHTTP2", "False"))
-        flags.add(("USE_LIBIDN2", "False"))
+        # flags.add(("USE_LIBIDN2", "False"))
         flags.add(("USE_LIBSSH2","False"))
         flags.add(("USE_ARES", "False"))
 
@@ -141,6 +142,15 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         self.flags.add(("USE_WOLFSSL", "False"))
 
 
+
+    def clean_conflicts(self):
+        flags = set_to_dict(self.flags)
+
+        if flags["USE_GNUTLS"]:
+            flags["USE_GNUTLS"] = False
+            
+            
+        self.flags = dict_to_set(flags)
 
 
     def extract(self, config_h, name, src_dir):

@@ -29,7 +29,7 @@ class RsyncGroundTruth(GroundTruthExtractor):
         # --- Networking & Encoding ---
 
         self.flags.add(("INET6", "True"))                 # --enable-ipv6
-        self.flags.add(("ICONV_OPTION", "False"))  
+        # self.flags.add(("ICONV_OPTION", "False"))  
 
     def extract(self, config_h, name, src_dir):
         flags = self.flags
