@@ -6,136 +6,170 @@ import re
 import shutil
 from pathlib import Path
 
+import os
+import re
+import shutil
+
+from collections.abc import Iterable, Iterator
+from dataclasses import dataclass
+from pathlib import Path
+
+
+
+LIBCRYPTO_FEATURE_MACROS = (
+
+    "OPENSSL_NO_ARIA",
+    "OPENSSL_NO_ASYNC",
+    "OPENSSL_NO_ATEXIT",
+    "OPENSSL_NO_AUTOERRINIT",
+    "OPENSSL_NO_AUTOLOAD_CONFIG",
+    "OPENSSL_NO_BF",
+    "OPENSSL_NO_BLAKE2",
+    "OPENSSL_NO_CACHED_FETCH",
+    "OPENSSL_NO_CAMELLIA",
+    "OPENSSL_NO_CAST",
+    "OPENSSL_NO_CHACHA",
+    "OPENSSL_NO_CMAC",
+    "OPENSSL_NO_CMP",
+    "OPENSSL_NO_CMS",
+    "OPENSSL_NO_COMP",
+    "OPENSSL_NO_CRYPTO_MDEBUG",
+    "OPENSSL_NO_CT",
+    "OPENSSL_NO_DEFAULT_THREAD_POOL",
+    "OPENSSL_NO_DES",
+    "OPENSSL_NO_DGRAM",
+    "OPENSSL_NO_DH",
+    "OPENSSL_NO_DSA",
+    "OPENSSL_NO_EC",
+    "OPENSSL_NO_EC2M",
+    "OPENSSL_NO_ECX",
+    "OPENSSL_NO_ENGINE",
+    "OPENSSL_NO_ERR",
+    "OPENSSL_NO_HTTP",
+    "OPENSSL_NO_IDEA",
+    "OPENSSL_NO_MD2",
+    "OPENSSL_NO_MD4",
+    "OPENSSL_NO_MDC2",
+    "OPENSSL_NO_OCB",
+    "OPENSSL_NO_OCSP",
+    "OPENSSL_NO_PINSHARED",
+    "OPENSSL_NO_POLY1305",
+    "OPENSSL_NO_POSIX_IO",
+    "OPENSSL_NO_RC2",
+    "OPENSSL_NO_RC4",
+    "OPENSSL_NO_RFC3779",
+    "OPENSSL_NO_RMD160",
+    "OPENSSL_NO_SCRYPT",
+    "OPENSSL_NO_SEED",
+    "OPENSSL_NO_SM2",
+    "OPENSSL_NO_SM4",
+    "OPENSSL_NO_SOCK",
+    "OPENSSL_NO_SRP",
+    "OPENSSL_NO_STDIO",
+    "OPENSSL_NO_TS",
+    "OPENSSL_NO_UI_CONSOLE",
+
+)
+
+
+# These reproduce the relevant Configure disable cascades among the macros
+# included in LIBCRYPTO_FEATURE_MACROS.
+DISABLE_CASCADES = {
+    "OPENSSL_NO_BLAKE2": {
+        "OPENSSL_NO_ARGON2",
+    },
+ 
+    "OPENSSL_NO_DES": {
+        "OPENSSL_NO_MDC2",
+    },
+    "OPENSSL_NO_EC": {
+        "OPENSSL_NO_EC2M",
+        "OPENSSL_NO_ECX",
+        "OPENSSL_NO_SM2",
+    },
+    "OPENSSL_NO_CMAC": {
+        "OPENSSL_NO_SIV",
+    },
+    "OPENSSL_NO_SM3": {
+        "OPENSSL_NO_SM2",
+    },
+    "OPENSSL_NO_ENGINE": {
+        "OPENSSL_NO_LOADERENG",
+        
+    },
+    "OPENSSL_NO_HTTP": {
+        "OPENSSL_NO_OCSP",
+    },
+    "OPENSSL_NO_SOCK": {
+        "OPENSSL_NO_DGRAM",
+    },
+
+    "OPENSSL_NO_THREAD_POOL": {
+        "OPENSSL_NO_DEFAULT_THREAD_POOL",
+    },
+}
 
 class OpensslGroundTruth(GroundTruthExtractor):
     def __init__(self):
-        self.flags = set()
-
-        # Only user-controllable OpenSSL feature macros that materially affect libcrypto.
-        # These are negative feature macros: True means the feature is disabled.
-        self.flags.add(("OPENSSL_NO_ARIA", "False"))
-        self.flags.add(("OPENSSL_NO_BF", "False"))
-        self.flags.add(("OPENSSL_NO_CAMELLIA", "False"))
-        self.flags.add(("OPENSSL_NO_CAST", "False"))
-        self.flags.add(("OPENSSL_NO_DES", "False"))
-        self.flags.add(("OPENSSL_NO_IDEA", "False"))
-        self.flags.add(("OPENSSL_NO_MD4", "False"))
-        self.flags.add(("OPENSSL_NO_OCB", "False"))
-        self.flags.add(("OPENSSL_NO_RC2", "False"))
-        self.flags.add(("OPENSSL_NO_RC4", "False"))
-        self.flags.add(("OPENSSL_NO_SCRYPT", "False"))
-        self.flags.add(("OPENSSL_NO_SEED", "False"))
-        self.flags.add(("OPENSSL_NO_SIPHASH", "False"))
-        self.flags.add(("OPENSSL_NO_SM2", "False"))
-        self.flags.add(("OPENSSL_NO_SM3", "False"))
-        self.flags.add(("OPENSSL_NO_SM4", "False"))
-        self.flags.add(("OPENSSL_NO_WHIRLPOOL", "False"))
-
-        # Optional wider crypto search space:
-        self.flags.add(("OPENSSL_NO_BLAKE2", "False"))
-        self.flags.add(("OPENSSL_NO_CHACHA", "False"))
-        self.flags.add(("OPENSSL_NO_POLY1305", "False"))
-        self.flags.add(("OPENSSL_NO_CMAC", "False"))
-        self.flags.add(("OPENSSL_NO_CMP", "False"))
-        self.flags.add(("OPENSSL_NO_CMS", "False"))
-        self.flags.add(("OPENSSL_NO_EC", "False"))
-        self.flags.add(("OPENSSL_NO_DH", "False"))
-        self.flags.add(("OPENSSL_NO_DSA", "False"))
+        # These are negative feature macros:
+        #
+        #   True  -> OPENSSL_NO_* is defined; feature is disabled.
+        #   False -> OPENSSL_NO_* is undefined; feature is enabled.
+        self.flags = {
+            (macro_name, "False")
+            for macro_name in LIBCRYPTO_FEATURE_MACROS
+        }
+        
 
     def mix(self):
+        
         f = set_to_dict(self.flags)
 
-        independent = [
-            "OPENSSL_NO_ARIA",
-            "OPENSSL_NO_BF",
-            "OPENSSL_NO_CAMELLIA",
-            "OPENSSL_NO_CAST",
-            "OPENSSL_NO_DES",
-            "OPENSSL_NO_IDEA",
-            "OPENSSL_NO_MD4",
-            "OPENSSL_NO_OCB",
-            "OPENSSL_NO_RC2",
-            "OPENSSL_NO_RC4",
-            "OPENSSL_NO_SCRYPT",
-            "OPENSSL_NO_SEED",
-            "OPENSSL_NO_SIPHASH",
-            "OPENSSL_NO_SM2",
-            "OPENSSL_NO_SM3",
-            "OPENSSL_NO_SM4",
-            "OPENSSL_NO_WHIRLPOOL",
-            "OPENSSL_NO_BLAKE2",
-            "OPENSSL_NO_CHACHA",
-            "OPENSSL_NO_POLY1305",
-            "OPENSSL_NO_CMAC",
-            "OPENSSL_NO_CMP",
-            "OPENSSL_NO_CMS",
-            "OPENSSL_NO_EC",
-            "OPENSSL_NO_DH",
-            "OPENSSL_NO_DSA",
-        ]
+        # Randomize every user-controllable macro.
+        for macro_name in LIBCRYPTO_FEATURE_MACROS:
+            if macro_name in f:
+                f[macro_name] = random.choice([True, False])
 
-        for key in independent:
-            if key in f:
-                f[key] = random.choice([True, False])
+        # Apply disable cascades to a fixed point. A fixed-point loop is
+        # necessary for chains such as:
+        #
+        #   OPENSSL_NO_SOCK
+        #       -> OPENSSL_NO_DGRAM
+        #       -> OPENSSL_NO_SCTP
+        changed = True
 
-        # Conservative dependency handling for the SM family:
-        # disabling SM3 usually makes SM2 much less meaningful.
-        if f.get("OPENSSL_NO_SM3", False):
-            f["OPENSSL_NO_SM2"] = True
+        while changed:
+            changed = False
 
+            for parent_macro, dependent_macros in DISABLE_CASCADES.items():
+                if not f.get(parent_macro, False):
+                    continue
+
+                for dependent_macro in dependent_macros:
+                    if (
+                        dependent_macro in f
+                        and not f[dependent_macro]
+                    ):
+                        f[dependent_macro] = True
+                        changed = True
+
+
+        # f["OPENSSL_NO_JITTER"] = True
         self.flags = dict_to_set(f)
+        
 
     def extract(self, config_h, name, src_dir):
-        flags = self.flags
+        
+        flags = set()
+        flags.update(self.flags)
 
         # Restrict to macros that actually appear in libcrypto-relevant code.
         flags = self.remove_dead_macros(src_dir, flags)
-
+        
         only_flags = {flag for (flag, _) in flags}
         flags = self.modify_config_h(config_h, name, only_flags)
         return flags
 
-    def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:
-        DEFINE_RE = re.compile(r'^\s*#\s*define\s+([A-Z0-9_]+)\b')
-        UNDEF_RE = re.compile(r'^\s*/\*\s*#\s*undef\s+([A-Z0-9_]+)\s*\*/\s*$')
-
-        path = str(config_h)
-        out_path = f"/workspaces/RevEng/header/other_defines/other_defines_{name}.h"
-        destination = f"/workspaces/RevEng/header/libraries/{name}.h"
-
-        updated_flags = set()
-
-        with open(path, "r", encoding="utf-8", errors="ignore") as f, \
-             open(destination, "w", encoding="utf-8") as dest, \
-             open(out_path, "w", encoding="utf-8") as out:
-
-            out.write("/* OpenSSL/libcrypto - User-Controllable Feature Flags */\n\n")
-
-            for line in f:
-                handled = False
-
-                m_def = DEFINE_RE.match(line)
-                if m_def:
-                    macro_name = m_def.group(1)
-                    if macro_name in flags:
-                        updated_flags.add((macro_name, "True"))
-                        dest.write(line)
-                        handled = True
-
-                m_undef = UNDEF_RE.match(line)
-                if m_undef:
-                    macro_name = m_undef.group(1)
-                    if macro_name in flags:
-                        updated_flags.add((macro_name, "False"))
-                        dest.write(line)
-                        handled = True
-
-                if not handled:
-                    if line.lstrip().startswith("#define"):
-                        out.write(line)
-
-        shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
-        return updated_flags
 
     def remove_dead_macros(self, src_dir: Path, macros) -> set:
         """
@@ -143,13 +177,11 @@ class OpensslGroundTruth(GroundTruthExtractor):
         Search crypto/ plus public headers, not the whole OpenSSL tree.
         """
         search_roots = [
-            src_dir / "crypto",
-            src_dir / "include",
-            src_dir / "providers",  # optional but often relevant in OpenSSL 3.x
+            src_dir
         ]
 
         unused = []
-
+        print("Source directory:", src_dir)
         for (macro, _) in macros:
             found = False
             for root in search_roots:
@@ -168,5 +200,69 @@ class OpensslGroundTruth(GroundTruthExtractor):
 
             if not found:
                 unused.append(macro)
-
+        print("Unused macros:", unused)
         return {m for m in macros if m[0] not in unused}
+
+    def modify_config_h(self, config_h, name: str, flags: set[str]):
+        block_re = re.compile(
+            r"""
+            ^[^\S\r\n]*\#[^\S\r\n]*ifndef[^\S\r\n]+
+            (?P<guard>[A-Za-z_][A-Za-z0-9_]*)[^\S\r\n]*\r?\n
+
+            ^[^\S\r\n]*\#[^\S\r\n]*define[^\S\r\n]+
+            (?P<define>[A-Za-z_][A-Za-z0-9_]*)[^\S\r\n]*\r?\n
+
+            ^[^\S\r\n]*\#[^\S\r\n]*endif\b[^\r\n]*(?:\r?\n|$)
+            """,
+            re.MULTILINE | re.VERBOSE,
+        )
+
+        path = str(config_h)
+        destination = f"/workspaces/RevEng/header/libraries/{name}.h"
+        out_path = (
+            f"/workspaces/RevEng/header/other_defines/"
+            f"other_defines_{name}.h"
+        )
+
+        updated_flags = set()
+        single_flags = set()
+        with open(path, "r", encoding="utf-8", errors="ignore") as source:
+            content = source.read()
+
+        with (
+            open(destination, "w", encoding="utf-8") as dest,
+            open(out_path, "w", encoding="utf-8") as out,
+        ):
+            out.write("/* Auto-extracted non-boolean defines */\n\n")
+
+            for match in block_re.finditer(content):
+                guard_name = match.group("guard")
+                macro_name = match.group("define")
+          
+                # Ensure #ifndef and #define refer to the same macro.
+                
+                if guard_name != macro_name:
+                    continue
+
+                block = match.group(0)
+
+                if macro_name in flags:                    
+                    updated_flags.add((macro_name, "True"))
+                    single_flags.add(macro_name)
+                    dest.write(f"#define {macro_name}\n")
+                else:
+                    out.write(block)
+
+
+
+            
+            for macro_name in flags:
+                if macro_name not in single_flags:
+                    updated_flags.add((macro_name, "True"))
+                    dest.write(f"#define {macro_name}\n")
+        shutil.move(
+            path,
+            f"/workspaces/RevEng/header/libraries/{name}.old.h",
+        )
+
+        return updated_flags

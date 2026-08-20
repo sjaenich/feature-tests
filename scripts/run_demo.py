@@ -243,11 +243,11 @@ if __name__ == "__main__":
     # ,
     # Project(
     #     name = "dbus",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dbus-1.14.10/config.h"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
     #                "cflags": "",
     #                "include": ""
     #                },
@@ -318,18 +318,18 @@ if __name__ == "__main__":
     # ,
     # Project(
     #     name = "ncurses",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/ncurses/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/ncurses/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/lib/libncurses.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/include/ncurses_cfg.h"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/ncurses/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/ncurses/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/lib/libncurses.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/include/ncurses_cfg.h"),
     #               "cflags":"",
-    #                "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/ncurses-6.4-20230603/include/"},
+    #                "include": "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/include/"},
     # )  
 
    
     
-    # # ,
+    # ,
     # Project(
     #     name = "pcre2",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
@@ -346,29 +346,29 @@ if __name__ == "__main__":
     # ,
     # Project(
     #     name = "rsync",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/rsync"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/rsync-3.4.1/config.h"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/rsync"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/config.h"),
     #                "cflags": "",
     #                 "include": ""
     #               },
     # )  
 
 
-    # ,
-    # Project(
-    #     name = "tcpdump",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/tcpdump"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/tcpdump-4.99.5/config.h"),
-    #                "cflags": "",
-    #                "include": ""
-    #               },
-    # )  
+    # # ,
+    # # Project(
+    # #     name = "tcpdump",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/tcpdump-4.99.5/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/tcpdump-4.99.5/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/tcpdump-4.99.5/tcpdump"),
+    # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/tcpdump-4.99.5/config.h"),
+    # #                "cflags": "",
+    # #                "include": ""
+    # #               },
+    # # )  
     # ,
     # Project(
     #     name = "xz",
@@ -384,11 +384,11 @@ if __name__ == "__main__":
     # ,
     # Project(
     #     name="sqlite",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/sqlite3"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/sqlite-3.48.0/README.txt"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/sqlite-3.48.0/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/sqlite-3.48.0/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/sqlite-3.48.0/sqlite3"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/sqlite-3.48.0/README.txt"),
     #               "cflags": "-DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_STAT4 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_GEOPOLY -DSQLITE_ENABLE_MATH_FUNCTIONS",
     #                "include": ""
     #               }
@@ -397,53 +397,53 @@ if __name__ == "__main__":
     # ,
     # Project(
     #     name="libxml2",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/.libs/libxml2.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxml2-2.13.8/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxml2-2.13.8/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxml2-2.13.8/.libs/libxml2.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxml2-2.13.8/include/libxml/xmlversion.h"),
     #               "cflags": "",
-    #                "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libxml2-2.13.8/include/"
+    #                "include": "/workspaces/RevEng/buildroot-2025.copy/output/build/libxml2-2.13.8/include/"
     #               }
     # )
 
 
-    # ,
-    # Project(
-    #     name="libxslt",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
-    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libxslt-1.1.42/config.h"),
-    #                 "cflags": "",
-    #                "include": ""
-    #                 }
-    # )   
+    # # ,
+    # # Project(
+    # #     name="libxslt",
+    # #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxslt-1.1.42/libxslt/"),
+    # #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    # #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/"),
+    # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxslt-1.1.42/libxslt/.libs/libxslt.so"),
+    # #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libxslt-1.1.42/config.h"),
+    # #                 "cflags": "",
+    # #                "include": ""
+    # #                 }
+    # # )   
 
     # ,
-    # Project(
-    #     name="libssh2",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/.libs/libssh2.so"),
-    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libssh2-1.11.0/src/libssh2_config.h"),
-    #                 "cflags": "",
-    #                 "include": ""
-    #                 }
-    # )   
+    Project(
+        name="libssh2",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/libssh2-1.11.0/src/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/libssh2-1.11.0/src/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/libssh2-1.11.0/src/.libs/libssh2.so"),
+                    "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/libssh2-1.11.0/src/libssh2_config.h"),
+                    "cflags": "",
+                    "include": ""
+                    }
+    )   
     # ,
 
 
     
     # Project(
     #     name="libvpx",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/libvpx.so"),
-    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libvpx-1.15.0/vpx_config.h"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libvpx-1.15.0/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libvpx-1.15.0"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libvpx-1.15.0/libvpx.so"),
+    #                 "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libvpx-1.15.0/vpx_config.h"),
     #                 "cflags": ""
     #                 }
     # )
@@ -451,37 +451,37 @@ if __name__ == "__main__":
 
     # Project(
     #     name="libarchive",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/libarchive/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/.libs/libarchive.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libarchive-3.7.9/config.h"),
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libarchive-3.7.9/libarchive/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libarchive-3.7.9/libarchive/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libarchive-3.7.9/.libs/libarchive.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libarchive-3.7.9/config.h"),
     #                 "cflags": '',
     #                 "include":""
     #               }
     # )
 
-    # # ,
-    Project(
-    name="libopenssl",
-    source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
-    build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
-    metadata={
-        "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
-        "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/opensslconf.h"),
-        "cflags": "",
-        "include": ""
-    })
     # ,
     # Project(
     # name="libopenssl",
-    # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/ssl"),
+    # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
     # build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
     # include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
     # metadata={
-    #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libssl.so"),
+    #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
     #     "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/configuration.h"),
+    #     "cflags": "",
+    #     "include": ""
+    # })
+    # ,
+    # Project(
+    # name="libopenssl",
+    # source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libopenssl-3.4.1/ssl"),
+    # build_dir=Path("/workspaces/RevEng/buildroot-2025.copy/"),
+    # include_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libopenssl-3.4.1/include/"),
+    # metadata={
+    #     "binary": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libopenssl-3.4.1/libssl.so"),
+    #     "config_h": Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libopenssl-3.4.1/include/openssl/configuration.h"),
     #     "cflags": "",
     #     "include": ""
     # }

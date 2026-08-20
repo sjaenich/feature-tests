@@ -1,4 +1,6 @@
-from .config_truth import GroundTruthExtractor
+import random
+
+from .config_truth import GroundTruthExtractor, dict_to_set, set_to_dict
 import subprocess
 import re
 import shutil
@@ -51,6 +53,135 @@ class LiblzmaFeatureTruth(GroundTruthExtractor):
         
         # Small-footprint mode (--enable-small)
         self.flags.add(("HAVE_SMALL", "False"))
+
+
+    def mix(self):
+        flags = set_to_dict(self.flags)
+
+        archs = [
+            "X86",
+            "ARM",
+            "ARM64",
+            "ARMTHUMB",
+            "POWERPC",
+            "IA64",
+            "SPARC",
+            "RISCV",
+        ]
+
+        filters = ["LZMA1", "LZMA2", "DELTA", *archs]
+
+        encoder_flags = [f"HAVE_ENCODER_{name}" for name in filters]
+        decoder_flags = [f"HAVE_DECODER_{name}" for name in filters]
+        match_finder_flags = [
+            "HAVE_MF_HC3",
+            "HAVE_MF_HC4",
+            "HAVE_MF_BT2",
+            "HAVE_MF_BT3",
+            "HAVE_MF_BT4",
+        ]
+
+        # --- Step 1: randomize independent flags ---
+
+        flags["HAVE_SMALL"] = random.choice([True, False])
+
+        # CRC32 is mandatory in XZ Utils.
+        flags["HAVE_CHECK_CRC32"] = True
+        flags["HAVE_CHECK_CRC64"] = random.choice([True, False])
+        flags["HAVE_CHECK_SHA256"] = random.choice([True, False])
+
+        # --- Step 2: randomize encoder and decoder controls ---
+
+        enable_encoders = random.choice([True, False])
+        enable_decoders = random.choice([True, False])
+
+        for key in encoder_flags:
+            flags[key] = (
+                random.choice([True, False])
+                if enable_encoders
+                else False
+            )
+
+        for key in decoder_flags:
+            flags[key] = (
+                random.choice([True, False])
+                if enable_decoders
+                else False
+            )
+
+        # An enabled encoder/decoder group must contain at least one filter.
+        if enable_encoders and not any(flags[key] for key in encoder_flags):
+            flags[random.choice(encoder_flags)] = True
+
+        if enable_decoders and not any(flags[key] for key in decoder_flags):
+            flags[random.choice(decoder_flags)] = True
+
+        # --- Step 3: enforce dependencies ---
+
+        # LZMA2 requires LZMA1.
+        if flags["HAVE_ENCODER_LZMA2"]:
+            flags["HAVE_ENCODER_LZMA1"] = True
+
+        if flags["HAVE_DECODER_LZMA2"]:
+            flags["HAVE_DECODER_LZMA1"] = True
+
+        # Aggregate macros are derived from the individual filters.
+        flags["HAVE_ENCODERS"] = any(
+            flags[key] for key in encoder_flags
+        )
+        flags["HAVE_DECODERS"] = any(
+            flags[key] for key in decoder_flags
+        )
+
+        # Match finders are only built for LZMA encoders.
+        have_lz_encoder = (
+            flags["HAVE_ENCODER_LZMA1"]
+            or flags["HAVE_ENCODER_LZMA2"]
+        )
+
+        if have_lz_encoder:
+            for key in match_finder_flags:
+                flags[key] = random.choice([True, False])
+
+            # At least one match finder is required for LZMA encoding.
+            if not any(flags[key] for key in match_finder_flags):
+                flags[random.choice(match_finder_flags)] = True
+        else:
+            for key in match_finder_flags:
+                flags[key] = False
+
+        # --- Step 4: write back ---
+
+        self.flags = dict_to_set(flags)
+
+    def clean_conflicts(self):
+        print("Cleaning conflicts for liblzma...")
+        flags = set_to_dict(self.flags)
+        print("Flags before cleaning:", flags)
+        flags['HAVE_DECODERS'] = False
+        flags["HAVE_ENCODERS"] = False
+        archs = ["X86", "ARM", "ARM64", "ARMTHUMB", "POWERPC", "IA64", "SPARC", "RISCV"]
+        for arch in archs:
+            if f"HAVE_ENCODER_{arch}" in flags:
+                if flags[f"HAVE_ENCODER_{arch}"]:
+                    flags["HAVE_ENCODERS"] = True
+            if f"HAVE_DECODER_{arch}" in flags:        
+                if flags[f"HAVE_DECODER_{arch}"]:
+                    flags["HAVE_DECODERS"] = True
+            
+                # Add core filters and LZMA
+        for tech in ["LZMA1", "LZMA2", "DELTA"]:
+            if f"HAVE_ENCODER_{tech}" in flags:
+                if flags[f"HAVE_ENCODER_{tech}"]:
+                    flags["HAVE_ENCODERS"] = True
+            
+            if f"HAVE_DECODER_{tech}" in flags:
+                if flags[f"HAVE_DECODER_{tech}"]:
+                    flags["HAVE_DECODERS"] = True
+        
+                    
+        self.flags = dict_to_set(flags)
+
 
 
     def extract(self, config_h, name, src_dir):

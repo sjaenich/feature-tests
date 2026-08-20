@@ -1,7 +1,7 @@
-from .config_truth import GroundTruthExtractor
+from .config_truth import GroundTruthExtractor, dict_to_set, set_to_dict
 import random 
-
-
+import re
+import shutil
 
 class Libxml2GroundTruth(GroundTruthExtractor):
 
@@ -38,7 +38,7 @@ class Libxml2GroundTruth(GroundTruthExtractor):
         self.flags.add(("LIBXML_SAX1_ENABLED", "True"))
 
         self.flags.add(("LIBXML_SCHEMAS_ENABLED", "True"))
-        self.flags.add(("LIBXML_RELAXNG_ENABLED", "True"))
+        # self.flags.add(("LIBXML_RELAXNG_ENABLED", "True"))
 
         self.flags.add(("LIBXML_SCHEMATRON_ENABLED", "True"))
 
@@ -69,75 +69,197 @@ class Libxml2GroundTruth(GroundTruthExtractor):
         # 1. Convert set of tuples (String) to a working dictionary (Bool)
         flags = {k: (v == "True") for k, v in self.flags}
         
-        # 2. CORE PROTECTION
-        # Without TREE and OUTPUT, the library is essentially useless and 
-        # many other modules will fail to link.
+        # Simplifies the dependency graph.
         flags["LIBXML_TREE_ENABLED"] = True
         flags["LIBXML_OUTPUT_ENABLED"] = True
-        
-        # 3. HIERARCHICAL MIXING (Top-Down)
-        
-        # --- Level 1: XPath ---
-        # XPath is the most common parent dependency.
+
+        # Independent parent capabilities.
         flags["LIBXML_XPATH_ENABLED"] = random.choice([True, False])
-        
-        if not flags["LIBXML_XPATH_ENABLED"]:
-            # If XPath is off, these MUST be off
-            flags["LIBXML_XPTR_ENABLED"] = False
-            flags["LIBXML_XPTR_LOCS_ENABLED"] = False
-            flags["LIBXML_SCHEMAS_ENABLED"] = False
-            flags["LIBXML_SCHEMATRON_ENABLED"] = False
-            flags["LIBXML_RELAXNG_ENABLED"] = False
-            flags["LIBXML_C14N_ENABLED"] = False
-        else:
-            # If XPath is on, we can roll for its children
-            flags["LIBXML_XPTR_ENABLED"] = random.choice([True, False])
-            flags["LIBXML_SCHEMAS_ENABLED"] = random.choice([True, False])
-            flags["LIBXML_RELAXNG_ENABLED"] = random.choice([True, False])
-            flags["LIBXML_C14N_ENABLED"] = random.choice([True, False])
-            
-            # XPointer Locations specifically need XPointer
-            if flags["LIBXML_XPTR_ENABLED"]:
-                flags["LIBXML_XPTR_LOCS_ENABLED"] = random.choice([True, False])
-            else:
-                flags["LIBXML_XPTR_LOCS_ENABLED"] = False
-
-        # --- Level 2: Regexp ---
-        # Schemas and Schematron require the Regexp engine.
+        flags["LIBXML_PATTERN_ENABLED"] = random.choice([True, False])
         flags["LIBXML_REGEXP_ENABLED"] = random.choice([True, False])
-        if not flags["LIBXML_REGEXP_ENABLED"]:
-            flags["LIBXML_SCHEMAS_ENABLED"] = False
-            flags["LIBXML_SCHEMATRON_ENABLED"] = False
-        else:
-            # If Regexp is on AND XPath is on, we can enable Schematron
-            if flags["LIBXML_XPATH_ENABLED"]:
-                flags["LIBXML_SCHEMATRON_ENABLED"] = random.choice([True, False])
+        flags["LIBXML_PUSH_ENABLED"] = random.choice([True, False])
 
-        # 4. STANDALONE FEATURES
-        # These are generally safe to toggle independently.
+        # XPath-dependent features.
+        flags["LIBXML_XPTR_ENABLED"] = (
+            flags["LIBXML_XPATH_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        flags["LIBXML_XPTR_LOCS_ENABLED"] = (
+            flags["LIBXML_XPTR_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        flags["LIBXML_XINCLUDE_ENABLED"] = (
+            flags["LIBXML_XPATH_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        flags["LIBXML_C14N_ENABLED"] = (
+            flags["LIBXML_XPATH_ENABLED"]
+            and flags["LIBXML_OUTPUT_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        # Schematron requires pattern, tree, and XPath—not regexp.
+        flags["LIBXML_SCHEMATRON_ENABLED"] = (
+            flags["LIBXML_PATTERN_ENABLED"]
+            and flags["LIBXML_TREE_ENABLED"]
+            and flags["LIBXML_XPATH_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        # In libxml2 2.13.8, Autotools couples Schemas and RelaxNG.
+        schemas_enabled = (
+            flags["LIBXML_PATTERN_ENABLED"]
+            and flags["LIBXML_REGEXP_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        flags["LIBXML_SCHEMAS_ENABLED"] = schemas_enabled
+        # flags["LIBXML_RELAXNG_ENABLED"] = schemas_enabled
+
+        # Reader and writer depend on push parsing.
+        flags["LIBXML_READER_ENABLED"] = (
+            flags["LIBXML_PUSH_ENABLED"]
+            and flags["LIBXML_TREE_ENABLED"]
+            and random.choice([True, False])
+        )
+
+        flags["LIBXML_WRITER_ENABLED"] = (
+            flags["LIBXML_PUSH_ENABLED"]
+            and flags["LIBXML_OUTPUT_ENABLED"]
+            and random.choice([True, False])
+        )
+
+
+        flags["LIBXML_FTP_ENABLED"] = False
+        flags["LIBXML_DEBUG_ENABLED"] = False
+
+        # Actually independent at this dependency level.
         independents = [
-            "LIBXML_HTML_ENABLED", "LIBXML_PUSH_ENABLED", "LIBXML_READER_ENABLED", 
-            "LIBXML_WRITER_ENABLED", "LIBXML_SAX1_ENABLED", "LIBXML_XINCLUDE_ENABLED",
-            "LIBXML_CATALOG_ENABLED", "LIBXML_DEBUG_ENABLED", "LIBXML_MODULES_ENABLED",
-            "LIBXML_HTTP_ENABLED", "LIBXML_FTP_ENABLED", "LIBXML_VALID_ENABLED"
+            "LIBXML_HTML_ENABLED",
+            "LIBXML_SAX1_ENABLED",
+            "LIBXML_CATALOG_ENABLED",
+            "LIBXML_MODULES_ENABLED",
+            "LIBXML_HTTP_ENABLED",
+            "LIBXML_VALID_ENABLED",
         ]
-        for key in independents:
-            if key in flags:
-                flags[key] = random.choice([True, False])
 
-        # 5. EXTERNAL LIBRARIES (Safety)
-        # Only set to True if you are sure they are in your Buildroot environment.
-        flags["LIBXML_ZLIB_ENABLED"] = False  # Avoid 'undefined reference to inflate'
-        flags["LIBXML_LZMA_ENABLED"] = False
-        flags["LIBXML_ICONV_ENABLED"] = True  # Usually safe on Linux/ARM
+        for key in independents:
+            flags[key] = random.choice([True, False])
 
         # 6. Convert back to set of tuples for the rest of your pipeline
         self.flags = {(k, str(v)) for k, v in flags.items()}
 
 
 
+    def clean_conflicts(self):
+        flags = set_to_dict(self.flags)
+        flags["LIBXML_FTP_ENABLED"] = False
+        flags["LIBXML_DEBUG_ENABLED"] = False
+        if any(
+            flags[name]
+            for name in (
+                "LIBXML_XPTR_ENABLED",
+                # "LIBXML_XPTR_LOCS_ENABLED",
+                "LIBXML_SCHEMAS_ENABLED",
+                "LIBXML_SCHEMATRON_ENABLED",
+                # "LIBXML_RELAXNG_ENABLED",
+                "LIBXML_C14N_ENABLED",
+            )
+        ):
+            flags["LIBXML_XPATH_ENABLED"] = True
+        
+        if (
+            flags["LIBXML_SCHEMAS_ENABLED"]
+            # or flags["LIBXML_RELAXNG_ENABLED"]
+        ):
+            flags["LIBXML_PATTERN_ENABLED"] = True
+            flags["LIBXML_REGEXP_ENABLED"] = True
+            flags["LIBXML_AUTOMATA_ENABLED"] = True
+
+
+        if flags["LIBXML_WRITER_ENABLED"]:
+            flags["LIBXML_OUTPUT_ENABLED"] = True
+            flags["LIBXML_PUSH_ENABLED"] = True
+            flags["LIBXML_TREE_ENABLED"] = True
+
+
+        if (
+            flags["LIBXML_CATALOG_ENABLED"] == True
+            and flags["LIBXML_OUTPUT_ENABLED"] == True
+        ):
+            flags["LIBXML_TREE_ENABLED"] = True
+
+
+
+        self.flags = dict_to_set(flags)
+
+
+
     def extract(self, config_h, name, src_dir):
-        flags = self.flags
+        flags = set()
+        flags.update(self.flags)
 
-
+                # Remove unused macros based on source usage
+        flags = self.remove_dead_macros(src_dir, flags)
+        print("Remaining macros after removing unused ones:", flags)
+        only_flags = {flag for (flag, _) in flags}
+        print("Only flag names:", only_flags)
+        flags = self.modify_config_h(config_h, name, only_flags)
+        print("Final set of macros after modifying config.h:", flags)
         return flags
+        
+
+
+    def modify_config_h(self, config_h, name: str, flags: set[str]):
+        IF_RE = re.compile(r"^\s*#if\s+([01])\s*$")
+        DEFINE_RE = re.compile(r"^\s*#define\s+([A-Za-z_][A-Za-z0-9_]*)\s*$")
+        ENDIF_RE = re.compile(r"^\s*#endif\b")
+
+        path = str(config_h)
+        destination = f"/workspaces/RevEng/header/libraries/{name}.h"
+        out_path = (
+            f"/workspaces/RevEng/header/other_defines/"
+            f"other_defines{name}.h"
+        )
+
+        updated_flags = set()
+
+        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+            lines = f.readlines()
+
+        with open(destination, "w", encoding="utf-8") as dest, \
+            open(out_path, "w", encoding="utf-8") as out:
+
+            out.write("/* Auto-extracted non-boolean defines */\n\n")
+
+            i = 0
+            while i < len(lines):
+                if (
+                    i + 2 < len(lines)
+                    and (if_match := IF_RE.match(lines[i]))
+                    and (define_match := DEFINE_RE.match(lines[i + 1]))
+                    and ENDIF_RE.match(lines[i + 2])
+                ):
+                    enabled = if_match.group(1) == "1"
+                    macro_name = define_match.group(1)
+                    block = lines[i:i + 3]
+
+                    if macro_name in flags:
+                        updated_flags.add((macro_name, str(enabled)))
+                        dest.writelines(block)
+                    else:
+                        out.writelines(block)
+
+                    i += 3
+                    continue
+
+                i += 1
+
+        shutil.move(
+            path,
+            f"/workspaces/RevEng/header/libraries/{name}.old.h",
+        )
+        return updated_flags

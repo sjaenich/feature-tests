@@ -36,7 +36,7 @@ def load_strings(path: str) -> set[str]:
     if not p.exists():
         return set()
     with open(p, "r", errors="ignore") as f:
-        return {line.strip() for line in f if line.strip()}
+        return {line.rstrip("\r\n") for line in f if line.strip()}
 
 def append_new_strings(path: str, strings: set[str]) -> int:
     p = Path(path)
@@ -65,87 +65,6 @@ class ExperimentRunner:
         self.recovery = recovery
         self.truth_extractor = truth_extractor
         self.comparator = comparator
-
-    def run_project(self, project: Project, stage:str) -> ExperimentResult:
-        
-
-        build_res = self.build_manager.build(project, self.truth_extractor)
-        if not build_res.success:
-            return ExperimentResult(
-                project.name, False, False, None, None, None, "build failed"
-            )
-
-        extractor = BuildErrorPresenceExtractor(
-            source_root=project.source_dir,
-            superc=self.superc,
-        )
-        
-        errors = extractor.parse_log_text(build_res.stdout + "\n" + build_res.stderr)
-
-
-
-        config_h = self.locator.locate(project, project.source_dir)
-        config_h = project.metadata.get("config_h", None)
-        if not config_h:
-            return ExperimentResult(
-                project.name, True, False, None, None, None, "config.h not found"
-            )
-
-        gt = self.truth_extractor.extract(config_h, project.name, project.source_dir)
-        # gt = self.truth_extractor.remove_dead_macros(project.source_dir, self.truth_extractor.flags)
-
-        
-
-        if not build_res.binary_paths:
-            return ExperimentResult(
-                project.name, True, True, None, None, None, "no binaries"
-            )
-        print("THIS IS BIN", build_res.binary_paths)
-
-        rec = self.recovery.run(project, build_res.binary_paths[0], config_h, stage)
-        print("Rec flags:", rec.flags)
-        print("GT flags:", gt)
-        cmp_res = self.comparator.compare(rec.flags, gt)
-
-
-        with open(f"/workspaces/RevEng/{project.name}_stripped_strings.txt", "r") as f:
-            unique_strings = list(set(line.strip() for line in f if line.strip()))
-            string_count = len(unique_strings)
-
-        logger =logging.getLogger(project.name + '_telemetry')
-        logger.info({ 
-            "project": project.name,
-            "negative_string_count": string_count,
-            "precision": cmp_res.precision,
-            "recall": cmp_res.recall,
-            "f1": cmp_res.f1,
-            "binary_strings": len(self.recovery.binary_strings),
-            "source_code_strings": len(self.recovery.source_code_strings),
-            "number of Macros in GT": len(gt),
-        })
-
-
-        approach_logger = logging.getLogger(project.name + '_approach')
-        approach_logger.info({
-            "project": project.name,
-            "success": True,
-            "precision": cmp_res.precision,
-            "recall": cmp_res.recall,
-            "f1": cmp_res.f1,
-            "approach": rec.recovery_obj.approach,
-        })
-
-        return ExperimentResult(
-            project.name,
-            True,
-            True,
-            cmp_res.precision,
-            cmp_res.recall,
-            cmp_res.f1,
-        )
-
-
-
 
 
     def run_project_iteratively(self, project: Project, stage: str) -> ExperimentResult:
@@ -208,6 +127,7 @@ class ExperimentRunner:
                 build_res.success = self.build_manager.rebuild_with_macros(project, self.truth_extractor, rec.frr, build_res)
 
             if not build_res.success:
+                
                 return ExperimentResult(
                     project.name, False, False, None, None, None, "build failed"
                 )
