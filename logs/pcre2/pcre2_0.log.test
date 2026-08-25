@@ -1,0 +1,6 @@
+*** Run 0 for project: pcre2 ***
+FLAGS: {('SUPPORT_PCRE2_8', 'False'), ('EBCDIC_NL25', 'False'), ('SUPPORT_LIBBZ2', 'False'), ('EBCDIC', 'False'), ('SUPPORT_LIBREADLINE', 'False'), ('SUPPORT_LIBEDIT', 'False'), ('SUPPORT_JIT', 'True'), ('SUPPORT_PCRE2_16', 'True'), ('SUPPORT_UNICODE', 'True'), ('PCRE2_DEBUG', 'True'), ('SUPPORT_PCRE2_32', 'False'), ('SUPPORT_VALGRIND', 'False'), ('SUPPORT_LIBZ', 'False')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project pcre2 : {('SUPPORT_PCRE2_8', 'False'), ('EBCDIC_NL25', 'False'), ('SUPPORT_LIBBZ2', 'False'), ('EBCDIC', 'False'), ('SUPPORT_LIBREADLINE', 'False'), ('SUPPORT_LIBEDIT', 'False'), ('SUPPORT_JIT', 'True'), ('SUPPORT_PCRE2_16', 'True'), ('SUPPORT_UNICODE', 'True'), ('PCRE2_DEBUG', 'True'), ('SUPPORT_PCRE2_32', 'False'), ('SUPPORT_VALGRIND', 'False'), ('SUPPORT_LIBZ', 'False')}

@@ -1,0 +1,1456 @@
+*** Run 0 for project: dbus ***
+FLAGS: {('HAVE_MONOTONIC_CLOCK', 'False'), ('DBUS_ENABLE_STATS', 'True'), ('DBUS_DISABLE_CHECKS', 'False'), ('DBUS_ENABLE_ASSERT', 'True'), ('HAVE_UNIX_FD_PASSING', 'False'), ('DBUS_ENABLE_CHECKS', 'True'), ('DBUS_ENABLE_EMBEDDED_TESTS', 'False'), ('DBUS_DISABLE_ASSERT', 'False')}
+Running experiment...
+DID THIS WORK {('HAVE_MONOTONIC_CLOCK', 'False'), ('DBUS_ENABLE_STATS', 'True'), ('DBUS_DISABLE_CHECKS', 'False'), ('DBUS_ENABLE_ASSERT', 'True'), ('HAVE_UNIX_FD_PASSING', 'False'), ('DBUS_ENABLE_CHECKS', 'True'), ('DBUS_ENABLE_EMBEDDED_TESTS', 'False'), ('DBUS_DISABLE_ASSERT', 'False')}
+Remaining macros after removing unused ones: {('HAVE_MONOTONIC_CLOCK', 'False'), ('DBUS_ENABLE_STATS', 'True'), ('DBUS_ENABLE_EMBEDDED_TESTS', 'False'), ('DBUS_ENABLE_ASSERT', 'True'), ('HAVE_UNIX_FD_PASSING', 'False'), ('DBUS_ENABLE_CHECKS', 'True'), ('DBUS_DISABLE_CHECKS', 'False'), ('DBUS_DISABLE_ASSERT', 'False')}
+Processing line: /* config.h.  Generated from config.h.in by configure.  */
+Line not handled, checking for other defines: /* config.h.  Generated from config.h.in by configure.  */
+Processing line: /* config.h.in.  Generated from configure.ac by autoheader.  */
+Line not handled, checking for other defines: /* config.h.in.  Generated from configure.ac by autoheader.  */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if building universal (internal helper macro) */
+Line not handled, checking for other defines: /* Define if building universal (internal helper macro) */
+Processing line: /* #undef AC_APPLE_UNIVERSAL_BUILD */
+Macro name 1 AC_APPLE_UNIVERSAL_BUILD
+Line not handled, checking for other defines: /* #undef AC_APPLE_UNIVERSAL_BUILD */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Directory for installing the binaries */
+Line not handled, checking for other defines: /* Directory for installing the binaries */
+Processing line: #define DBUS_BINDIR "/usr/bin"
+Line not handled, checking for other defines: #define DBUS_BINDIR "/usr/bin"
+Other define found: #define DBUS_BINDIR "/usr/bin"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to build X11 functionality */
+Line not handled, checking for other defines: /* Define to build X11 functionality */
+Processing line: /* #undef DBUS_BUILD_X11 */
+Macro name 1 DBUS_BUILD_X11
+Line not handled, checking for other defines: /* #undef DBUS_BUILD_X11 */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* whether -export-dynamic was passed to libtool */
+Line not handled, checking for other defines: /* whether -export-dynamic was passed to libtool */
+Processing line: /* #undef DBUS_BUILT_R_DYNAMIC */
+Macro name 1 DBUS_BUILT_R_DYNAMIC
+Line not handled, checking for other defines: /* #undef DBUS_BUILT_R_DYNAMIC */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Use inotify */
+Line not handled, checking for other defines: /* Use inotify */
+Processing line: #define DBUS_BUS_ENABLE_INOTIFY 1
+Macro name 1 DBUS_BUS_ENABLE_INOTIFY
+Line not handled, checking for other defines: #define DBUS_BUS_ENABLE_INOTIFY 1
+Other define found: #define DBUS_BUS_ENABLE_INOTIFY 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Use kqueue */
+Line not handled, checking for other defines: /* Use kqueue */
+Processing line: /* #undef DBUS_BUS_ENABLE_KQUEUE */
+Macro name 1 DBUS_BUS_ENABLE_KQUEUE
+Line not handled, checking for other defines: /* #undef DBUS_BUS_ENABLE_KQUEUE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Directory to check for pam_console/pam_foreground flag files, or undefined
+Line not handled, checking for other defines: /* Directory to check for pam_console/pam_foreground flag files, or undefined
+Processing line: */
+Line not handled, checking for other defines: */
+Processing line: /* #undef DBUS_CONSOLE_AUTH_DIR */
+Macro name 1 DBUS_CONSOLE_AUTH_DIR
+Line not handled, checking for other defines: /* #undef DBUS_CONSOLE_AUTH_DIR */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* File to check for console ownerhip */
+Line not handled, checking for other defines: /* File to check for console ownerhip */
+Processing line: #define DBUS_CONSOLE_OWNER_FILE ""
+Line not handled, checking for other defines: #define DBUS_CONSOLE_OWNER_FILE ""
+Other define found: #define DBUS_CONSOLE_OWNER_FILE ""
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Defined if we run on a cygwin API based system */
+Line not handled, checking for other defines: /* Defined if we run on a cygwin API based system */
+Processing line: /* #undef DBUS_CYGWIN */
+Macro name 1 DBUS_CYGWIN
+Line not handled, checking for other defines: /* #undef DBUS_CYGWIN */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Directory for installing the DBUS daemon */
+Line not handled, checking for other defines: /* Directory for installing the DBUS daemon */
+Processing line: #define DBUS_DAEMONDIR "/usr/bin"
+Line not handled, checking for other defines: #define DBUS_DAEMONDIR "/usr/bin"
+Other define found: #define DBUS_DAEMONDIR "/usr/bin"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Name of executable */
+Line not handled, checking for other defines: /* Name of executable */
+Processing line: #define DBUS_DAEMON_NAME "dbus-daemon"
+Line not handled, checking for other defines: #define DBUS_DAEMON_NAME "dbus-daemon"
+Other define found: #define DBUS_DAEMON_NAME "dbus-daemon"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Directory for installing DBUS data files */
+Line not handled, checking for other defines: /* Directory for installing DBUS data files */
+Processing line: #define DBUS_DATADIR "/usr/share"
+Line not handled, checking for other defines: #define DBUS_DATADIR "/usr/share"
+Other define found: #define DBUS_DATADIR "/usr/share"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Disable assertion checking */
+Line not handled, checking for other defines: /* Disable assertion checking */
+Processing line: #define DBUS_DISABLE_ASSERT 1
+Macro name 1 DBUS_DISABLE_ASSERT
+Writing line to destination: #define DBUS_DISABLE_ASSERT 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Disable public API sanity checking */
+Line not handled, checking for other defines: /* Disable public API sanity checking */
+Processing line: /* #undef DBUS_DISABLE_CHECKS */
+Macro name 1 DBUS_DISABLE_CHECKS
+Writing line to destination: /* #undef DBUS_DISABLE_CHECKS */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to build test code into the library and binaries */
+Line not handled, checking for other defines: /* Define to build test code into the library and binaries */
+Processing line: /* #undef DBUS_ENABLE_EMBEDDED_TESTS */
+Macro name 1 DBUS_ENABLE_EMBEDDED_TESTS
+Writing line to destination: /* #undef DBUS_ENABLE_EMBEDDED_TESTS */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Use launchd autolaunch */
+Line not handled, checking for other defines: /* Use launchd autolaunch */
+Processing line: /* #undef DBUS_ENABLE_LAUNCHD */
+Macro name 1 DBUS_ENABLE_LAUNCHD
+Line not handled, checking for other defines: /* #undef DBUS_ENABLE_LAUNCHD */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to build independent test binaries */
+Line not handled, checking for other defines: /* Define to build independent test binaries */
+Processing line: /* #undef DBUS_ENABLE_MODULAR_TESTS */
+Macro name 1 DBUS_ENABLE_MODULAR_TESTS
+Line not handled, checking for other defines: /* #undef DBUS_ENABLE_MODULAR_TESTS */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to enable bus daemon usage statistics */
+Line not handled, checking for other defines: /* Define to enable bus daemon usage statistics */
+Processing line: #define DBUS_ENABLE_STATS 1
+Macro name 1 DBUS_ENABLE_STATS
+Writing line to destination: #define DBUS_ENABLE_STATS 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Support a verbose mode */
+Line not handled, checking for other defines: /* Support a verbose mode */
+Processing line: /* #undef DBUS_ENABLE_VERBOSE_MODE */
+Macro name 1 DBUS_ENABLE_VERBOSE_MODE
+Line not handled, checking for other defines: /* #undef DBUS_ENABLE_VERBOSE_MODE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to enable X11 auto-launch */
+Line not handled, checking for other defines: /* Define to enable X11 auto-launch */
+Processing line: /* #undef DBUS_ENABLE_X11_AUTOLAUNCH */
+Macro name 1 DBUS_ENABLE_X11_AUTOLAUNCH
+Line not handled, checking for other defines: /* #undef DBUS_ENABLE_X11_AUTOLAUNCH */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Extension for executables, typically empty or .exe */
+Line not handled, checking for other defines: /* Extension for executables, typically empty or .exe */
+Processing line: #define DBUS_EXEEXT ""
+Line not handled, checking for other defines: #define DBUS_EXEEXT ""
+Other define found: #define DBUS_EXEEXT ""
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Defined if gcov is enabled to force a rebuild due to config.h changing */
+Line not handled, checking for other defines: /* Defined if gcov is enabled to force a rebuild due to config.h changing */
+Processing line: /* #undef DBUS_GCOV_ENABLED */
+Macro name 1 DBUS_GCOV_ENABLED
+Line not handled, checking for other defines: /* #undef DBUS_GCOV_ENABLED */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to use epoll(4) on Linux */
+Line not handled, checking for other defines: /* Define to use epoll(4) on Linux */
+Processing line: #define DBUS_HAVE_LINUX_EPOLL 1
+Macro name 1 DBUS_HAVE_LINUX_EPOLL
+Line not handled, checking for other defines: #define DBUS_HAVE_LINUX_EPOLL 1
+Other define found: #define DBUS_HAVE_LINUX_EPOLL 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Directory for installing the libexec binaries */
+Line not handled, checking for other defines: /* Directory for installing the libexec binaries */
+Processing line: #define DBUS_LIBEXECDIR "/usr/libexec"
+Line not handled, checking for other defines: #define DBUS_LIBEXECDIR "/usr/libexec"
+Other define found: #define DBUS_LIBEXECDIR "/usr/libexec"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Prefix for installing DBUS */
+Line not handled, checking for other defines: /* Prefix for installing DBUS */
+Processing line: #define DBUS_PREFIX "/usr"
+Line not handled, checking for other defines: #define DBUS_PREFIX "/usr"
+Other define found: #define DBUS_PREFIX "/usr"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Fallback address for session bus clients */
+Line not handled, checking for other defines: /* Fallback address for session bus clients */
+Processing line: #define DBUS_SESSION_BUS_CONNECT_ADDRESS "autolaunch:"
+Line not handled, checking for other defines: #define DBUS_SESSION_BUS_CONNECT_ADDRESS "autolaunch:"
+Other define found: #define DBUS_SESSION_BUS_CONNECT_ADDRESS "autolaunch:"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Where per-session bus puts its sockets */
+Line not handled, checking for other defines: /* Where per-session bus puts its sockets */
+Processing line: #define DBUS_SESSION_SOCKET_DIR "/tmp"
+Line not handled, checking for other defines: #define DBUS_SESSION_SOCKET_DIR "/tmp"
+Other define found: #define DBUS_SESSION_SOCKET_DIR "/tmp"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The default D-Bus address of the system bus */
+Line not handled, checking for other defines: /* The default D-Bus address of the system bus */
+Processing line: #define DBUS_SYSTEM_BUS_DEFAULT_ADDRESS "unix:path=/run/dbus/system_bus_socket"
+Line not handled, checking for other defines: #define DBUS_SYSTEM_BUS_DEFAULT_ADDRESS "unix:path=/run/dbus/system_bus_socket"
+Other define found: #define DBUS_SYSTEM_BUS_DEFAULT_ADDRESS "unix:path=/run/dbus/system_bus_socket"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The name of the socket the system bus listens on by default */
+Line not handled, checking for other defines: /* The name of the socket the system bus listens on by default */
+Processing line: #define DBUS_SYSTEM_SOCKET "/run/dbus/system_bus_socket"
+Line not handled, checking for other defines: #define DBUS_SYSTEM_SOCKET "/run/dbus/system_bus_socket"
+Other define found: #define DBUS_SYSTEM_SOCKET "/run/dbus/system_bus_socket"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Full path to the launch helper test program in the builddir */
+Line not handled, checking for other defines: /* Full path to the launch helper test program in the builddir */
+Processing line: #define DBUS_TEST_LAUNCH_HELPER_BINARY "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/test/dbus-daemon-launch-helper-for-tests"
+Line not handled, checking for other defines: #define DBUS_TEST_LAUNCH_HELPER_BINARY "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/test/dbus-daemon-launch-helper-for-tests"
+Other define found: #define DBUS_TEST_LAUNCH_HELPER_BINARY "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/test/dbus-daemon-launch-helper-for-tests"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Where to put test sockets */
+Line not handled, checking for other defines: /* Where to put test sockets */
+Processing line: #define DBUS_TEST_SOCKET_DIR "/tmp"
+Line not handled, checking for other defines: #define DBUS_TEST_SOCKET_DIR "/tmp"
+Other define found: #define DBUS_TEST_SOCKET_DIR "/tmp"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Unprivileged user used in some regression tests */
+Line not handled, checking for other defines: /* Unprivileged user used in some regression tests */
+Processing line: #define DBUS_TEST_USER "nobody"
+Line not handled, checking for other defines: #define DBUS_TEST_USER "nobody"
+Other define found: #define DBUS_TEST_USER "nobody"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Defined if we run on a Unix-based system */
+Line not handled, checking for other defines: /* Defined if we run on a Unix-based system */
+Processing line: #define DBUS_UNIX 1
+Macro name 1 DBUS_UNIX
+Line not handled, checking for other defines: #define DBUS_UNIX 1
+Other define found: #define DBUS_UNIX 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* User for running the system BUS daemon */
+Line not handled, checking for other defines: /* User for running the system BUS daemon */
+Processing line: #define DBUS_USER "dbus"
+Line not handled, checking for other defines: #define DBUS_USER "dbus"
+Other define found: #define DBUS_USER "dbus"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Use the gcc __sync extension */
+Line not handled, checking for other defines: /* Use the gcc __sync extension */
+Processing line: #define DBUS_USE_SYNC 1
+Macro name 1 DBUS_USE_SYNC
+Line not handled, checking for other defines: #define DBUS_USE_SYNC 1
+Other define found: #define DBUS_USE_SYNC 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* A 'va_copy' style function */
+Line not handled, checking for other defines: /* A 'va_copy' style function */
+Processing line: #define DBUS_VA_COPY va_copy
+Line not handled, checking for other defines: #define DBUS_VA_COPY va_copy
+Other define found: #define DBUS_VA_COPY va_copy
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Defined if we run on a W32 API based system */
+Line not handled, checking for other defines: /* Defined if we run on a W32 API based system */
+Processing line: /* #undef DBUS_WIN */
+Macro name 1 DBUS_WIN
+Line not handled, checking for other defines: /* #undef DBUS_WIN */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Defined if we run on a W32 CE API based system */
+Line not handled, checking for other defines: /* Defined if we run on a W32 CE API based system */
+Processing line: /* #undef DBUS_WINCE */
+Macro name 1 DBUS_WINCE
+Line not handled, checking for other defines: /* #undef DBUS_WINCE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if GLib, GObject, GIO are available */
+Line not handled, checking for other defines: /* Define if GLib, GObject, GIO are available */
+Processing line: /* #undef DBUS_WITH_GLIB */
+Macro name 1 DBUS_WITH_GLIB
+Line not handled, checking for other defines: /* #undef DBUS_WITH_GLIB */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Enable traditional activation without using systemd */
+Line not handled, checking for other defines: /* Enable traditional activation without using systemd */
+Processing line: #define ENABLE_TRADITIONAL_ACTIVATION 1
+Macro name 1 ENABLE_TRADITIONAL_ACTIVATION
+Line not handled, checking for other defines: #define ENABLE_TRADITIONAL_ACTIVATION 1
+Other define found: #define ENABLE_TRADITIONAL_ACTIVATION 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The maximum number of connections that can be handled at once */
+Line not handled, checking for other defines: /* The maximum number of connections that can be handled at once */
+Processing line: /* #undef FD_SETSIZE */
+Macro name 1 FD_SETSIZE
+Line not handled, checking for other defines: /* #undef FD_SETSIZE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The name of the gettext domain */
+Line not handled, checking for other defines: /* The name of the gettext domain */
+Processing line: #define GETTEXT_PACKAGE "dbus-1"
+Line not handled, checking for other defines: #define GETTEXT_PACKAGE "dbus-1"
+Other define found: #define GETTEXT_PACKAGE "dbus-1"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Prevent post-2.44 APIs */
+Line not handled, checking for other defines: /* Prevent post-2.44 APIs */
+Processing line: #define GLIB_VERSION_MAX_ALLOWED G_ENCODE_VERSION(2,44)
+Line not handled, checking for other defines: #define GLIB_VERSION_MAX_ALLOWED G_ENCODE_VERSION(2,44)
+Other define found: #define GLIB_VERSION_MAX_ALLOWED G_ENCODE_VERSION(2,44)
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Ignore post-2.38 deprecations */
+Line not handled, checking for other defines: /* Ignore post-2.38 deprecations */
+Processing line: #define GLIB_VERSION_MIN_REQUIRED GLIB_VERSION_2_38
+Line not handled, checking for other defines: #define GLIB_VERSION_MIN_REQUIRED GLIB_VERSION_2_38
+Other define found: #define GLIB_VERSION_MIN_REQUIRED GLIB_VERSION_2_38
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Disable GLib public API sanity checking */
+Line not handled, checking for other defines: /* Disable GLib public API sanity checking */
+Processing line: /* #undef G_DISABLE_CHECKS */
+Macro name 1 G_DISABLE_CHECKS
+Line not handled, checking for other defines: /* #undef G_DISABLE_CHECKS */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `accept4' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `accept4' function. */
+Processing line: #define HAVE_ACCEPT4 1
+Macro name 1 HAVE_ACCEPT4
+Line not handled, checking for other defines: #define HAVE_ACCEPT4 1
+Other define found: #define HAVE_ACCEPT4 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Adt audit API */
+Line not handled, checking for other defines: /* Adt audit API */
+Processing line: /* #undef HAVE_ADT */
+Macro name 1 HAVE_ADT
+Line not handled, checking for other defines: /* #undef HAVE_ADT */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <alloca.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <alloca.h> header file. */
+Processing line: #define HAVE_ALLOCA_H 1
+Macro name 1 HAVE_ALLOCA_H
+Line not handled, checking for other defines: #define HAVE_ALLOCA_H 1
+Other define found: #define HAVE_ALLOCA_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* AppArmor Support */
+Line not handled, checking for other defines: /* AppArmor Support */
+Processing line: /* #undef HAVE_APPARMOR */
+Macro name 1 HAVE_APPARMOR
+Line not handled, checking for other defines: /* #undef HAVE_APPARMOR */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if libapparmor is version 2.10 or later */
+Line not handled, checking for other defines: /* Define if libapparmor is version 2.10 or later */
+Processing line: /* #undef HAVE_APPARMOR_2_10 */
+Macro name 1 HAVE_APPARMOR_2_10
+Line not handled, checking for other defines: /* #undef HAVE_APPARMOR_2_10 */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have backtrace(). */
+Line not handled, checking for other defines: /* Define to 1 if you have backtrace(). */
+Processing line: #define HAVE_BACKTRACE 1
+Macro name 1 HAVE_BACKTRACE
+Line not handled, checking for other defines: #define HAVE_BACKTRACE 1
+Other define found: #define HAVE_BACKTRACE 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <byteswap.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <byteswap.h> header file. */
+Processing line: #define HAVE_BYTESWAP_H 1
+Macro name 1 HAVE_BYTESWAP_H
+Line not handled, checking for other defines: #define HAVE_BYTESWAP_H 1
+Other define found: #define HAVE_BYTESWAP_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `clearenv' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `clearenv' function. */
+Processing line: #define HAVE_CLEARENV 1
+Macro name 1 HAVE_CLEARENV
+Line not handled, checking for other defines: #define HAVE_CLEARENV 1
+Other define found: #define HAVE_CLEARENV 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have cmsgcred structure */
+Line not handled, checking for other defines: /* Have cmsgcred structure */
+Processing line: /* #undef HAVE_CMSGCRED */
+Macro name 1 HAVE_CMSGCRED
+Line not handled, checking for other defines: /* #undef HAVE_CMSGCRED */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have console owner file */
+Line not handled, checking for other defines: /* Have console owner file */
+Processing line: /* #undef HAVE_CONSOLE_OWNER_FILE */
+Macro name 1 HAVE_CONSOLE_OWNER_FILE
+Line not handled, checking for other defines: /* #undef HAVE_CONSOLE_OWNER_FILE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <crt_externs.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <crt_externs.h> header file. */
+Processing line: /* #undef HAVE_CRT_EXTERNS_H */
+Macro name 1 HAVE_CRT_EXTERNS_H
+Line not handled, checking for other defines: /* #undef HAVE_CRT_EXTERNS_H */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have the ddfd member of DIR */
+Line not handled, checking for other defines: /* Have the ddfd member of DIR */
+Processing line: /* #undef HAVE_DDFD */
+Macro name 1 HAVE_DDFD
+Line not handled, checking for other defines: /* #undef HAVE_DDFD */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the declaration of `environ', and to 0 if you
+Line not handled, checking for other defines: /* Define to 1 if you have the declaration of `environ', and to 0 if you
+Processing line: don't. */
+Line not handled, checking for other defines: don't. */
+Processing line: #define HAVE_DECL_ENVIRON 1
+Macro name 1 HAVE_DECL_ENVIRON
+Line not handled, checking for other defines: #define HAVE_DECL_ENVIRON 1
+Other define found: #define HAVE_DECL_ENVIRON 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the declaration of `LOG_PERROR', and to 0 if you
+Line not handled, checking for other defines: /* Define to 1 if you have the declaration of `LOG_PERROR', and to 0 if you
+Processing line: don't. */
+Line not handled, checking for other defines: don't. */
+Processing line: #define HAVE_DECL_LOG_PERROR 1
+Macro name 1 HAVE_DECL_LOG_PERROR
+Line not handled, checking for other defines: #define HAVE_DECL_LOG_PERROR 1
+Other define found: #define HAVE_DECL_LOG_PERROR 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the declaration of `MSG_NOSIGNAL', and to 0 if you
+Line not handled, checking for other defines: /* Define to 1 if you have the declaration of `MSG_NOSIGNAL', and to 0 if you
+Processing line: don't. */
+Line not handled, checking for other defines: don't. */
+Processing line: #define HAVE_DECL_MSG_NOSIGNAL 1
+Macro name 1 HAVE_DECL_MSG_NOSIGNAL
+Line not handled, checking for other defines: #define HAVE_DECL_MSG_NOSIGNAL 1
+Other define found: #define HAVE_DECL_MSG_NOSIGNAL 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <dirent.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <dirent.h> header file. */
+Processing line: #define HAVE_DIRENT_H 1
+Macro name 1 HAVE_DIRENT_H
+Line not handled, checking for other defines: #define HAVE_DIRENT_H 1
+Other define found: #define HAVE_DIRENT_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have dirfd function */
+Line not handled, checking for other defines: /* Have dirfd function */
+Processing line: #define HAVE_DIRFD 1
+Macro name 1 HAVE_DIRFD
+Line not handled, checking for other defines: #define HAVE_DIRFD 1
+Other define found: #define HAVE_DIRFD 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <dlfcn.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <dlfcn.h> header file. */
+Processing line: #define HAVE_DLFCN_H 1
+Macro name 1 HAVE_DLFCN_H
+Line not handled, checking for other defines: #define HAVE_DLFCN_H 1
+Other define found: #define HAVE_DLFCN_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <errno.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <errno.h> header file. */
+Processing line: #define HAVE_ERRNO_H 1
+Macro name 1 HAVE_ERRNO_H
+Line not handled, checking for other defines: #define HAVE_ERRNO_H 1
+Other define found: #define HAVE_ERRNO_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <execinfo.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <execinfo.h> header file. */
+Processing line: #define HAVE_EXECINFO_H 1
+Macro name 1 HAVE_EXECINFO_H
+Line not handled, checking for other defines: #define HAVE_EXECINFO_H 1
+Other define found: #define HAVE_EXECINFO_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `fpathconf' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `fpathconf' function. */
+Processing line: #define HAVE_FPATHCONF 1
+Macro name 1 HAVE_FPATHCONF
+Line not handled, checking for other defines: #define HAVE_FPATHCONF 1
+Other define found: #define HAVE_FPATHCONF 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getgrouplist' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getgrouplist' function. */
+Processing line: #define HAVE_GETGROUPLIST 1
+Macro name 1 HAVE_GETGROUPLIST
+Line not handled, checking for other defines: #define HAVE_GETGROUPLIST 1
+Other define found: #define HAVE_GETGROUPLIST 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getpeereid' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getpeereid' function. */
+Processing line: /* #undef HAVE_GETPEEREID */
+Macro name 1 HAVE_GETPEEREID
+Line not handled, checking for other defines: /* #undef HAVE_GETPEEREID */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getpeerucred' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getpeerucred' function. */
+Processing line: /* #undef HAVE_GETPEERUCRED */
+Macro name 1 HAVE_GETPEERUCRED
+Line not handled, checking for other defines: /* #undef HAVE_GETPEERUCRED */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getpwnam_r' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getpwnam_r' function. */
+Processing line: #define HAVE_GETPWNAM_R 1
+Macro name 1 HAVE_GETPWNAM_R
+Line not handled, checking for other defines: #define HAVE_GETPWNAM_R 1
+Other define found: #define HAVE_GETPWNAM_R 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getrandom' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getrandom' function. */
+Processing line: #define HAVE_GETRANDOM 1
+Macro name 1 HAVE_GETRANDOM
+Line not handled, checking for other defines: #define HAVE_GETRANDOM 1
+Other define found: #define HAVE_GETRANDOM 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getresuid' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getresuid' function. */
+Processing line: #define HAVE_GETRESUID 1
+Macro name 1 HAVE_GETRESUID
+Line not handled, checking for other defines: #define HAVE_GETRESUID 1
+Other define found: #define HAVE_GETRESUID 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `getrlimit' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `getrlimit' function. */
+Processing line: #define HAVE_GETRLIMIT 1
+Macro name 1 HAVE_GETRLIMIT
+Line not handled, checking for other defines: #define HAVE_GETRLIMIT 1
+Other define found: #define HAVE_GETRLIMIT 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if you have gio-unix-2.0 */
+Line not handled, checking for other defines: /* Define if you have gio-unix-2.0 */
+Processing line: /* #undef HAVE_GIO_UNIX */
+Macro name 1 HAVE_GIO_UNIX
+Line not handled, checking for other defines: /* #undef HAVE_GIO_UNIX */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `inotify_init1' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `inotify_init1' function. */
+Processing line: #define HAVE_INOTIFY_INIT1 1
+Macro name 1 HAVE_INOTIFY_INIT1
+Line not handled, checking for other defines: #define HAVE_INOTIFY_INIT1 1
+Other define found: #define HAVE_INOTIFY_INIT1 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <inttypes.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <inttypes.h> header file. */
+Processing line: #define HAVE_INTTYPES_H 1
+Macro name 1 HAVE_INTTYPES_H
+Line not handled, checking for other defines: #define HAVE_INTTYPES_H 1
+Other define found: #define HAVE_INTTYPES_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `issetugid' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `issetugid' function. */
+Processing line: /* #undef HAVE_ISSETUGID */
+Macro name 1 HAVE_ISSETUGID
+Line not handled, checking for other defines: /* #undef HAVE_ISSETUGID */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* audit daemon SELinux support */
+Line not handled, checking for other defines: /* audit daemon SELinux support */
+Processing line: /* #undef HAVE_LIBAUDIT */
+Macro name 1 HAVE_LIBAUDIT
+Line not handled, checking for other defines: /* #undef HAVE_LIBAUDIT */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `nsl' library (-lnsl). */
+Line not handled, checking for other defines: /* Define to 1 if you have the `nsl' library (-lnsl). */
+Processing line: /* #undef HAVE_LIBNSL */
+Macro name 1 HAVE_LIBNSL
+Line not handled, checking for other defines: /* #undef HAVE_LIBNSL */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `localeconv' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `localeconv' function. */
+Processing line: #define HAVE_LOCALECONV 1
+Macro name 1 HAVE_LOCALECONV
+Line not handled, checking for other defines: #define HAVE_LOCALECONV 1
+Other define found: #define HAVE_LOCALECONV 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <locale.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <locale.h> header file. */
+Processing line: #define HAVE_LOCALE_H 1
+Macro name 1 HAVE_LOCALE_H
+Line not handled, checking for other defines: #define HAVE_LOCALE_H 1
+Other define found: #define HAVE_LOCALE_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <minix/config.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <minix/config.h> header file. */
+Processing line: /* #undef HAVE_MINIX_CONFIG_H */
+Macro name 1 HAVE_MINIX_CONFIG_H
+Line not handled, checking for other defines: /* #undef HAVE_MINIX_CONFIG_H */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if we have CLOCK_MONOTONIC */
+Line not handled, checking for other defines: /* Define if we have CLOCK_MONOTONIC */
+Processing line: #define HAVE_MONOTONIC_CLOCK 1
+Macro name 1 HAVE_MONOTONIC_CLOCK
+Writing line to destination: #define HAVE_MONOTONIC_CLOCK 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `nanosleep' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `nanosleep' function. */
+Processing line: #define HAVE_NANOSLEEP 1
+Macro name 1 HAVE_NANOSLEEP
+Line not handled, checking for other defines: #define HAVE_NANOSLEEP 1
+Other define found: #define HAVE_NANOSLEEP 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if your system needs _NSGetEnviron to set up the environment */
+Line not handled, checking for other defines: /* Define if your system needs _NSGetEnviron to set up the environment */
+Processing line: /* #undef HAVE_NSGETENVIRON */
+Macro name 1 HAVE_NSGETENVIRON
+Line not handled, checking for other defines: /* #undef HAVE_NSGETENVIRON */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `pipe2' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `pipe2' function. */
+Processing line: #define HAVE_PIPE2 1
+Macro name 1 HAVE_PIPE2
+Line not handled, checking for other defines: #define HAVE_PIPE2 1
+Other define found: #define HAVE_PIPE2 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `poll' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `poll' function. */
+Processing line: #define HAVE_POLL 1
+Macro name 1 HAVE_POLL
+Line not handled, checking for other defines: #define HAVE_POLL 1
+Other define found: #define HAVE_POLL 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `prctl' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `prctl' function. */
+Processing line: #define HAVE_PRCTL 1
+Macro name 1 HAVE_PRCTL
+Line not handled, checking for other defines: #define HAVE_PRCTL 1
+Other define found: #define HAVE_PRCTL 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `prlimit' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `prlimit' function. */
+Processing line: #define HAVE_PRLIMIT 1
+Macro name 1 HAVE_PRLIMIT
+Line not handled, checking for other defines: #define HAVE_PRLIMIT 1
+Other define found: #define HAVE_PRLIMIT 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `raise' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `raise' function. */
+Processing line: #define HAVE_RAISE 1
+Macro name 1 HAVE_RAISE
+Line not handled, checking for other defines: #define HAVE_RAISE 1
+Other define found: #define HAVE_RAISE 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* SELinux support */
+Line not handled, checking for other defines: /* SELinux support */
+Processing line: /* #undef HAVE_SELINUX */
+Macro name 1 HAVE_SELINUX
+Line not handled, checking for other defines: /* #undef HAVE_SELINUX */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `setenv' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `setenv' function. */
+Processing line: #define HAVE_SETENV 1
+Macro name 1 HAVE_SETENV
+Line not handled, checking for other defines: #define HAVE_SETENV 1
+Other define found: #define HAVE_SETENV 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `setlocale' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `setlocale' function. */
+Processing line: #define HAVE_SETLOCALE 1
+Macro name 1 HAVE_SETLOCALE
+Line not handled, checking for other defines: #define HAVE_SETLOCALE 1
+Other define found: #define HAVE_SETLOCALE 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `setresuid' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `setresuid' function. */
+Processing line: #define HAVE_SETRESUID 1
+Macro name 1 HAVE_SETRESUID
+Line not handled, checking for other defines: #define HAVE_SETRESUID 1
+Other define found: #define HAVE_SETRESUID 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `setrlimit' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `setrlimit' function. */
+Processing line: #define HAVE_SETRLIMIT 1
+Macro name 1 HAVE_SETRLIMIT
+Line not handled, checking for other defines: #define HAVE_SETRLIMIT 1
+Other define found: #define HAVE_SETRLIMIT 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <signal.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <signal.h> header file. */
+Processing line: #define HAVE_SIGNAL_H 1
+Macro name 1 HAVE_SIGNAL_H
+Line not handled, checking for other defines: #define HAVE_SIGNAL_H 1
+Other define found: #define HAVE_SIGNAL_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `socketpair' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `socketpair' function. */
+Processing line: #define HAVE_SOCKETPAIR 1
+Macro name 1 HAVE_SOCKETPAIR
+Line not handled, checking for other defines: #define HAVE_SOCKETPAIR 1
+Other define found: #define HAVE_SOCKETPAIR 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have socklen_t type */
+Line not handled, checking for other defines: /* Have socklen_t type */
+Processing line: #define HAVE_SOCKLEN_T 1
+Macro name 1 HAVE_SOCKLEN_T
+Line not handled, checking for other defines: #define HAVE_SOCKLEN_T 1
+Other define found: #define HAVE_SOCKLEN_T 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <stdint.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <stdint.h> header file. */
+Processing line: #define HAVE_STDINT_H 1
+Macro name 1 HAVE_STDINT_H
+Line not handled, checking for other defines: #define HAVE_STDINT_H 1
+Other define found: #define HAVE_STDINT_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <stdio.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <stdio.h> header file. */
+Processing line: #define HAVE_STDIO_H 1
+Macro name 1 HAVE_STDIO_H
+Line not handled, checking for other defines: #define HAVE_STDIO_H 1
+Other define found: #define HAVE_STDIO_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <stdlib.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <stdlib.h> header file. */
+Processing line: #define HAVE_STDLIB_H 1
+Macro name 1 HAVE_STDLIB_H
+Line not handled, checking for other defines: #define HAVE_STDLIB_H 1
+Other define found: #define HAVE_STDLIB_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <strings.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <strings.h> header file. */
+Processing line: #define HAVE_STRINGS_H 1
+Macro name 1 HAVE_STRINGS_H
+Line not handled, checking for other defines: #define HAVE_STRINGS_H 1
+Other define found: #define HAVE_STRINGS_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <string.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <string.h> header file. */
+Processing line: #define HAVE_STRING_H 1
+Macro name 1 HAVE_STRING_H
+Line not handled, checking for other defines: #define HAVE_STRING_H 1
+Other define found: #define HAVE_STRING_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `strtoll' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `strtoll' function. */
+Processing line: #define HAVE_STRTOLL 1
+Macro name 1 HAVE_STRTOLL
+Line not handled, checking for other defines: #define HAVE_STRTOLL 1
+Other define found: #define HAVE_STRTOLL 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `strtoull' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `strtoull' function. */
+Processing line: #define HAVE_STRTOULL 1
+Macro name 1 HAVE_STRTOULL
+Line not handled, checking for other defines: #define HAVE_STRTOULL 1
+Other define found: #define HAVE_STRTOULL 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <syslog.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <syslog.h> header file. */
+Processing line: #define HAVE_SYSLOG_H 1
+Macro name 1 HAVE_SYSLOG_H
+Line not handled, checking for other defines: #define HAVE_SYSLOG_H 1
+Other define found: #define HAVE_SYSLOG_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have systemd */
+Line not handled, checking for other defines: /* Have systemd */
+Processing line: /* #undef HAVE_SYSTEMD */
+Macro name 1 HAVE_SYSTEMD
+Line not handled, checking for other defines: /* #undef HAVE_SYSTEMD */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/inotify.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/inotify.h> header file. */
+Processing line: #define HAVE_SYS_INOTIFY_H 1
+Macro name 1 HAVE_SYS_INOTIFY_H
+Line not handled, checking for other defines: #define HAVE_SYS_INOTIFY_H 1
+Other define found: #define HAVE_SYS_INOTIFY_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/prctl.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/prctl.h> header file. */
+Processing line: #define HAVE_SYS_PRCTL_H 1
+Macro name 1 HAVE_SYS_PRCTL_H
+Line not handled, checking for other defines: #define HAVE_SYS_PRCTL_H 1
+Other define found: #define HAVE_SYS_PRCTL_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/random.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/random.h> header file. */
+Processing line: #define HAVE_SYS_RANDOM_H 1
+Macro name 1 HAVE_SYS_RANDOM_H
+Line not handled, checking for other defines: #define HAVE_SYS_RANDOM_H 1
+Other define found: #define HAVE_SYS_RANDOM_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/resource.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/resource.h> header file. */
+Processing line: #define HAVE_SYS_RESOURCE_H 1
+Macro name 1 HAVE_SYS_RESOURCE_H
+Line not handled, checking for other defines: #define HAVE_SYS_RESOURCE_H 1
+Other define found: #define HAVE_SYS_RESOURCE_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/stat.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/stat.h> header file. */
+Processing line: #define HAVE_SYS_STAT_H 1
+Macro name 1 HAVE_SYS_STAT_H
+Line not handled, checking for other defines: #define HAVE_SYS_STAT_H 1
+Other define found: #define HAVE_SYS_STAT_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/time.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/time.h> header file. */
+Processing line: #define HAVE_SYS_TIME_H 1
+Macro name 1 HAVE_SYS_TIME_H
+Line not handled, checking for other defines: #define HAVE_SYS_TIME_H 1
+Other define found: #define HAVE_SYS_TIME_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/types.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/types.h> header file. */
+Processing line: #define HAVE_SYS_TYPES_H 1
+Macro name 1 HAVE_SYS_TYPES_H
+Line not handled, checking for other defines: #define HAVE_SYS_TYPES_H 1
+Other define found: #define HAVE_SYS_TYPES_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <sys/uio.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <sys/uio.h> header file. */
+Processing line: #define HAVE_SYS_UIO_H 1
+Macro name 1 HAVE_SYS_UIO_H
+Line not handled, checking for other defines: #define HAVE_SYS_UIO_H 1
+Other define found: #define HAVE_SYS_UIO_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <unistd.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <unistd.h> header file. */
+Processing line: #define HAVE_UNISTD_H 1
+Macro name 1 HAVE_UNISTD_H
+Line not handled, checking for other defines: #define HAVE_UNISTD_H 1
+Other define found: #define HAVE_UNISTD_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Supports sending UNIX file descriptors */
+Line not handled, checking for other defines: /* Supports sending UNIX file descriptors */
+Processing line: #define HAVE_UNIX_FD_PASSING 1
+Macro name 1 HAVE_UNIX_FD_PASSING
+Writing line to destination: #define HAVE_UNIX_FD_PASSING 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Have unpcbid structure */
+Line not handled, checking for other defines: /* Have unpcbid structure */
+Processing line: /* #undef HAVE_UNPCBID */
+Macro name 1 HAVE_UNPCBID
+Line not handled, checking for other defines: /* #undef HAVE_UNPCBID */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `unsetenv' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `unsetenv' function. */
+Processing line: #define HAVE_UNSETENV 1
+Macro name 1 HAVE_UNSETENV
+Line not handled, checking for other defines: #define HAVE_UNSETENV 1
+Other define found: #define HAVE_UNSETENV 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `usleep' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `usleep' function. */
+Processing line: #define HAVE_USLEEP 1
+Macro name 1 HAVE_USLEEP
+Line not handled, checking for other defines: #define HAVE_USLEEP 1
+Other define found: #define HAVE_USLEEP 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 or 0, depending whether the compiler supports simple visibility
+Line not handled, checking for other defines: /* Define to 1 or 0, depending whether the compiler supports simple visibility
+Processing line: declarations. */
+Line not handled, checking for other defines: declarations. */
+Processing line: #define HAVE_VISIBILITY 1
+Macro name 1 HAVE_VISIBILITY
+Line not handled, checking for other defines: #define HAVE_VISIBILITY 1
+Other define found: #define HAVE_VISIBILITY 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <wchar.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <wchar.h> header file. */
+Processing line: #define HAVE_WCHAR_H 1
+Macro name 1 HAVE_WCHAR_H
+Line not handled, checking for other defines: #define HAVE_WCHAR_H 1
+Other define found: #define HAVE_WCHAR_H 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `writev' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `writev' function. */
+Processing line: #define HAVE_WRITEV 1
+Macro name 1 HAVE_WRITEV
+Line not handled, checking for other defines: #define HAVE_WRITEV 1
+Other define found: #define HAVE_WRITEV 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the <ws2tcpip.h> header file. */
+Line not handled, checking for other defines: /* Define to 1 if you have the <ws2tcpip.h> header file. */
+Processing line: /* #undef HAVE_WS2TCPIP_H */
+Macro name 1 HAVE_WS2TCPIP_H
+Line not handled, checking for other defines: /* #undef HAVE_WS2TCPIP_H */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have X11 library */
+Line not handled, checking for other defines: /* Define to 1 if you have X11 library */
+Processing line: /* #undef HAVE_X11 */
+Macro name 1 HAVE_X11
+Line not handled, checking for other defines: /* #undef HAVE_X11 */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if you have the `XML_SetHashSalt' function. */
+Line not handled, checking for other defines: /* Define to 1 if you have the `XML_SetHashSalt' function. */
+Processing line: #define HAVE_XML_SETHASHSALT 1
+Macro name 1 HAVE_XML_SETHASHSALT
+Line not handled, checking for other defines: #define HAVE_XML_SETHASHSALT 1
+Other define found: #define HAVE_XML_SETHASHSALT 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the sub-directory where libtool stores uninstalled libraries. */
+Line not handled, checking for other defines: /* Define to the sub-directory where libtool stores uninstalled libraries. */
+Processing line: #define LT_OBJDIR ".libs/"
+Line not handled, checking for other defines: #define LT_OBJDIR ".libs/"
+Other define found: #define LT_OBJDIR ".libs/"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define if debugging is disabled */
+Line not handled, checking for other defines: /* Define if debugging is disabled */
+Processing line: #define NDEBUG 1
+Macro name 1 NDEBUG
+Line not handled, checking for other defines: #define NDEBUG 1
+Other define found: #define NDEBUG 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Name of package */
+Line not handled, checking for other defines: /* Name of package */
+Processing line: #define PACKAGE "dbus"
+Line not handled, checking for other defines: #define PACKAGE "dbus"
+Other define found: #define PACKAGE "dbus"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the address where bug reports for this package should be sent. */
+Line not handled, checking for other defines: /* Define to the address where bug reports for this package should be sent. */
+Processing line: #define PACKAGE_BUGREPORT "https://gitlab.freedesktop.org/dbus/dbus/issues"
+Line not handled, checking for other defines: #define PACKAGE_BUGREPORT "https://gitlab.freedesktop.org/dbus/dbus/issues"
+Other define found: #define PACKAGE_BUGREPORT "https://gitlab.freedesktop.org/dbus/dbus/issues"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the full name of this package. */
+Line not handled, checking for other defines: /* Define to the full name of this package. */
+Processing line: #define PACKAGE_NAME "dbus"
+Line not handled, checking for other defines: #define PACKAGE_NAME "dbus"
+Other define found: #define PACKAGE_NAME "dbus"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the full name and version of this package. */
+Line not handled, checking for other defines: /* Define to the full name and version of this package. */
+Processing line: #define PACKAGE_STRING "dbus 1.14.10"
+Line not handled, checking for other defines: #define PACKAGE_STRING "dbus 1.14.10"
+Other define found: #define PACKAGE_STRING "dbus 1.14.10"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the one symbol short name of this package. */
+Line not handled, checking for other defines: /* Define to the one symbol short name of this package. */
+Processing line: #define PACKAGE_TARNAME "dbus"
+Line not handled, checking for other defines: #define PACKAGE_TARNAME "dbus"
+Other define found: #define PACKAGE_TARNAME "dbus"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the home page for this package. */
+Line not handled, checking for other defines: /* Define to the home page for this package. */
+Processing line: #define PACKAGE_URL ""
+Line not handled, checking for other defines: #define PACKAGE_URL ""
+Other define found: #define PACKAGE_URL ""
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the version of this package. */
+Line not handled, checking for other defines: /* Define to the version of this package. */
+Processing line: #define PACKAGE_VERSION "1.14.10"
+Line not handled, checking for other defines: #define PACKAGE_VERSION "1.14.10"
+Other define found: #define PACKAGE_VERSION "1.14.10"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `char', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `char', as computed by sizeof. */
+Processing line: #define SIZEOF_CHAR 1
+Macro name 1 SIZEOF_CHAR
+Line not handled, checking for other defines: #define SIZEOF_CHAR 1
+Other define found: #define SIZEOF_CHAR 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `int', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `int', as computed by sizeof. */
+Processing line: #define SIZEOF_INT 4
+Line not handled, checking for other defines: #define SIZEOF_INT 4
+Other define found: #define SIZEOF_INT 4
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `long', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `long', as computed by sizeof. */
+Processing line: #define SIZEOF_LONG 4
+Line not handled, checking for other defines: #define SIZEOF_LONG 4
+Other define found: #define SIZEOF_LONG 4
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `long long', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `long long', as computed by sizeof. */
+Processing line: #define SIZEOF_LONG_LONG 8
+Line not handled, checking for other defines: #define SIZEOF_LONG_LONG 8
+Other define found: #define SIZEOF_LONG_LONG 8
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `short', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `short', as computed by sizeof. */
+Processing line: #define SIZEOF_SHORT 2
+Line not handled, checking for other defines: #define SIZEOF_SHORT 2
+Other define found: #define SIZEOF_SHORT 2
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `void *', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `void *', as computed by sizeof. */
+Processing line: #define SIZEOF_VOID_P 4
+Line not handled, checking for other defines: #define SIZEOF_VOID_P 4
+Other define found: #define SIZEOF_VOID_P 4
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* The size of `__int64', as computed by sizeof. */
+Line not handled, checking for other defines: /* The size of `__int64', as computed by sizeof. */
+Processing line: #define SIZEOF___INT64 0
+Macro name 1 SIZEOF___INT64
+Line not handled, checking for other defines: #define SIZEOF___INT64 0
+Other define found: #define SIZEOF___INT64 0
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to 1 if all of the C90 standard headers exist (not just the ones
+Line not handled, checking for other defines: /* Define to 1 if all of the C90 standard headers exist (not just the ones
+Processing line: required in a freestanding environment). This macro is provided for
+Line not handled, checking for other defines: required in a freestanding environment). This macro is provided for
+Processing line: backward compatibility; new code need not use it. */
+Line not handled, checking for other defines: backward compatibility; new code need not use it. */
+Processing line: #define STDC_HEADERS 1
+Macro name 1 STDC_HEADERS
+Line not handled, checking for other defines: #define STDC_HEADERS 1
+Other define found: #define STDC_HEADERS 1
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Listening address for regression tests */
+Line not handled, checking for other defines: /* Listening address for regression tests */
+Processing line: #define TEST_LISTEN "unix:tmpdir=/tmp"
+Line not handled, checking for other defines: #define TEST_LISTEN "unix:tmpdir=/tmp"
+Other define found: #define TEST_LISTEN "unix:tmpdir=/tmp"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* On Windows, we expect to be using msvcrt.dll-compatible printf
+Line not handled, checking for other defines: /* On Windows, we expect to be using msvcrt.dll-compatible printf
+Processing line: * (%I64u instead of %llu) unless otherwise specified */
+Line not handled, checking for other defines: * (%I64u instead of %llu) unless otherwise specified */
+Processing line: #ifndef __USE_MINGW_ANSI_STDIO
+Line not handled, checking for other defines: #ifndef __USE_MINGW_ANSI_STDIO
+Processing line: #   define __USE_MINGW_ANSI_STDIO 0
+Macro name 1 __USE_MINGW_ANSI_STDIO
+Line not handled, checking for other defines: #   define __USE_MINGW_ANSI_STDIO 0
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Enable extensions on AIX 3, Interix.  */
+Line not handled, checking for other defines: /* Enable extensions on AIX 3, Interix.  */
+Processing line: #ifndef _ALL_SOURCE
+Line not handled, checking for other defines: #ifndef _ALL_SOURCE
+Processing line: # define _ALL_SOURCE 1
+Macro name 1 _ALL_SOURCE
+Line not handled, checking for other defines: # define _ALL_SOURCE 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable general extensions on macOS.  */
+Line not handled, checking for other defines: /* Enable general extensions on macOS.  */
+Processing line: #ifndef _DARWIN_C_SOURCE
+Line not handled, checking for other defines: #ifndef _DARWIN_C_SOURCE
+Processing line: # define _DARWIN_C_SOURCE 1
+Macro name 1 _DARWIN_C_SOURCE
+Line not handled, checking for other defines: # define _DARWIN_C_SOURCE 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable general extensions on Solaris.  */
+Line not handled, checking for other defines: /* Enable general extensions on Solaris.  */
+Processing line: #ifndef __EXTENSIONS__
+Line not handled, checking for other defines: #ifndef __EXTENSIONS__
+Processing line: # define __EXTENSIONS__ 1
+Macro name 1 __EXTENSIONS__
+Line not handled, checking for other defines: # define __EXTENSIONS__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable GNU extensions on systems that have them.  */
+Line not handled, checking for other defines: /* Enable GNU extensions on systems that have them.  */
+Processing line: #ifndef _GNU_SOURCE
+Line not handled, checking for other defines: #ifndef _GNU_SOURCE
+Processing line: # define _GNU_SOURCE 1
+Macro name 1 _GNU_SOURCE
+Line not handled, checking for other defines: # define _GNU_SOURCE 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable X/Open compliant socket functions that do not require linking
+Line not handled, checking for other defines: /* Enable X/Open compliant socket functions that do not require linking
+Processing line: with -lxnet on HP-UX 11.11.  */
+Line not handled, checking for other defines: with -lxnet on HP-UX 11.11.  */
+Processing line: #ifndef _HPUX_ALT_XOPEN_SOCKET_API
+Line not handled, checking for other defines: #ifndef _HPUX_ALT_XOPEN_SOCKET_API
+Processing line: # define _HPUX_ALT_XOPEN_SOCKET_API 1
+Macro name 1 _HPUX_ALT_XOPEN_SOCKET_API
+Line not handled, checking for other defines: # define _HPUX_ALT_XOPEN_SOCKET_API 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Identify the host operating system as Minix.
+Line not handled, checking for other defines: /* Identify the host operating system as Minix.
+Processing line: This macro does not affect the system headers' behavior.
+Line not handled, checking for other defines: This macro does not affect the system headers' behavior.
+Processing line: A future release of Autoconf may stop defining this macro.  */
+Line not handled, checking for other defines: A future release of Autoconf may stop defining this macro.  */
+Processing line: #ifndef _MINIX
+Line not handled, checking for other defines: #ifndef _MINIX
+Processing line: /* # undef _MINIX */
+Line not handled, checking for other defines: /* # undef _MINIX */
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable general extensions on NetBSD.
+Line not handled, checking for other defines: /* Enable general extensions on NetBSD.
+Processing line: Enable NetBSD compatibility extensions on Minix.  */
+Line not handled, checking for other defines: Enable NetBSD compatibility extensions on Minix.  */
+Processing line: #ifndef _NETBSD_SOURCE
+Line not handled, checking for other defines: #ifndef _NETBSD_SOURCE
+Processing line: # define _NETBSD_SOURCE 1
+Macro name 1 _NETBSD_SOURCE
+Line not handled, checking for other defines: # define _NETBSD_SOURCE 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable OpenBSD compatibility extensions on NetBSD.
+Line not handled, checking for other defines: /* Enable OpenBSD compatibility extensions on NetBSD.
+Processing line: Oddly enough, this does nothing on OpenBSD.  */
+Line not handled, checking for other defines: Oddly enough, this does nothing on OpenBSD.  */
+Processing line: #ifndef _OPENBSD_SOURCE
+Line not handled, checking for other defines: #ifndef _OPENBSD_SOURCE
+Processing line: # define _OPENBSD_SOURCE 1
+Macro name 1 _OPENBSD_SOURCE
+Line not handled, checking for other defines: # define _OPENBSD_SOURCE 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Define to 1 if needed for POSIX-compatible behavior.  */
+Line not handled, checking for other defines: /* Define to 1 if needed for POSIX-compatible behavior.  */
+Processing line: #ifndef _POSIX_SOURCE
+Line not handled, checking for other defines: #ifndef _POSIX_SOURCE
+Processing line: /* # undef _POSIX_SOURCE */
+Line not handled, checking for other defines: /* # undef _POSIX_SOURCE */
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Define to 2 if needed for POSIX-compatible behavior.  */
+Line not handled, checking for other defines: /* Define to 2 if needed for POSIX-compatible behavior.  */
+Processing line: #ifndef _POSIX_1_SOURCE
+Line not handled, checking for other defines: #ifndef _POSIX_1_SOURCE
+Processing line: /* # undef _POSIX_1_SOURCE */
+Line not handled, checking for other defines: /* # undef _POSIX_1_SOURCE */
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable POSIX-compatible threading on Solaris.  */
+Line not handled, checking for other defines: /* Enable POSIX-compatible threading on Solaris.  */
+Processing line: #ifndef _POSIX_PTHREAD_SEMANTICS
+Line not handled, checking for other defines: #ifndef _POSIX_PTHREAD_SEMANTICS
+Processing line: # define _POSIX_PTHREAD_SEMANTICS 1
+Macro name 1 _POSIX_PTHREAD_SEMANTICS
+Line not handled, checking for other defines: # define _POSIX_PTHREAD_SEMANTICS 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC TS 18661-5:2014.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC TS 18661-5:2014.  */
+Processing line: #ifndef __STDC_WANT_IEC_60559_ATTRIBS_EXT__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_IEC_60559_ATTRIBS_EXT__
+Processing line: # define __STDC_WANT_IEC_60559_ATTRIBS_EXT__ 1
+Macro name 1 __STDC_WANT_IEC_60559_ATTRIBS_EXT__
+Line not handled, checking for other defines: # define __STDC_WANT_IEC_60559_ATTRIBS_EXT__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC TS 18661-1:2014.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC TS 18661-1:2014.  */
+Processing line: #ifndef __STDC_WANT_IEC_60559_BFP_EXT__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_IEC_60559_BFP_EXT__
+Processing line: # define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+Macro name 1 __STDC_WANT_IEC_60559_BFP_EXT__
+Line not handled, checking for other defines: # define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC TS 18661-2:2015.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC TS 18661-2:2015.  */
+Processing line: #ifndef __STDC_WANT_IEC_60559_DFP_EXT__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_IEC_60559_DFP_EXT__
+Processing line: # define __STDC_WANT_IEC_60559_DFP_EXT__ 1
+Macro name 1 __STDC_WANT_IEC_60559_DFP_EXT__
+Line not handled, checking for other defines: # define __STDC_WANT_IEC_60559_DFP_EXT__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC TS 18661-4:2015.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC TS 18661-4:2015.  */
+Processing line: #ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
+Processing line: # define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+Macro name 1 __STDC_WANT_IEC_60559_FUNCS_EXT__
+Line not handled, checking for other defines: # define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC TS 18661-3:2015.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC TS 18661-3:2015.  */
+Processing line: #ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
+Processing line: # define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+Macro name 1 __STDC_WANT_IEC_60559_TYPES_EXT__
+Line not handled, checking for other defines: # define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC TR 24731-2:2010.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC TR 24731-2:2010.  */
+Processing line: #ifndef __STDC_WANT_LIB_EXT2__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_LIB_EXT2__
+Processing line: # define __STDC_WANT_LIB_EXT2__ 1
+Macro name 1 __STDC_WANT_LIB_EXT2__
+Line not handled, checking for other defines: # define __STDC_WANT_LIB_EXT2__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions specified by ISO/IEC 24747:2009.  */
+Line not handled, checking for other defines: /* Enable extensions specified by ISO/IEC 24747:2009.  */
+Processing line: #ifndef __STDC_WANT_MATH_SPEC_FUNCS__
+Line not handled, checking for other defines: #ifndef __STDC_WANT_MATH_SPEC_FUNCS__
+Processing line: # define __STDC_WANT_MATH_SPEC_FUNCS__ 1
+Macro name 1 __STDC_WANT_MATH_SPEC_FUNCS__
+Line not handled, checking for other defines: # define __STDC_WANT_MATH_SPEC_FUNCS__ 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable extensions on HP NonStop.  */
+Line not handled, checking for other defines: /* Enable extensions on HP NonStop.  */
+Processing line: #ifndef _TANDEM_SOURCE
+Line not handled, checking for other defines: #ifndef _TANDEM_SOURCE
+Processing line: # define _TANDEM_SOURCE 1
+Macro name 1 _TANDEM_SOURCE
+Line not handled, checking for other defines: # define _TANDEM_SOURCE 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: /* Enable X/Open extensions.  Define to 500 only if necessary
+Line not handled, checking for other defines: /* Enable X/Open extensions.  Define to 500 only if necessary
+Processing line: to make mbstate_t available.  */
+Line not handled, checking for other defines: to make mbstate_t available.  */
+Processing line: #ifndef _XOPEN_SOURCE
+Line not handled, checking for other defines: #ifndef _XOPEN_SOURCE
+Processing line: /* # undef _XOPEN_SOURCE */
+Line not handled, checking for other defines: /* # undef _XOPEN_SOURCE */
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Version number of package */
+Line not handled, checking for other defines: /* Version number of package */
+Processing line: #define VERSION "1.14.10"
+Line not handled, checking for other defines: #define VERSION "1.14.10"
+Other define found: #define VERSION "1.14.10"
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to add Valgrind instrumentation */
+Line not handled, checking for other defines: /* Define to add Valgrind instrumentation */
+Processing line: /* #undef WITH_VALGRIND */
+Macro name 1 WITH_VALGRIND
+Line not handled, checking for other defines: /* #undef WITH_VALGRIND */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+Line not handled, checking for other defines: /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+Processing line: significant byte first (like Motorola and SPARC, unlike Intel). */
+Line not handled, checking for other defines: significant byte first (like Motorola and SPARC, unlike Intel). */
+Processing line: #if defined AC_APPLE_UNIVERSAL_BUILD
+Line not handled, checking for other defines: #if defined AC_APPLE_UNIVERSAL_BUILD
+Processing line: # if defined __BIG_ENDIAN__
+Line not handled, checking for other defines: # if defined __BIG_ENDIAN__
+Processing line: #  define WORDS_BIGENDIAN 1
+Macro name 1 WORDS_BIGENDIAN
+Line not handled, checking for other defines: #  define WORDS_BIGENDIAN 1
+Processing line: # endif
+Line not handled, checking for other defines: # endif
+Processing line: #else
+Line not handled, checking for other defines: #else
+Processing line: # ifndef WORDS_BIGENDIAN
+Line not handled, checking for other defines: # ifndef WORDS_BIGENDIAN
+Processing line: /* #  undef WORDS_BIGENDIAN */
+Line not handled, checking for other defines: /* #  undef WORDS_BIGENDIAN */
+Processing line: # endif
+Line not handled, checking for other defines: # endif
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Use the compiler-provided endianness defines to allow universal compiling. */
+Line not handled, checking for other defines: /* Use the compiler-provided endianness defines to allow universal compiling. */
+Processing line: #if defined(__BIG_ENDIAN__)
+Line not handled, checking for other defines: #if defined(__BIG_ENDIAN__)
+Processing line: #define WORDS_BIGENDIAN 1
+Macro name 1 WORDS_BIGENDIAN
+Line not handled, checking for other defines: #define WORDS_BIGENDIAN 1
+Other define found: #define WORDS_BIGENDIAN 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to enable BSD features */
+Line not handled, checking for other defines: /* Define to enable BSD features */
+Processing line: /* #undef _BSD_SOURCE */
+Macro name 1 _BSD_SOURCE
+Line not handled, checking for other defines: /* #undef _BSD_SOURCE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: #if defined(HAVE_NSGETENVIRON) && defined(HAVE_CRT_EXTERNS_H)
+Line not handled, checking for other defines: #if defined(HAVE_NSGETENVIRON) && defined(HAVE_CRT_EXTERNS_H)
+Processing line: # include <sys/time.h>
+Line not handled, checking for other defines: # include <sys/time.h>
+Processing line: # include <crt_externs.h>
+Line not handled, checking for other defines: # include <crt_externs.h>
+Processing line: # define environ (*_NSGetEnviron())
+Line not handled, checking for other defines: # define environ (*_NSGetEnviron())
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Number of bits in a file offset, on hosts where this is settable. */
+Line not handled, checking for other defines: /* Number of bits in a file offset, on hosts where this is settable. */
+Processing line: /* #undef _FILE_OFFSET_BITS */
+Macro name 1 _FILE_OFFSET_BITS
+Line not handled, checking for other defines: /* #undef _FILE_OFFSET_BITS */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define for large files, on AIX-style hosts. */
+Line not handled, checking for other defines: /* Define for large files, on AIX-style hosts. */
+Processing line: /* #undef _LARGE_FILES */
+Macro name 1 _LARGE_FILES
+Line not handled, checking for other defines: /* #undef _LARGE_FILES */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to enable POSIX features */
+Line not handled, checking for other defines: /* Define to enable POSIX features */
+Processing line: /* #undef _POSIX_C_SOURCE */
+Macro name 1 _POSIX_C_SOURCE
+Line not handled, checking for other defines: /* #undef _POSIX_C_SOURCE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Defined to get newer W32 CE APIs */
+Line not handled, checking for other defines: /* Defined to get newer W32 CE APIs */
+Processing line: /* #undef _WIN32_WCE */
+Macro name 1 _WIN32_WCE
+Line not handled, checking for other defines: /* #undef _WIN32_WCE */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to the minimum supported Windows version (0x0600 is Vista) */
+Line not handled, checking for other defines: /* Define to the minimum supported Windows version (0x0600 is Vista) */
+Processing line: /* #undef _WIN32_WINNT */
+Macro name 1 _WIN32_WINNT
+Line not handled, checking for other defines: /* #undef _WIN32_WINNT */
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* Define to `__inline__' or `__inline' if that's what the C compiler
+Line not handled, checking for other defines: /* Define to `__inline__' or `__inline' if that's what the C compiler
+Processing line: calls it, or to nothing if 'inline' is not supported under any name.  */
+Line not handled, checking for other defines: calls it, or to nothing if 'inline' is not supported under any name.  */
+Processing line: #ifndef __cplusplus
+Line not handled, checking for other defines: #ifndef __cplusplus
+Processing line: /* #undef inline */
+Line not handled, checking for other defines: /* #undef inline */
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: 
+Line not handled, checking for other defines: 
+Processing line: /* explicitly define these macros to get less confusing conditions */
+Line not handled, checking for other defines: /* explicitly define these macros to get less confusing conditions */
+Processing line: #ifndef DBUS_DISABLE_ASSERT
+Line not handled, checking for other defines: #ifndef DBUS_DISABLE_ASSERT
+Processing line: #  define DBUS_ENABLE_ASSERT 1
+Macro name 1 DBUS_ENABLE_ASSERT
+Writing line to destination: #  define DBUS_ENABLE_ASSERT 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+Processing line: #ifndef DBUS_DISABLE_CHECKS
+Line not handled, checking for other defines: #ifndef DBUS_DISABLE_CHECKS
+Processing line: #  define DBUS_ENABLE_CHECKS 1
+Macro name 1 DBUS_ENABLE_CHECKS
+Writing line to destination: #  define DBUS_ENABLE_CHECKS 1
+Processing line: #endif
+Line not handled, checking for other defines: #endif
+
+=== Iteration 1 ===
+Ground truth flags for project dbus : {('HAVE_MONOTONIC_CLOCK', 'False'), ('DBUS_ENABLE_STATS', 'True'), ('DBUS_DISABLE_CHECKS', 'False'), ('DBUS_ENABLE_ASSERT', 'True'), ('HAVE_UNIX_FD_PASSING', 'False'), ('DBUS_ENABLE_CHECKS', 'True'), ('DBUS_ENABLE_EMBEDDED_TESTS', 'False'), ('DBUS_DISABLE_ASSERT', 'False')}

@@ -126,15 +126,16 @@ class BuildrootBuildManager:
         binary = Path(binary)
         time = str(time)
         # Create a unique output directory per project
-        output_dir = log_file.parent / f"{project.name}_{time}_bundle"
+        # output_dir = log_file.parent / f"{project.name}_{time}_bundle"
+        output_dir = log_file.parent / f"{project.name}_default"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Define destination paths
-        dst_config = output_dir / config_h.name
+        # dst_config = output_dir / config_h.name
         dst_binary = output_dir / binary.name
 
         # Copy instead of move (preserves metadata like timestamps)
-        shutil.copy2(config_h, dst_config)
+        # shutil.copy2(config_h, dst_config)
         shutil.copy2(binary, dst_binary)
         return output_dir
 
@@ -242,14 +243,14 @@ class BuildrootBuildManager:
         print("Ground truth flags for project", project.name, ":", gt.flags)
         # Hook the groundtruth flags into the build environment
 
-        if project.name == "libopenssl":
-            self.write_buildroot_hook_script_libopenssl(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
-        elif project.name == "libxml2":
-            self.write_buildroot_hook_script_libxml2(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
-        else:
-            self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
+        # if project.name == "libopenssl":
+        #     self.write_buildroot_hook_script_libopenssl(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
+        # elif project.name == "libxml2":
+        #     self.write_buildroot_hook_script_libxml2(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
+        # else:
+        #     self.write_buildroot_hook_script(gt.flags, "/workspaces/RevEng/support/apply_" + project.name + "_truth.sh", project)
 
-        self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
+        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=True)
         # build the specific package
         cmd = [
             "make",
@@ -289,10 +290,10 @@ class BuildrootBuildManager:
             if iteration == 1:
                 output_dir = self._move_stripped_binary_and_config(project, log_file, time.time())
                 self.bundle = output_dir
-            dst_binary = self.bundle / "final_binary"
-            shutil.copy2(project.metadata["binary"], dst_binary)
+            # dst_binary = self.bundle / "final_binary"
+            # shutil.copy2(project.metadata["binary"], dst_binary)
 
-        self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
+        # self._toggle_post_configure_hooks(self.buildroot_dir / "package" / pkg / (pkg + ".mk"), uncomment=False)
 
         # if iteration > 1 and not success:
         #     extractor = BuildErrorPresenceExtractor(
@@ -300,7 +301,7 @@ class BuildrootBuildManager:
         #     )
         #     error = extractor.parse_log_file(log_file, project.source_dir)
       
-
+        raise KeyError("Binary built")
         os.remove(project.metadata.get("config_h", None))
         binaries = [project.metadata["binary"], dst_binary]
         duration = time.time() - start

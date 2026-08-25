@@ -1,0 +1,6 @@
+*** Run 0 for project: rsync ***
+FLAGS: {('SUPPORT_ZSTD', 'True'), ('USE_OPENSSL', 'False'), ('SUPPORT_ACLS', 'False'), ('SUPPORT_LZ4', 'True'), ('USE_ROLL_SIMD', 'True'), ('SUPPORT_XATTRS', 'True'), ('INET6', 'True')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project rsync : {('SUPPORT_ZSTD', 'True'), ('USE_OPENSSL', 'False'), ('SUPPORT_ACLS', 'False'), ('SUPPORT_LZ4', 'True'), ('USE_ROLL_SIMD', 'True'), ('SUPPORT_XATTRS', 'True'), ('INET6', 'True')}

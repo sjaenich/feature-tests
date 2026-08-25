@@ -1,0 +1,6 @@
+*** Run 0 for project: ncurses ***
+FLAGS: {('NCURSES_EXT_PUTWIN', 'False'), ('NCURSES_EXT_FUNCS', 'True'), ('NCURSES_NO_PADDING', 'False')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project ncurses : {('NCURSES_EXT_PUTWIN', 'False'), ('NCURSES_EXT_FUNCS', 'True'), ('NCURSES_NO_PADDING', 'False')}

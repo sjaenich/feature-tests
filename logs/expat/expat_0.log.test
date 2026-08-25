@@ -1,0 +1,6 @@
+*** Run 0 for project: expat ***
+FLAGS: {('XML_DTD', 'True'), ('HAVE_GETRANDOM', 'True'), ('XML_DEV_URANDOM', 'True'), ('XML_GE', 'True'), ('HAVE_SYSCALL_GETRANDOM', 'False'), ('XML_NS', 'True'), ('HAVE_ARC4RANDOM', 'False'), ('XML_ATTR_INFO', 'False')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project expat : {('XML_DTD', 'True'), ('HAVE_GETRANDOM', 'True'), ('XML_DEV_URANDOM', 'True'), ('XML_GE', 'True'), ('HAVE_SYSCALL_GETRANDOM', 'False'), ('XML_NS', 'True'), ('HAVE_ARC4RANDOM', 'False'), ('XML_ATTR_INFO', 'False')}

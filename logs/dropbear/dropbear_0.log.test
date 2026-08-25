@@ -1,0 +1,6 @@
+*** Run 0 for project: dropbear ***
+FLAGS: {('DROPBEAR_AES128', 'False'), ('DROPBEAR_ECDH', 'True'), ('DROPBEAR_CHACHA20POLY1305', 'True'), ('DROPBEAR_ENABLE_GCM_MODE', 'True'), ('DROPBEAR_X11FWD', 'False'), ('DROPBEAR_DH_GROUP14_SHA1', 'True'), ('DROPBEAR_3DES', 'False'), ('DROPBEAR_AES256', 'False'), ('DROPBEAR_CURVE25519', 'False'), ('DROPBEAR_SFTPSERVER', 'True'), ('DO_HOST_LOOKUP', 'False')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project dropbear : {('DROPBEAR_AES128', 'False'), ('DROPBEAR_ECDH', 'True'), ('DROPBEAR_CHACHA20POLY1305', 'True'), ('DROPBEAR_ENABLE_GCM_MODE', 'True'), ('DROPBEAR_X11FWD', 'False'), ('DROPBEAR_DH_GROUP14_SHA1', 'True'), ('DROPBEAR_3DES', 'False'), ('DROPBEAR_AES256', 'False'), ('DROPBEAR_CURVE25519', 'False'), ('DROPBEAR_SFTPSERVER', 'True'), ('DO_HOST_LOOKUP', 'False')}

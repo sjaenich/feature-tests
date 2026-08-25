@@ -1,0 +1,8 @@
+*** Run 0 for project: libpcap ***
+FLAGS: {('HAVE_DAG_API', 'True'), ('PCAP_SUPPORT_LINUX_USBMON', 'False'), ('PCAP_SUPPORT_DBUS', 'True'), ('PCAP_SUPPORT_DPDK', 'True'), ('YYDEBUG', 'True'), ('PCAP_SUPPORT_BT', 'False'), ('PCAP_SUPPORT_BT_MONITOR', 'False'), ('INET6', 'True'), ('PCAP_SUPPORT_NETMAP', 'True'), ('PCAP_SUPPORT_NETFILTER', 'False'), ('HAVE_SNF_API', 'False')}
+Running experiment...
+Move config /workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/config.h
+CONFIG DOES NOT EXIST /workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/config.h
+
+=== Iteration 1 ===
+Ground truth flags for project libpcap : {('HAVE_DAG_API', 'True'), ('PCAP_SUPPORT_LINUX_USBMON', 'False'), ('PCAP_SUPPORT_DBUS', 'True'), ('PCAP_SUPPORT_DPDK', 'True'), ('YYDEBUG', 'True'), ('PCAP_SUPPORT_BT', 'False'), ('PCAP_SUPPORT_BT_MONITOR', 'False'), ('INET6', 'True'), ('PCAP_SUPPORT_NETMAP', 'True'), ('PCAP_SUPPORT_NETFILTER', 'False'), ('HAVE_SNF_API', 'False')}

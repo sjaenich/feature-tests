@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 from dataclasses import dataclass
@@ -62,7 +63,9 @@ class BinarySimilarityCalculator:
     ) -> BinarySimilarityResult:
         primary = self._validate_binary(primary_binary, "primary")
         secondary = self._validate_binary(secondary_binary, "secondary")
-
+    
+        
+                       
         command = [
             "bash",
             str(self.script_path),

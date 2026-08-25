@@ -1,0 +1,6 @@
+*** Run 0 for project: nano ***
+FLAGS: {('ENABLE_HELP', 'False'), ('ENABLE_HISTORIES', 'True'), ('ENABLE_MOUSE', 'False'), ('ENABLE_WORDCOMPLETION', 'False'), ('ENABLE_WRAPPING', 'False'), ('NANO_TINY', 'True'), ('ENABLE_COLOR', 'False'), ('ENABLE_UTF8', 'False'), ('ENABLE_MULTIBUFFER', 'False'), ('ENABLE_OPERATINGDIR', 'False'), ('ENABLE_TABCOMP', 'True'), ('HAVE_LIBMAGIC', 'False'), ('ENABLE_SPELLER', 'False'), ('ENABLE_BROWSER', 'True'), ('ENABLE_NANORC', 'True'), ('ENABLE_NLS', 'True'), ('ENABLE_LINENUMBERS', 'True'), ('ENABLE_JUSTIFY', 'False')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project nano : {('ENABLE_HELP', 'False'), ('ENABLE_HISTORIES', 'True'), ('ENABLE_MOUSE', 'False'), ('ENABLE_WORDCOMPLETION', 'False'), ('ENABLE_WRAPPING', 'False'), ('NANO_TINY', 'True'), ('ENABLE_COLOR', 'False'), ('ENABLE_UTF8', 'False'), ('ENABLE_MULTIBUFFER', 'False'), ('ENABLE_OPERATINGDIR', 'False'), ('ENABLE_TABCOMP', 'True'), ('HAVE_LIBMAGIC', 'False'), ('ENABLE_SPELLER', 'False'), ('ENABLE_BROWSER', 'True'), ('ENABLE_NANORC', 'True'), ('ENABLE_NLS', 'True'), ('ENABLE_LINENUMBERS', 'True'), ('ENABLE_JUSTIFY', 'False')}

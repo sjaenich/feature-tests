@@ -1,0 +1,934 @@
+*** Run 0 for project: libssh2 ***
+FLAGS: {('LIBSSH2_WINCNG', 'False'), ('LIBSSH2_OPENSSL', 'True'), ('LIBSSH2_MBEDTLS', 'False'), ('LIBSSH2_HAVE_ZLIB', 'False'), ('LIBSSH2_LIBGCRYPT', 'False')}
+Running experiment...
+Adding known libssh2 macros to ground truth
+Remaining macros after removing unused ones: {('LIBSSH2_LIBGCRYPT', 'False'), ('LIBSSH2_WINCNG', 'False'), ('LIBSSH2_OPENSSL', 'True'), ('LIBSSH2_HAVE_ZLIB', 'False'), ('LIBSSH2_MBEDTLS', 'False')}
+Only flag names: {'LIBSSH2_MBEDTLS', 'LIBSSH2_LIBGCRYPT', 'LIBSSH2_HAVE_ZLIB', 'LIBSSH2_OPENSSL', 'LIBSSH2_WINCNG'}
+DEF MATCH /* src/libssh2_config.h.  Generated from libssh2_config.h.in by configure.  */
+ None
+UNDEF RE MATCH: /* src/libssh2_config.h.  Generated from libssh2_config.h.in by configure.  */
+ None
+DEF MATCH /* src/libssh2_config.h.in.  Generated from configure.ac by autoheader.  */
+ None
+UNDEF RE MATCH: /* src/libssh2_config.h.in.  Generated from configure.ac by autoheader.  */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if building universal (internal helper macro) */
+ None
+UNDEF RE MATCH: /* Define if building universal (internal helper macro) */
+ None
+DEF MATCH /* #undef AC_APPLE_UNIVERSAL_BUILD */
+ None
+UNDEF RE MATCH: /* #undef AC_APPLE_UNIVERSAL_BUILD */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if using 'alloca.c'. */
+ None
+UNDEF RE MATCH: /* Define to 1 if using 'alloca.c'. */
+ None
+DEF MATCH /* #undef C_ALLOCA */
+ None
+UNDEF RE MATCH: /* #undef C_ALLOCA */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have 'alloca', as a function or macro. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have 'alloca', as a function or macro. */
+ None
+DEF MATCH #define HAVE_ALLOCA 1
+ <re.Match object; span=(0, 22), match='#define HAVE_ALLOCA 1\n'>
+UNDEF RE MATCH: #define HAVE_ALLOCA 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if <alloca.h> works. */
+ None
+UNDEF RE MATCH: /* Define to 1 if <alloca.h> works. */
+ None
+DEF MATCH #define HAVE_ALLOCA_H 1
+ <re.Match object; span=(0, 24), match='#define HAVE_ALLOCA_H 1\n'>
+UNDEF RE MATCH: #define HAVE_ALLOCA_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <arpa/inet.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <arpa/inet.h> header file. */
+ None
+DEF MATCH #define HAVE_ARPA_INET_H 1
+ <re.Match object; span=(0, 27), match='#define HAVE_ARPA_INET_H 1\n'>
+UNDEF RE MATCH: #define HAVE_ARPA_INET_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <dlfcn.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <dlfcn.h> header file. */
+ None
+DEF MATCH #define HAVE_DLFCN_H 1
+ <re.Match object; span=(0, 23), match='#define HAVE_DLFCN_H 1\n'>
+UNDEF RE MATCH: #define HAVE_DLFCN_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <errno.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <errno.h> header file. */
+ None
+DEF MATCH #define HAVE_ERRNO_H 1
+ <re.Match object; span=(0, 23), match='#define HAVE_ERRNO_H 1\n'>
+UNDEF RE MATCH: #define HAVE_ERRNO_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `explicit_bzero' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `explicit_bzero' function. */
+ None
+DEF MATCH #define HAVE_EXPLICIT_BZERO 1
+ <re.Match object; span=(0, 30), match='#define HAVE_EXPLICIT_BZERO 1\n'>
+UNDEF RE MATCH: #define HAVE_EXPLICIT_BZERO 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `explicit_memset' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `explicit_memset' function. */
+ None
+DEF MATCH /* #undef HAVE_EXPLICIT_MEMSET */
+ None
+UNDEF RE MATCH: /* #undef HAVE_EXPLICIT_MEMSET */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <fcntl.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <fcntl.h> header file. */
+ None
+DEF MATCH #define HAVE_FCNTL_H 1
+ <re.Match object; span=(0, 23), match='#define HAVE_FCNTL_H 1\n'>
+UNDEF RE MATCH: #define HAVE_FCNTL_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* use FIONBIO for non-blocking sockets */
+ None
+UNDEF RE MATCH: /* use FIONBIO for non-blocking sockets */
+ None
+DEF MATCH /* #undef HAVE_FIONBIO */
+ None
+UNDEF RE MATCH: /* #undef HAVE_FIONBIO */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `gettimeofday' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `gettimeofday' function. */
+ None
+DEF MATCH #define HAVE_GETTIMEOFDAY 1
+ <re.Match object; span=(0, 28), match='#define HAVE_GETTIMEOFDAY 1\n'>
+UNDEF RE MATCH: #define HAVE_GETTIMEOFDAY 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <inttypes.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <inttypes.h> header file. */
+ None
+DEF MATCH #define HAVE_INTTYPES_H 1
+ <re.Match object; span=(0, 26), match='#define HAVE_INTTYPES_H 1\n'>
+UNDEF RE MATCH: #define HAVE_INTTYPES_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* use Ioctlsocket() for non-blocking sockets */
+ None
+UNDEF RE MATCH: /* use Ioctlsocket() for non-blocking sockets */
+ None
+DEF MATCH /* #undef HAVE_IOCTLSOCKET_CASE */
+ None
+UNDEF RE MATCH: /* #undef HAVE_IOCTLSOCKET_CASE */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if you have the bcrypt library. */
+ None
+UNDEF RE MATCH: /* Define if you have the bcrypt library. */
+ None
+DEF MATCH /* #undef HAVE_LIBBCRYPT */
+ None
+UNDEF RE MATCH: /* #undef HAVE_LIBBCRYPT */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if you have the gcrypt library. */
+ None
+UNDEF RE MATCH: /* Define if you have the gcrypt library. */
+ None
+DEF MATCH /* #undef HAVE_LIBGCRYPT */
+ None
+UNDEF RE MATCH: /* #undef HAVE_LIBGCRYPT */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if you have the mbedcrypto library. */
+ None
+UNDEF RE MATCH: /* Define if you have the mbedcrypto library. */
+ None
+DEF MATCH /* #undef HAVE_LIBMBEDCRYPTO */
+ None
+UNDEF RE MATCH: /* #undef HAVE_LIBMBEDCRYPTO */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if you have the ssl library. */
+ None
+UNDEF RE MATCH: /* Define if you have the ssl library. */
+ None
+DEF MATCH #define HAVE_LIBSSL 1
+ <re.Match object; span=(0, 22), match='#define HAVE_LIBSSL 1\n'>
+UNDEF RE MATCH: #define HAVE_LIBSSL 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if you have the wolfssl library. */
+ None
+UNDEF RE MATCH: /* Define if you have the wolfssl library. */
+ None
+DEF MATCH /* #undef HAVE_LIBWOLFSSL */
+ None
+UNDEF RE MATCH: /* #undef HAVE_LIBWOLFSSL */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define if you have the z library. */
+ None
+UNDEF RE MATCH: /* Define if you have the z library. */
+ None
+DEF MATCH #define HAVE_LIBZ 1
+ <re.Match object; span=(0, 20), match='#define HAVE_LIBZ 1\n'>
+UNDEF RE MATCH: #define HAVE_LIBZ 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `memset_s' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `memset_s' function. */
+ None
+DEF MATCH /* #undef HAVE_MEMSET_S */
+ None
+UNDEF RE MATCH: /* #undef HAVE_MEMSET_S */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <netinet/in.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <netinet/in.h> header file. */
+ None
+DEF MATCH #define HAVE_NETINET_IN_H 1
+ <re.Match object; span=(0, 28), match='#define HAVE_NETINET_IN_H 1\n'>
+UNDEF RE MATCH: #define HAVE_NETINET_IN_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* use O_NONBLOCK for non-blocking sockets */
+ None
+UNDEF RE MATCH: /* use O_NONBLOCK for non-blocking sockets */
+ None
+DEF MATCH #define HAVE_O_NONBLOCK 1
+ <re.Match object; span=(0, 26), match='#define HAVE_O_NONBLOCK 1\n'>
+UNDEF RE MATCH: #define HAVE_O_NONBLOCK 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `poll' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `poll' function. */
+ None
+DEF MATCH #define HAVE_POLL 1
+ <re.Match object; span=(0, 20), match='#define HAVE_POLL 1\n'>
+UNDEF RE MATCH: #define HAVE_POLL 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the select function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the select function. */
+ None
+DEF MATCH #define HAVE_SELECT 1
+ <re.Match object; span=(0, 22), match='#define HAVE_SELECT 1\n'>
+UNDEF RE MATCH: #define HAVE_SELECT 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `snprintf' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `snprintf' function. */
+ None
+DEF MATCH #define HAVE_SNPRINTF 1
+ <re.Match object; span=(0, 24), match='#define HAVE_SNPRINTF 1\n'>
+UNDEF RE MATCH: #define HAVE_SNPRINTF 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* use SO_NONBLOCK for non-blocking sockets */
+ None
+UNDEF RE MATCH: /* use SO_NONBLOCK for non-blocking sockets */
+ None
+DEF MATCH /* #undef HAVE_SO_NONBLOCK */
+ None
+UNDEF RE MATCH: /* #undef HAVE_SO_NONBLOCK */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <stdint.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <stdint.h> header file. */
+ None
+DEF MATCH #define HAVE_STDINT_H 1
+ <re.Match object; span=(0, 24), match='#define HAVE_STDINT_H 1\n'>
+UNDEF RE MATCH: #define HAVE_STDINT_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <stdio.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <stdio.h> header file. */
+ None
+DEF MATCH #define HAVE_STDIO_H 1
+ <re.Match object; span=(0, 23), match='#define HAVE_STDIO_H 1\n'>
+UNDEF RE MATCH: #define HAVE_STDIO_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <stdlib.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <stdlib.h> header file. */
+ None
+DEF MATCH #define HAVE_STDLIB_H 1
+ <re.Match object; span=(0, 24), match='#define HAVE_STDLIB_H 1\n'>
+UNDEF RE MATCH: #define HAVE_STDLIB_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <strings.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <strings.h> header file. */
+ None
+DEF MATCH #define HAVE_STRINGS_H 1
+ <re.Match object; span=(0, 25), match='#define HAVE_STRINGS_H 1\n'>
+UNDEF RE MATCH: #define HAVE_STRINGS_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <string.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <string.h> header file. */
+ None
+DEF MATCH #define HAVE_STRING_H 1
+ <re.Match object; span=(0, 24), match='#define HAVE_STRING_H 1\n'>
+UNDEF RE MATCH: #define HAVE_STRING_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the `strtoll' function. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the `strtoll' function. */
+ None
+DEF MATCH #define HAVE_STRTOLL 1
+ <re.Match object; span=(0, 23), match='#define HAVE_STRTOLL 1\n'>
+UNDEF RE MATCH: #define HAVE_STRTOLL 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/ioctl.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/ioctl.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_IOCTL_H 1
+ <re.Match object; span=(0, 27), match='#define HAVE_SYS_IOCTL_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_IOCTL_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/param.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/param.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_PARAM_H 1
+ <re.Match object; span=(0, 27), match='#define HAVE_SYS_PARAM_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_PARAM_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/select.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/select.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_SELECT_H 1
+ <re.Match object; span=(0, 28), match='#define HAVE_SYS_SELECT_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_SELECT_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/socket.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/socket.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_SOCKET_H 1
+ <re.Match object; span=(0, 28), match='#define HAVE_SYS_SOCKET_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_SOCKET_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/stat.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/stat.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_STAT_H 1
+ <re.Match object; span=(0, 26), match='#define HAVE_SYS_STAT_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_STAT_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/time.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/time.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_TIME_H 1
+ <re.Match object; span=(0, 26), match='#define HAVE_SYS_TIME_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_TIME_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/types.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/types.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_TYPES_H 1
+ <re.Match object; span=(0, 27), match='#define HAVE_SYS_TYPES_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_TYPES_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/uio.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/uio.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_UIO_H 1
+ <re.Match object; span=(0, 25), match='#define HAVE_SYS_UIO_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_UIO_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <sys/un.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <sys/un.h> header file. */
+ None
+DEF MATCH #define HAVE_SYS_UN_H 1
+ <re.Match object; span=(0, 24), match='#define HAVE_SYS_UN_H 1\n'>
+UNDEF RE MATCH: #define HAVE_SYS_UN_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <unistd.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <unistd.h> header file. */
+ None
+DEF MATCH #define HAVE_UNISTD_H 1
+ <re.Match object; span=(0, 24), match='#define HAVE_UNISTD_H 1\n'>
+UNDEF RE MATCH: #define HAVE_UNISTD_H 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if you have the <windows.h> header file. */
+ None
+UNDEF RE MATCH: /* Define to 1 if you have the <windows.h> header file. */
+ None
+DEF MATCH /* #undef HAVE_WINDOWS_H */
+ None
+UNDEF RE MATCH: /* #undef HAVE_WINDOWS_H */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* to make a symbol visible */
+ None
+UNDEF RE MATCH: /* to make a symbol visible */
+ None
+DEF MATCH /* #undef LIBSSH2_API */
+ None
+UNDEF RE MATCH: /* #undef LIBSSH2_API */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Compile in zlib support */
+ None
+UNDEF RE MATCH: /* Compile in zlib support */
+ None
+DEF MATCH #define LIBSSH2_HAVE_ZLIB 1
+ <re.Match object; span=(0, 28), match='#define LIBSSH2_HAVE_ZLIB 1\n'>
+UNDEF RE MATCH: #define LIBSSH2_HAVE_ZLIB 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Use libgcrypt */
+ None
+UNDEF RE MATCH: /* Use libgcrypt */
+ None
+DEF MATCH /* #undef LIBSSH2_LIBGCRYPT */
+ None
+UNDEF RE MATCH: /* #undef LIBSSH2_LIBGCRYPT */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Use mbedtls */
+ None
+UNDEF RE MATCH: /* Use mbedtls */
+ None
+DEF MATCH /* #undef LIBSSH2_MBEDTLS */
+ None
+UNDEF RE MATCH: /* #undef LIBSSH2_MBEDTLS */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Disable clearing of memory before being freed */
+ None
+UNDEF RE MATCH: /* Disable clearing of memory before being freed */
+ None
+DEF MATCH /* #undef LIBSSH2_NO_CLEAR_MEMORY */
+ None
+UNDEF RE MATCH: /* #undef LIBSSH2_NO_CLEAR_MEMORY */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Use openssl */
+ None
+UNDEF RE MATCH: /* Use openssl */
+ None
+DEF MATCH #define LIBSSH2_OPENSSL 1
+ <re.Match object; span=(0, 26), match='#define LIBSSH2_OPENSSL 1\n'>
+UNDEF RE MATCH: #define LIBSSH2_OPENSSL 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Use wincng */
+ None
+UNDEF RE MATCH: /* Use wincng */
+ None
+DEF MATCH /* #undef LIBSSH2_WINCNG */
+ None
+UNDEF RE MATCH: /* #undef LIBSSH2_WINCNG */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Use wolfssl */
+ None
+UNDEF RE MATCH: /* Use wolfssl */
+ None
+DEF MATCH /* #undef LIBSSH2_WOLFSSL */
+ None
+UNDEF RE MATCH: /* #undef LIBSSH2_WOLFSSL */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the sub-directory where libtool stores uninstalled libraries. */
+ None
+UNDEF RE MATCH: /* Define to the sub-directory where libtool stores uninstalled libraries. */
+ None
+DEF MATCH #define LT_OBJDIR ".libs/"
+ None
+UNDEF RE MATCH: #define LT_OBJDIR ".libs/"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if _REENTRANT preprocessor symbol must be defined. */
+ None
+UNDEF RE MATCH: /* Define to 1 if _REENTRANT preprocessor symbol must be defined. */
+ None
+DEF MATCH /* #undef NEED_REENTRANT */
+ None
+UNDEF RE MATCH: /* #undef NEED_REENTRANT */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Name of package */
+ None
+UNDEF RE MATCH: /* Name of package */
+ None
+DEF MATCH #define PACKAGE "libssh2"
+ None
+UNDEF RE MATCH: #define PACKAGE "libssh2"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the address where bug reports for this package should be sent. */
+ None
+UNDEF RE MATCH: /* Define to the address where bug reports for this package should be sent. */
+ None
+DEF MATCH #define PACKAGE_BUGREPORT "libssh2-devel@lists.haxx.se"
+ None
+UNDEF RE MATCH: #define PACKAGE_BUGREPORT "libssh2-devel@lists.haxx.se"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the full name of this package. */
+ None
+UNDEF RE MATCH: /* Define to the full name of this package. */
+ None
+DEF MATCH #define PACKAGE_NAME "libssh2"
+ None
+UNDEF RE MATCH: #define PACKAGE_NAME "libssh2"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the full name and version of this package. */
+ None
+UNDEF RE MATCH: /* Define to the full name and version of this package. */
+ None
+DEF MATCH #define PACKAGE_STRING "libssh2 -"
+ None
+UNDEF RE MATCH: #define PACKAGE_STRING "libssh2 -"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the one symbol short name of this package. */
+ None
+UNDEF RE MATCH: /* Define to the one symbol short name of this package. */
+ None
+DEF MATCH #define PACKAGE_TARNAME "libssh2"
+ None
+UNDEF RE MATCH: #define PACKAGE_TARNAME "libssh2"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the home page for this package. */
+ None
+UNDEF RE MATCH: /* Define to the home page for this package. */
+ None
+DEF MATCH #define PACKAGE_URL ""
+ None
+UNDEF RE MATCH: #define PACKAGE_URL ""
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to the version of this package. */
+ None
+UNDEF RE MATCH: /* Define to the version of this package. */
+ None
+DEF MATCH #define PACKAGE_VERSION "-"
+ None
+UNDEF RE MATCH: #define PACKAGE_VERSION "-"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* If using the C implementation of alloca, define if you know the
+ None
+UNDEF RE MATCH: /* If using the C implementation of alloca, define if you know the
+ None
+DEF MATCH    direction of stack growth for your system; otherwise it will be
+ None
+UNDEF RE MATCH:    direction of stack growth for your system; otherwise it will be
+ None
+DEF MATCH    automatically deduced at runtime.
+ None
+UNDEF RE MATCH:    automatically deduced at runtime.
+ None
+DEF MATCH 	STACK_DIRECTION > 0 => grows toward higher addresses
+ None
+UNDEF RE MATCH: 	STACK_DIRECTION > 0 => grows toward higher addresses
+ None
+DEF MATCH 	STACK_DIRECTION < 0 => grows toward lower addresses
+ None
+UNDEF RE MATCH: 	STACK_DIRECTION < 0 => grows toward lower addresses
+ None
+DEF MATCH 	STACK_DIRECTION = 0 => direction of growth unknown */
+ None
+UNDEF RE MATCH: 	STACK_DIRECTION = 0 => direction of growth unknown */
+ None
+DEF MATCH /* #undef STACK_DIRECTION */
+ None
+UNDEF RE MATCH: /* #undef STACK_DIRECTION */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to 1 if all of the C90 standard headers exist (not just the ones
+ None
+UNDEF RE MATCH: /* Define to 1 if all of the C90 standard headers exist (not just the ones
+ None
+DEF MATCH    required in a freestanding environment). This macro is provided for
+ None
+UNDEF RE MATCH:    required in a freestanding environment). This macro is provided for
+ None
+DEF MATCH    backward compatibility; new code need not use it. */
+ None
+UNDEF RE MATCH:    backward compatibility; new code need not use it. */
+ None
+DEF MATCH #define STDC_HEADERS 1
+ <re.Match object; span=(0, 23), match='#define STDC_HEADERS 1\n'>
+UNDEF RE MATCH: #define STDC_HEADERS 1
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Version number of package */
+ None
+UNDEF RE MATCH: /* Version number of package */
+ None
+DEF MATCH #define VERSION "-"
+ None
+UNDEF RE MATCH: #define VERSION "-"
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+ None
+UNDEF RE MATCH: /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+ None
+DEF MATCH    significant byte first (like Motorola and SPARC, unlike Intel). */
+ None
+UNDEF RE MATCH:    significant byte first (like Motorola and SPARC, unlike Intel). */
+ None
+DEF MATCH #if defined AC_APPLE_UNIVERSAL_BUILD
+ None
+UNDEF RE MATCH: #if defined AC_APPLE_UNIVERSAL_BUILD
+ None
+DEF MATCH # if defined __BIG_ENDIAN__
+ None
+UNDEF RE MATCH: # if defined __BIG_ENDIAN__
+ None
+DEF MATCH #  define WORDS_BIGENDIAN 1
+ None
+UNDEF RE MATCH: #  define WORDS_BIGENDIAN 1
+ None
+DEF MATCH # endif
+ None
+UNDEF RE MATCH: # endif
+ None
+DEF MATCH #else
+ None
+UNDEF RE MATCH: #else
+ None
+DEF MATCH # ifndef WORDS_BIGENDIAN
+ None
+UNDEF RE MATCH: # ifndef WORDS_BIGENDIAN
+ None
+DEF MATCH /* #  undef WORDS_BIGENDIAN */
+ None
+UNDEF RE MATCH: /* #  undef WORDS_BIGENDIAN */
+ None
+DEF MATCH # endif
+ None
+UNDEF RE MATCH: # endif
+ None
+DEF MATCH #endif
+ None
+UNDEF RE MATCH: #endif
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Number of bits in a file offset, on hosts where this is settable. */
+ None
+UNDEF RE MATCH: /* Number of bits in a file offset, on hosts where this is settable. */
+ None
+DEF MATCH /* #undef _FILE_OFFSET_BITS */
+ None
+UNDEF RE MATCH: /* #undef _FILE_OFFSET_BITS */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define for large files, on AIX-style hosts. */
+ None
+UNDEF RE MATCH: /* Define for large files, on AIX-style hosts. */
+ None
+DEF MATCH /* #undef _LARGE_FILES */
+ None
+UNDEF RE MATCH: /* #undef _LARGE_FILES */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to empty if `const' does not conform to ANSI C. */
+ None
+UNDEF RE MATCH: /* Define to empty if `const' does not conform to ANSI C. */
+ None
+DEF MATCH /* #undef const */
+ None
+UNDEF RE MATCH: /* #undef const */
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to `__inline__' or `__inline' if that's what the C compiler
+ None
+UNDEF RE MATCH: /* Define to `__inline__' or `__inline' if that's what the C compiler
+ None
+DEF MATCH    calls it, or to nothing if 'inline' is not supported under any name.  */
+ None
+UNDEF RE MATCH:    calls it, or to nothing if 'inline' is not supported under any name.  */
+ None
+DEF MATCH #ifndef __cplusplus
+ None
+UNDEF RE MATCH: #ifndef __cplusplus
+ None
+DEF MATCH /* #undef inline */
+ None
+UNDEF RE MATCH: /* #undef inline */
+ None
+DEF MATCH #endif
+ None
+UNDEF RE MATCH: #endif
+ None
+DEF MATCH 
+ None
+UNDEF RE MATCH: 
+ None
+DEF MATCH /* Define to `unsigned int' if <sys/types.h> does not define. */
+ None
+UNDEF RE MATCH: /* Define to `unsigned int' if <sys/types.h> does not define. */
+ None
+DEF MATCH /* #undef size_t */
+ None
+UNDEF RE MATCH: /* #undef size_t */
+ None
+Final set of macros after modifying config.h: {('LIBSSH2_HAVE_ZLIB', 'True'), ('LIBSSH2_OPENSSL', 'True')}
+
+=== Iteration 1 ===
+Ground truth flags for project libssh2 : {('LIBSSH2_WINCNG', 'False'), ('LIBSSH2_OPENSSL', 'True'), ('LIBSSH2_MBEDTLS', 'False'), ('LIBSSH2_HAVE_ZLIB', 'False'), ('LIBSSH2_LIBGCRYPT', 'False')}

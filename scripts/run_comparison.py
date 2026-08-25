@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 from __future__ import annotations
+import os
+import subprocess
 from evaluation.binary_similarity import BinarySimilarityCalculator, BinarySimilarityResult
 import argparse
 import re
@@ -8,7 +10,12 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-
+from evaluation.library_metrics_to_latex import (
+    ProjectMetrics,
+    count_binary_strings,
+    count_source_strings,
+    write_metrics_latex_table,
+)
 
 # ---------------------------------------------------------------------------
 # Log parsing
@@ -60,7 +67,10 @@ BUNDLE_PATH_RE = re.compile(
     re.VERBOSE | re.IGNORECASE,
 )
 
-
+ITERATION_HEADER_RE = re.compile(
+    r"^\s*=+\s*Iteration\s+(?P<number>\d+)\s*=+\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
 class LibraryLogComparison:
     def __init__(
         self,
@@ -68,66 +78,381 @@ class LibraryLogComparison:
         logs_root: str | Path,
         similarity_script: str | Path,
         *,
+        latex_output: str | Path | None =None, 
         binary_name: str | None = None,
         timeout: float | None = None,
         show_progress: bool = True,
     ):
         self.library_name = library_name
         self.binary_name = binary_name
+        self.groundtruth_checks = {}
         self.logs_root = Path(logs_root).expanduser().resolve()
         self.logs_directory = self._resolve_logs_directory()
+        latex_output = library_name + "_metrics.tex"
+        self.compare_groundtruth_script = Path(
+    "/workspaces/RevEng/Tools/feature-tests/compare_ground_truth.sh"
+).expanduser().resolve()
+        self.metrics: list[ProjectMetrics] =[]
 
+        self.latex_output = (
+        Path(latex_output)
+        .expanduser()
+        .resolve()
+        )
         self.similarity_calculator = BinarySimilarityCalculator(
             similarity_script,
             timeout=timeout,
             show_progress=show_progress,
         )
 
-    def run(self) -> BinarySimilarityResult:
+    @staticmethod
+    def parse_groundtruth_comparison(
+        output: str,
+    ) -> dict:
+        def get_text(pattern: str, field: str) -> str:
+            match = re.search(
+                pattern,
+                output,
+                flags=re.MULTILINE,
+            )
+
+            if not match:
+                raise ValueError(
+                    f"Could not parse {field!r} from "
+                    f"compare_groundtruth.sh output:\n{output}"
+                )
+
+            return match.group(1).strip()
+
+        def get_section(
+            heading: str,
+            next_heading: str | None,
+        ) -> list[str]:
+            if next_heading is None:
+                pattern = (
+                    rf"^\s*{re.escape(heading)}\s*:\s*$"
+                    rf"(?P<body>.*)\Z"
+                )
+            else:
+                pattern = (
+                    rf"^\s*{re.escape(heading)}\s*:\s*$"
+                    rf"(?P<body>.*?)"
+                    rf"(?=^\s*{re.escape(next_heading)}\s*:\s*$)"
+                )
+
+            match = re.search(
+                pattern,
+                output,
+                flags=re.MULTILINE | re.DOTALL,
+            )
+
+            if not match:
+                return []
+
+            return [
+                line.strip()
+                for line in match.group("body").splitlines()
+                if line.strip() and line.strip() != "(none)"
+            ]
+
+        return {
+            "file": get_text(
+                r"^\s*File\s*:\s*(.+?)\s*$",
+                "File",
+            ),
+            "project": get_text(
+                r"^\s*Project\s*:\s*(.+?)\s*$",
+                "Project",
+            ),
+            "first_iteration_flags": int(
+                get_text(
+                    r"^\s*First iteration flags\s*:\s*(\d+)\s*$",
+                    "First iteration flags",
+                )
+            ),
+            "last_iteration_flags": int(
+                get_text(
+                    r"^\s*Last iteration flags\s*:\s*(\d+)\s*$",
+                    "Last iteration flags",
+                )
+            ),
+            "exact_matches": int(
+                get_text(
+                    r"^\s*Exact matches\s*:\s*(\d+)\s*$",
+                    "Exact matches",
+                )
+            ),
+            "changed_flags": get_section(
+                "Changed flags",
+                "Only in first iteration",
+            ),
+            "only_in_first": get_section(
+                "Only in first iteration",
+                "Only in last iteration",
+            ),
+            "only_in_last": get_section(
+                "Only in last iteration",
+                None,
+            ),
+            "raw_output": output,
+        }
+    
+    @staticmethod
+    def split_iteration_sections(
+        log_text: str,
+    ) -> list[tuple[int, str]]:
+        """
+        Split a log into its internal iteration sections.
+
+        Accepts headers such as:
+
+            ===Iteration 1===
+            ===== Iteration 2 =====
+            ========== ITERATION 15 ==========
+
+        Returns:
+
+            [
+                (1, "contents of iteration 1"),
+                (2, "contents of iteration 2"),
+            ]
+        """
+        matches = list(
+            ITERATION_HEADER_RE.finditer(log_text)
+        )
+
+        sections: list[tuple[int, str]] = []
+
+        for index, match in enumerate(matches):
+            iteration_number = int(match.group("number"))
+            section_start = match.end()
+
+            if index + 1 < len(matches):
+                section_end = matches[index + 1].start()
+            else:
+                section_end = len(log_text)
+
+            section_text = log_text[
+                section_start:section_end
+            ].strip()
+
+            sections.append(
+                (iteration_number, section_text)
+            )
+
+        return sections
+
+
+
+
+
+
+
+    def run(self) -> dict[Path, BinarySimilarityResult]:
+        """
+        Process every numbered log file independently.
+        For each _N.log file:
+        1. Find all "===== Iteration N =====" sections.
+        2. Skip the file if it contains fewer than two sections.
+        3. Read the ground-truth binary from the first section.
+        4. Read the final macro configuration from the last section.
+        5. Build the candidate binary.
+        6. Invoke compare_groundtruth.sh through
+        BinarySimilarityCalculator.
+        7. Store the parsed similarity result.
+        """
         iterations = self.discover_iterations()
+        results: dict[Path, BinarySimilarityResult] = {}
+        default_results: dict[Path, BinarySimilarityResult] = {}
 
-        first_iteration = min(iterations)
-        last_iteration = max(iterations)
+        for file_number in sorted(iterations):
+            paths = iterations[file_number]
 
-        print(f"Library:         {self.library_name}")
-        print(f"Logs:            {self.logs_directory}")
-        print(f"First iteration: {first_iteration}")
-        print(f"Last iteration:  {last_iteration}")
+            for log_path in sorted(paths):
+                if not log_path.is_file():
+                    print(f"[!] Skipping non-file: {log_path}")
+                    continue
 
-        first_log = self.read_iteration(
-            iterations[first_iteration]
-        )
-        last_log = self.read_iteration(
-            iterations[last_iteration]
-        )
-        
-        ground_truth_binary = self.find_ground_truth_binary(
-            first_log
-        )
-        macro_config = self.parse_macro_config(last_log)
+                print()
+                print("=" * 72)
+                print(f"Library:  {self.library_name}")
+                print(f"Log file: {log_path}")
+                print("=" * 72)
 
-        print(f"Ground truth:    {ground_truth_binary}")
-        print(f"Macros parsed:   {len(macro_config)}")
+                log_text = log_path.read_text(
+                    encoding="utf-8",
+                    errors="replace",
+                )
 
-        for macro, value in sorted(macro_config):
-            print(f"  {macro}={value}")
+                sections = self.split_iteration_sections(log_text)
+
+                if len(sections) < 2:
+                    print(
+                        f"[*] Skipping {log_path.name}: found only "
+                        f"{len(sections)} iteration section(s)"
+                    )
+                    continue
+
+                first_iteration_number, first_iteration_text = sections[0]
+                last_iteration_number, last_iteration_text = sections[-1]
+
+                print(f"First internal iteration: {first_iteration_number}")
+                print(f"Last internal iteration:  {last_iteration_number}")
+                print(f"Internal iterations:      {len(sections)}")
+                
+                completed = subprocess.run(
+                    [
+                        "bash",
+                        str(self.compare_groundtruth_script),
+                        str(log_path),
+                    ],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                    check=False,
+                )
+
+                if completed.returncode != 0:
+                    raise RuntimeError(
+                        f"compare_groundtruth.sh failed for {log_path} "
+                        f"with status {completed.returncode}:\n"
+                        f"{completed.stdout}"
+                    )
+
+                parsed = self.parse_groundtruth_comparison(
+                    completed.stdout
+                )
+
+                self.groundtruth_checks[log_path.resolve()] = parsed
+
+                print(
+                    f"{log_path.name}: "
+                    f"{parsed['exact_matches']}/"
+                    f"{parsed['first_iteration_flags']} exact matches"
+                )
+
+                try:
+                    ground_truth_binary = self.find_ground_truth_binary(
+                        first_iteration_text
+                    )
+
+                    macro_config = self.parse_macro_config(
+                        last_iteration_text
+                    )
+
+                    print(f"Ground truth:  {ground_truth_binary}")
+                    print(f"Macros parsed: {len(macro_config)}")
+
+                    # for macro, value in sorted(macro_config):
+                        # print(f"  {macro}={value}")
+
+                    print("[*] Getting candidate binary...")
+
+                    # candidate_binary = self.build_candidate(
+                    #     macro_config
+                    # )
+                    candidate_binary = ground_truth_binary.parent
+                    candidate_binary = candidate_binary / "final_binary"
 
 
+                    
+                    
 
-        raise KeyError
+                    print(f"Candidate: {candidate_binary}")
+                    print("[*] Invoking compare_groundtruth.sh...")
+                    
+                    # The BinarySimilarityCalculator instance should have been
+                    # constructed with compare_groundtruth.sh as script_path.
+                    result = self.similarity_calculator.calculate(
+                        ground_truth_binary,
+                        candidate_binary,
+                    )
+
+                    default_binary = self.find_default_binary(candidate_binary)
+                    print(f"Default binary: {default_binary}")
+                    print("[*] Invoking compare_groundtruth.sh...")
+
+                    default_result = self.similarity_calculator.calculate(
+                        ground_truth_binary,
+                        default_binary
+                    )
+
+
+                except Exception as error:
+                    print(
+                        f"[!] Failed to process {log_path.name}: {error}",
+                        file=sys.stderr,
+                    )
+                    continue
+
+                results[log_path.resolve()] = result
+                default_results[log_path.resolve()] = default_result
+                print(
+                    f"[+] {log_path.name}: "
+                    f"similarity={result.similarity_percent}%",
+                    end="",
+                )
+                self.metrics.append(
+                    ProjectMetrics(
+                        project=parsed["project"],
+                        correctly_recovered_flags=parsed["exact_matches"],
+                        ground_truth_flags=parsed["first_iteration_flags"],
+                        binary_strings=count_binary_strings(
+                            candidate_binary
+                        ),
+                        source_strings=None,
+                        # source_strings=count_source_strings(
+                            # self.source_directory
+                        # ),
+                        iterations=len(sections),
+                        binary_size_bytes=candidate_binary.stat().st_size,
+                        default_binary_similarity_percent=(
+                            default_result.similarity_percent
+                        ),
+                        binary_similarity_percent=(
+                            result.similarity_percent
+                        ),
+                    )
+                )
+
+                if result.confidence_percent is not None:
+                    print(
+                        f", confidence="
+                        f"{result.confidence_percent:.4f}%"
+                    )
+                else:
+                    print()
+
+        if not results:
+            raise RuntimeError(
+                "No log files containing at least two iteration sections "
+                "were processed successfully."
+            )
+
         print()
-        print("Building candidate binary...")
+        print("Similarity summary")
+        print("-" * 72)
 
-        candidate_binary = self.build_candidate(macro_config)
+        for log_path, result in results.items():
+            confidence = (
+                f"{result.confidence_percent:.4f}%"
+                if result.confidence_percent is not None
+                else "n/a"
+            )
 
-        print(f"Candidate:       {candidate_binary}")
-        print()
-        print("Calculating similarity...")
-
-        return self.similarity_calculator.calculate(
-            ground_truth_binary,
-            candidate_binary,
+            print(
+                f"{log_path.name}: "
+                f"similarity={result.similarity_percent:.4f}%, "
+                f"confidence={confidence}"
+            )
+        table_path = write_metrics_latex_table(
+            self.metrics,
+            self.latex_output,
         )
+        print(f"[+] LaTeX table written to {table_path}")
+        return results
 
     def _resolve_logs_directory(self) -> Path:
         candidates = [
@@ -163,10 +488,10 @@ class LibraryLogComparison:
             library_2/
         """
         iterations: dict[int, list[Path]] = {}
-
+        
         for path in self.logs_directory.iterdir():
             match = ITERATION_RE.search(path.name)
-
+        
             if not match:
                 continue
 
@@ -221,6 +546,15 @@ class LibraryLogComparison:
 
         return "\n".join(parts)
 
+
+
+    def find_default_binary(self, candidate_binary):
+        default_binary_dir = candidate_binary.parent.parent / f"{self.library_name}_default" 
+        print("Default Binary Dir", default_binary_dir)
+        if default_binary_dir.is_dir():
+            for child in default_binary_dir.iterdir():
+                return child
+
     def find_ground_truth_binary(
         self,
         log_text: str,
@@ -228,17 +562,30 @@ class LibraryLogComparison:
         candidates: list[Path] = []
         referenced_but_missing: list[Path] = []
 
-        for match in BUNDLE_PATH_RE.finditer(log_text):
-            raw_path = match.group("path").rstrip(".]}")
-            path = Path(raw_path).expanduser()
+        matches = [m for m in BUNDLE_PATH_RE.finditer(log_text)]
+        match = matches[0] if matches else None
 
-            if path.is_file():
-                resolved = path.resolve()
 
-                if resolved not in candidates:
-                    candidates.append(resolved)
-            else:
-                referenced_but_missing.append(path)
+        
+        raw_path = match.group("path").rstrip(".]}")
+        path = Path(raw_path).expanduser()
+        directory = path.parent
+        print(f"[*] Found referenced path: {directory}")
+        if directory.is_dir():
+            print(f"[*] Searching for ground-truth binary in {directory}")
+            for child in directory.iterdir():
+                # print(f"[*] Inspecting {child}")
+                if child.is_file() and "final" in child.name:
+                    print(f"[*] Skipping final binary: {child}")
+                elif child.is_file() and ".h" in child.name:
+                    print(f"[*] Skipping header file: {child}")
+                else:
+                    resolved = child.resolve()
+                    print(f"[*] Resolved ground-truth candidate: {resolved}")
+                    if resolved not in candidates:
+                        candidates.append(resolved)
+                        
+      
 
         if not candidates:
             message = (
@@ -341,37 +688,7 @@ class LibraryLogComparison:
             for macro, enabled in macros.items()
         }
 
-    def build_candidate(
-        self,
-        macro_config: set[tuple[str, str]],
-    ) -> Path:
-        """
-        Connect this method to the existing buildroot class.
 
-        macro_config is a set of (macro_name, "True"|"False") tuples.
-        """
-
-        # Change this import only if your module has another location.
-        from buildroot import buildroot
-
-        builder = buildroot()
-
-        # Change this call only if the existing build method has a different
-        # signature.
-        result = builder.build(
-            library_name=self.library_name,
-            macro_config=macro_config,
-        )
-
-        candidate = self._extract_result_path(result)
-
-        if not candidate.is_file():
-            raise FileNotFoundError(
-                f"Buildroot did not produce the expected binary: "
-                f"{candidate}"
-            )
-
-        return candidate.resolve()
 
     def _extract_result_path(self, result: Any) -> Path:
         """
@@ -459,7 +776,7 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument(
         "--similarity-script",
-        default="/home/vscode/binary_similarity.sh",
+        default="/workspaces/RevEng/support/binary_similarity.sh",
         help="Path to the Ghidra/BinDiff similarity shell script",
     )
 
@@ -501,15 +818,7 @@ def main() -> int:
     except Exception as error:
         print(f"[!] {error}", file=sys.stderr)
         return 1
-
-    print()
-    print("Comparison result")
-    print("-----------------")
-    print(f"Similarity: {result.similarity_percent:.4f}%")
-
-    if result.confidence_percent is not None:
-        print(f"Confidence: {result.confidence_percent:.4f}%")
-
+        
     return 0
 
 
