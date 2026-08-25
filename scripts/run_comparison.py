@@ -637,6 +637,33 @@ class LibraryLogComparison:
         # The last path normally belongs to the completed build.
         return candidates[-1]
 
+    def find_ground_truth_config(
+            self,
+            log_text: str,
+        ) -> Path:
+            
+            matches = [m for m in BUNDLE_PATH_RE.finditer(log_text)]
+            match = matches[0] if matches else None
+    
+
+            raw_path = match.group("path").rstrip(".]}")
+            path = Path(raw_path).expanduser()
+            directory = path.parent
+            print(f"[*] Found referenced path: {directory}")
+            if directory.is_dir():
+                print(f"[*] Searching for ground-truth binary in {directory}")
+                for child in directory.iterdir():
+                    # print(f"[*] Inspecting {child}")
+                    if child.is_file() and ".h" in child.name:
+                        print(f"[*] Skipping header file: {child}")
+                        resolved = child.resolve()
+                        print(f"[*] Resolved ground-truth candidate: {resolved}")
+                        
+            return resolved
+                            
+          
+
+
     @staticmethod
     def parse_macro_config(
         log_text: str,

@@ -3,15 +3,15 @@
 \caption{Feature-recovery and binary-similarity results}
 \label{tab:feature-recovery-results}
 \small
-\begin{tabular}{lrrrrrrrr}
+\begin{tabular}{lrrrrrrrrrr}
 \toprule
-Project & Correct & Ground truth & Recovery (\%) & Binary strings & Source strings & Iterations & Size (KiB) & Similarity (\%) \\
+Project & Correct & Ground truth & Recovery (\%) & Binary strings & Source strings & Iterations & Size (KiB) & Default sim. (\%) & Recovered sim. (\%) & Improvement (pp) \\
 \midrule
-libopenssl & 40 & 50 & 80.00 & 16722 & None & 5 & 2989.26 & 98.01 \\
-libopenssl & 37 & 50 & 74.00 & 13687 & None & 4 & 2576.56 & 97.95 \\
-libopenssl & 37 & 50 & 74.00 & 11202 & None & 4 & 2196.52 & 96.10 \\
-libopenssl & 35 & 50 & 70.00 & 11260 & None & 4 & 2172.34 & 96.24 \\
-libopenssl & 32 & 50 & 64.00 & 13574 & None & 4 & 2528.71 & 94.41 \\
+libopenssl & 40 & 50 & 80.00 & 16722 & None & 5 & 2989.26 & 92.61 & 98.01 & +5.41 \\
+libopenssl & 37 & 50 & 74.00 & 13687 & None & 4 & 2576.56 & 84.88 & 97.95 & +13.07 \\
+libopenssl & 37 & 50 & 74.00 & 11202 & None & 4 & 2196.52 & 84.14 & 96.10 & +11.96 \\
+libopenssl & 35 & 50 & 70.00 & 11260 & None & 4 & 2172.34 & 83.91 & 96.24 & +12.33 \\
+libopenssl & 32 & 50 & 64.00 & 13574 & None & 4 & 2528.71 & 88.99 & 94.41 & +5.42 \\
 \bottomrule
 \end{tabular}
 \end{table*}

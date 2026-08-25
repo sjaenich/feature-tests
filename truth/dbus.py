@@ -135,14 +135,14 @@ class DbusGroundTruth(GroundTruthExtractor):
             
             for line in f:
                 handled = False
-                print("Processing line:", line.strip())
+                # print("Processing line:", line.strip())
                 match = DEFINE_BOOL_RE.match(line)
                 if match:
                     macro_name = match.group(1)
-                    print("Macro name 1", macro_name)
+                    # print("Macro name 1", macro_name)
                     if macro_name in flags:
                         updated_flags.add((macro_name, "True"))
-                        print("Writing line to destination:", line.strip())
+                        # print("Writing line to destination:", line.strip())
                         new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2\n', line)
                         dest.write(new_line)
                         handled = True
@@ -150,22 +150,22 @@ class DbusGroundTruth(GroundTruthExtractor):
                 m_undef = UNDEF_RE.match(line)
                 if m_undef:
                     macro_name = m_undef.group(1)
-                    print("Macro name 1", macro_name)
+                    # print("Macro name 1", macro_name)
                     if macro_name in flags:
                         updated_flags.add((macro_name, "False"))
-                        print("Writing line to destination:", line.strip())
+                        # print("Writing line to destination:", line.strip())
                         new_line = DEFINE_BOOL_RE.sub(r'#define \1 \2\n', line)
                         dest.write(new_line)
                         handled = True
 
                 if not handled:
-                    print("Line not handled, checking for other defines:", line.strip())
+                    # print("Line not handled, checking for other defines:", line.strip())
                     m_other = DEFINE_OTHER_RE.match(line)
                     if m_other:
-                        print("Other define found:", line.strip())
+                        # print("Other define found:", line.strip())
                         out.write(line)
 
-        shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
+        # shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
         return updated_flags
 
     def remove_dead_macros(self, src_dir: Path, macros) -> set:

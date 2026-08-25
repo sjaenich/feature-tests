@@ -7,7 +7,7 @@ from multiprocessing import Pool
 import os
 import shutil
 from core.project import Project
-from build.buildroot import BuildrootBuildManager
+from build.buildrootOpt import BuildrootOpt
 from locate.config_locator import ConfigLocator
 from recovery.runner import FlagRecoveryRunner
 from truth.config_truth import GroundTruthExtractor
@@ -34,6 +34,8 @@ from truth.tcpdump import TcpdumpFeatureTruth
 from truth.libcurl import LibcurlGroundTruth
 # from truth.openssl import OpensslGroundTruth
 from truth.libopenssl import OpensslGroundTruth
+from scripts.run_comparison import LibraryLogComparison
+
 
 BUNDLE_RE = re.compile(r"^(?P<project>.+)_(?P<ts>\d+(?:\.\d+)?)_bundle$")
 
@@ -85,6 +87,8 @@ def run_project_safe(project):
                 "result": result,
         }   
     except Exception as e:
+        import traceback
+        traceback.print_exec()
         return {
             "project": project.name,
             "status": "error",
@@ -127,8 +131,10 @@ def run_project(project):
 
     # Select the correct GroundTruth class
     gt_class = groundtruth_map.get(project.name.lower(), default_gt)
+    truth_extractor = gt_class()
+    opt_level="O0"
     
-    log_dir = f"/workspaces/RevEng/Tools/feature-tests/logs/{project.name}"
+    log_dir = f"/workspaces/RevEng/Tools/feature-tests/logs-{opt_level}/{project.name}"
     os.makedirs(log_dir, exist_ok=True)
 
     seen_flags = set()   # track unique configurations
@@ -138,78 +144,64 @@ def run_project(project):
     accepted_id = 0
 
 
-    # test_dirs = get_bundle_dirs_for_project("/workspaces/RevEng/buildroot-2025.02.4/output/build", project.name, n=3)
-    test_dirs = [project.metadata["binary"]]
-    print("Found test directories:", test_dirs)
-    # for test_dir in test_dirs:
-    while len(collected) < 5:
-        truth_extractor = gt_class()
+    comparison = LibraryLogComparison(
+        logs_root="/workspaces/RevEng/Tools/feature-tests/logs",
+        similarity_script="/workspaces/RevEng/support/binary_similarity.sh",
+        library_name=project.name
+        )
+
+    iterations = comparison.discover_iterations()
+
+    for file_number in sorted(iterations):
+        paths = iterations[file_number]
+        for log_path in sorted(paths):
+            if not log_path.is_file():
+                print(f"[!] Skipping non-file: {log_path}")
+                continue
+        log_text = log_path.read_text(
+                            encoding="utf-8",
+                            errors="replace",
+                        )
+        sections = comparison.split_iteration_sections(log_text)
         
-        # generate a new configuration
-        if hasattr(truth_extractor, "mix"):
-            truth_extractor.mix()
-
-        # print("Test directory:", test_dir)
-        # headers = list(Path(test_dir).glob("*.h"))
-        # project.metadata["config_h"] = headers[0] 
-        print("Generated flags for project", project.name, ":", truth_extractor.flags)
-        # truth_extractor.load_flags_from_config(project.metadata["config_h"])
-        
-               
-        # files = [p for p in Path(test_dir).iterdir() if p.is_file() and not p.name.endswith(".h")]
-        # project.metadata["binary"] = files[0] if files else None   
-
-        flags_key = frozenset(truth_extractor.flags)
-
-        # # skip duplicate configurations BEFORE running expensive build
-        if flags_key in seen_flags:
-            print(f"[-] Duplicate flags skipped: {flags_key}")
-            run_id += 1
-            if run_id > 22:  # safety check to prevent infinite loops
-                print("Too many runs without enough unique configs. Stopping.")
-                return project.name
+        if len(sections) < 2:
+            print(
+                f"[*] Skipping {log_path.name}: found only "
+                f"{len(sections)} iteration section(s)"
+            )
             continue
-
-        seen_flags.add(flags_key)
-
-        # log_file = os.path.join(log_dir, f"log_{accepted_id}.txt")
-        # stages = ["initial", "filter"]
-        stages = ["filter"]
-        for stage in stages:
-            log_file = f"{project.name}_{run_id}.log"
-            log_file = os.path.join(log_dir, log_file)
-            with open(log_file, "w") as f, redirect_stdout(f):
-                print(f"*** Run {run_id} for project: {project.name} ***")
-                print("FLAGS:", truth_extractor.flags)
-
-                runner = ExperimentRunner(
-                    build_manager=BuildrootBuildManager(project.build_dir, project.source_dir),
-                    locator=ConfigLocator(),
-                    recovery=FlagRecoveryRunner(),
-                    truth_extractor=truth_extractor,
-                    comparator=ResultComparator(),
-                )
-
-                print("Running experiment...")
-                result = runner.run_project_iteratively(project,stage)
-                print("Result:", result)
-                runner.build_manager.build_config(project, truth_extractor)
+        first_iteration_number, first_iteration_text = sections[0]
+        ground_truth_config = comparison.find_ground_truth_config(first_iteration_text)
+        new_config = f"{ground_truth_config}_new"
+        shutil.copy(ground_truth_config, new_config)
+        ground_truth_config = new_config
+        log_file = f"{project.name}_{run_id}.log"
+        log_file = os.path.join(log_dir, log_file)
+        with open(log_file, "w") as f, redirect_stdout(f):
+            print(f"*** Run {run_id} for project: {project.name} ***")
+            
+            print("Ground_truth_config", ground_truth_config)
+            flags = truth_extractor.extract(ground_truth_config, project.name, project.source_dir)
+            truth_extractor.flags = flags
+            print("FLAGS:", truth_extractor.flags)
+            runner = ExperimentRunner(
+                        build_manager=BuildrootOpt(project.build_dir, project.source_dir),
+                        locator=ConfigLocator(),
+                        recovery=FlagRecoveryRunner(),
+                        truth_extractor=truth_extractor,
+                        comparator=ResultComparator(),
+                    )
+        
+            print("Running experiment...")
+            result = runner.run_project_iteratively(project,"filter")
+            print("Result:", result)
+            runner.build_manager.build_config(project, truth_extractor)
             if result.precision is not None:
                 collected.append(result)
                 print(f"[+] Accepted config #{accepted_id}")
-                
-                # Save a groundtruth config to a separate file so that it can be used to eliminate strings
-                # save_groundtruth_to_separate_file(project)
-
-                accepted_id += 1
-            # delete_all_superc_files_silent(project.name)
-            run_id += 1
-            if run_id > 22:  # safety check to prevent infinite loops
-                print("Too many runs without enough unique configs. Stopping.")
-                return project.name
-
-
+        run_id = run_id +1
     return project.name
+
 
 
 
@@ -228,30 +220,30 @@ if __name__ == "__main__":
     #               "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
     # },  
     # ) 
-    Project(
-        name = "libcurl",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
-                  "cflags": "",
-                  "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
-    },  
-    )
+    # Project(
+    #     name = "libcurl",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
+    #               "cflags": "",
+    #               "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
+    # },  
+    # )
 
     # ,
-    # Project(
-    #     name = "dbus",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
-    #                "cflags": "",
-    #                "include": ""
-    #                },
-    # )
+    Project(
+        name = "dbus",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
+                   "cflags": "",
+                   "include": ""
+                   },
+    )
     # ,
     # Project(
     #     name = "dropbear",
@@ -506,40 +498,3 @@ if __name__ == "__main__":
                 print(f"✅ {res['project']} done")
             else:
                 print(f"❌ {res['project']} failed: {res['error']}")
-
-
-
-def delete_all_superc_files_silent(project_name):
-    """
-    Silently deletes all files in workspaces/RevEng/all_strings
-    matching all_strings_{project_name}_*
-    """
-    folder = "/workspaces/RevEng/all_strings"
-    pattern = f"all_strings_{project_name}_*"
-    files = glob.glob(os.path.join(folder, pattern))
-    
-    print(f"Deleting all files matching {pattern} in {folder}...")
-
-    for file_path in files:
-        print(f"Deleting {file_path}...")
-        try:
-            os.remove(file_path)
-        except FileNotFoundError:
-            print(f"File {file_path} not found, skipping.")
-            pass  # File might already be gone
-        except Exception:
-            print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
-
-    folder = "/workspaces/RevEng/superc_output"
-    pattern = f"output_{project_name}_*"
-    files = glob.glob(os.path.join(folder, pattern))
-    
-    for file_path in files:
-        print(f"Deleting {file_path}...")
-        try:
-            os.remove(file_path)
-        except FileNotFoundError:
-            pass  # File might already be gone
-        except Exception:
-            print(f"Error occurred while deleting {file_path}")  # Ignore other errors silently
-
