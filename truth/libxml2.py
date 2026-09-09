@@ -165,6 +165,7 @@ class Libxml2GroundTruth(GroundTruthExtractor):
                 # "LIBXML_XPTR_LOCS_ENABLED",
                 "LIBXML_SCHEMAS_ENABLED",
                 "LIBXML_SCHEMATRON_ENABLED",
+                "LIBXML_XINCLUDE_ENABLED",
                 # "LIBXML_RELAXNG_ENABLED",
                 "LIBXML_C14N_ENABLED",
             )
@@ -258,8 +259,8 @@ class Libxml2GroundTruth(GroundTruthExtractor):
 
                 i += 1
 
-        shutil.move(
-            path,
-            f"/workspaces/RevEng/header/libraries/{name}.old.h",
-        )
+        # shutil.move(
+        #     path,
+        #     f"/workspaces/RevEng/header/libraries/{name}.old.h",
+        # )
         return updated_flags

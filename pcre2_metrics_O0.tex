@@ -1,0 +1,17 @@
+\begin{table*}[htbp]
+\centering
+\caption{Feature-recovery and binary-similarity results}
+\label{tab:feature-recovery-results}
+\small
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+Project & Correct & Ground truth & Recovery (\%) & Binary strings & Source strings & Iterations & Size (KiB) & Default sim. (\%) & Recovered sim. (\%) & Improvement (pp) \\
+\midrule
+pcre2 & 5 & 13 & 38.46 & 369 & None & 4 & 305.28 & 7.02 & 6.92 & -0.10 \\
+pcre2 & 4 & 5 & 80.00 & 797 & None & 4 & 577.28 & 7.10 & 8.71 & +1.62 \\
+pcre2 & 5 & 5 & 100.00 & 369 & None & 3 & 305.28 & 7.29 & 7.81 & +0.52 \\
+pcre2 & 4 & 5 & 80.00 & 797 & None & 3 & 577.28 & 7.10 & 8.71 & +1.62 \\
+pcre2 & 5 & 5 & 100.00 & 362 & None & 4 & 149.27 & 11.61 & 7.31 & -4.30 \\
+\bottomrule
+\end{tabular}
+\end{table*}

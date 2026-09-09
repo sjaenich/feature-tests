@@ -95,11 +95,11 @@ class LibpcapGroundTruth(GroundTruthExtractor):
                     if m_other:
                         out.write(line)
         print("Move config", path)
-        shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
-        if config_h.exists():
-            print("CONFIG EXISTS", config_h)
-        else:
-            print("CONFIG DOES NOT EXIST", config_h)
+        # shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
+            # if config_h.exists():
+            #     print("CONFIG EXISTS", config_h)
+            # else:
+            #     print("CONFIG DOES NOT EXIST", config_h)
         return updated_flags
 
     def remove_dead_macros(self, src_dir: Path, macros) -> set:

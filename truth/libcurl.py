@@ -148,7 +148,13 @@ class LibcurlGroundTruth(GroundTruthExtractor):
 
         if flags["USE_GNUTLS"]:
             flags["USE_GNUTLS"] = False
-            
+        flags["USE_NSS"] = False
+        flags["USE_MBEDTLS"] = False
+        flags["USE_WOLFSSL"] = False
+        flags["USE_THREADS_POSIX"] = False
+        flags["USE_NGHTTP2"] = False
+        flags["USE_LIBSSH2"] = False
+        flags["USE_ARES"] = False
             
         self.flags = dict_to_set(flags)
 
@@ -162,9 +168,9 @@ class LibcurlGroundTruth(GroundTruthExtractor):
         only_flags = set()
         for (flag, _) in flags:
             only_flags.add(flag)
-            
-        self.modify_config_h(config_h, name, only_flags)
-        return flags
+        print(only_flags)
+        updated_flags = self.modify_config_h(config_h, name, only_flags)
+        return updated_flags
 
     def modify_config_h(self, config_h, name: str, flags: set[str]) -> set:
         # libcurl uses #define MACRO 1 or /* #undef MACRO */
@@ -209,7 +215,8 @@ class LibcurlGroundTruth(GroundTruthExtractor):
                     if m_other:
                         out.write(line)
 
-        shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
+        print("Updated Flags", updated_flags)
+        # shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
         return updated_flags
 
     def remove_dead_macros(self, src_dir: Path, macros) -> set:

@@ -260,9 +260,9 @@ class OpensslGroundTruth(GroundTruthExtractor):
                 if macro_name not in single_flags:
                     updated_flags.add((macro_name, "True"))
                     dest.write(f"#define {macro_name}\n")
-        shutil.move(
-            path,
-            f"/workspaces/RevEng/header/libraries/{name}.old.h",
-        )
+        # shutil.move(
+            # path,
+            # f"/workspaces/RevEng/header/libraries/{name}.old.h",
+        # )
 
         return updated_flags

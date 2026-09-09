@@ -3,13 +3,15 @@
 \caption{Feature-recovery and binary-similarity results}
 \label{tab:feature-recovery-results}
 \small
-\begin{tabular}{lrrrrrrrr}
+\begin{tabular}{lrrrrrrrrrr}
 \toprule
-Project & Correct & Ground truth & Recovery (\%) & Binary strings & Source strings & Iterations & Size (KiB) & Similarity (\%) \\
+Project & Correct & Ground truth & Recovery (\%) & Binary strings & Source strings & Iterations & Size (KiB) & Default sim. (\%) & Recovered sim. (\%) & Improvement (pp) \\
 \midrule
-rsync & 7 & 7 & 100.00 & 2141 & None & 4 & 458.74 & 98.80 \\
-rsync & 6 & 7 & 85.71 & 2141 & None & 4 & 458.74 & 98.58 \\
-rsync & 6 & 7 & 85.71 & 2101 & None & 4 & 446.74 & 98.30 \\
+rsync & 6 & 7 & 85.71 & 2101 & None & 4 & 446.74 & 92.21 & 98.78 & +6.57 \\
+rsync & 5 & 7 & 71.43 & 2141 & None & 3 & 458.74 & 94.85 & 98.58 & +3.73 \\
+rsync & 5 & 7 & 71.43 & 2101 & None & 4 & 446.74 & 92.36 & 98.57 & +6.21 \\
+rsync & 5 & 7 & 71.43 & 2152 & None & 4 & 462.80 & 95.81 & 98.59 & +2.78 \\
+rsync & 6 & 7 & 85.71 & 2152 & None & 4 & 462.80 & 95.96 & 98.81 & +2.86 \\
 \bottomrule
 \end{tabular}
 \end{table*}

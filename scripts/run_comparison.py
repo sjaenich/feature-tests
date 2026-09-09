@@ -88,7 +88,7 @@ class LibraryLogComparison:
         self.groundtruth_checks = {}
         self.logs_root = Path(logs_root).expanduser().resolve()
         self.logs_directory = self._resolve_logs_directory()
-        latex_output = library_name + "_metrics.tex"
+        latex_output = library_name + "_metrics_O0.tex"
         self.compare_groundtruth_script = Path(
     "/workspaces/RevEng/Tools/feature-tests/compare_ground_truth.sh"
 ).expanduser().resolve()

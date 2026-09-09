@@ -107,7 +107,7 @@ class Libssh2GroundTruth(GroundTruthExtractor):
                     if m_other:
                         out.write(line)
 
-        shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
+        # shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
 
         return updated_flags
 

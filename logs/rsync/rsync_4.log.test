@@ -1,0 +1,9 @@
+*** Run 4 for project: rsync ***
+FLAGS: {('SUPPORT_ACLS', 'False'), ('USE_ROLL_SIMD', 'True'), ('SUPPORT_XATTRS', 'True'), ('SUPPORT_ZSTD', 'False'), ('INET6', 'True'), ('USE_OPENSSL', 'True'), ('SUPPORT_LZ4', 'False')}
+Running experiment...
+
+=== Iteration 1 ===
+Ground truth flags for project rsync : {('SUPPORT_ACLS', 'False'), ('USE_ROLL_SIMD', 'True'), ('SUPPORT_XATTRS', 'True'), ('SUPPORT_ZSTD', 'False'), ('INET6', 'True'), ('USE_OPENSSL', 'True'), ('SUPPORT_LZ4', 'False')}
+Build completed in 52.96 seconds. Success: False. Binaries: [PosixPath('/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/rsync'), None]
+Result: ExperimentResult(project='rsync', build_success=False, config_found=False, precision=None, recall=None, f1=None, notes='build failed')
+Building package rsync with ground truth flags: {('SUPPORT_ACLS', 'False'), ('USE_ROLL_SIMD', 'True'), ('SUPPORT_XATTRS', 'True'), ('SUPPORT_ZSTD', 'False'), ('INET6', 'True'), ('USE_OPENSSL', 'True'), ('SUPPORT_LZ4', 'False')}

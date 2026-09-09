@@ -163,7 +163,7 @@ def run_project(project):
                             errors="replace",
                         )
         sections = comparison.split_iteration_sections(log_text)
-        
+        truth_extractor = gt_class()
         if len(sections) < 2:
             print(
                 f"[*] Skipping {log_path.name}: found only "
@@ -220,30 +220,30 @@ if __name__ == "__main__":
     #               "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
     # },  
     # ) 
-    # Project(
-    #     name = "libcurl",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
-    #               "cflags": "",
-    #               "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
-    # },  
-    # )
+    Project(
+        name = "libcurl",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
+                  "cflags": "",
+                  "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
+    },  
+    )
 
     # ,
-    Project(
-        name = "dbus",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
-                   "cflags": "",
-                   "include": ""
-                   },
-    )
+    # Project(
+    #     name = "dbus",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
+    #                "cflags": "",
+    #                "include": ""
+    #                },
+    # )
     # ,
     # Project(
     #     name = "dropbear",
@@ -279,7 +279,7 @@ if __name__ == "__main__":
     # # #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/src/libFLAC/.libs/libFLAC.so"),
     # # #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/flac-1.4.3/config.h"),
     # # #                "cflags": ""},
-    # # # )
+    # # # # )
 
 
     # ,
@@ -425,7 +425,7 @@ if __name__ == "__main__":
     #                 "include": ""
     #                 }
     # )   
-    # ,
+    # # ,
 
 
     
@@ -465,7 +465,7 @@ if __name__ == "__main__":
     #     "cflags": "",
     #     "include": ""
     # })
-    # ,
+    # # ,
     # Project(
     # name="libopenssl",
     # source_dir=Path("/workspaces/RevEng/buildroot-2025.copy/output/build/libopenssl-3.4.1/ssl"),

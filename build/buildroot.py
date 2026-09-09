@@ -270,8 +270,9 @@ class BuildrootBuildManager:
         res = self._run(cmd, self.buildroot_dir, log_file, env)
         success = res.returncode == 0
         # success = True
-        
-
+        if not success:
+            res = self._run(cmd, self.buildroot_dir, log_file, env)
+            success = res.returncode == 0
 
         matches = list(out_dir.glob(f"{pkg}-*"))
         # # matches = [Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/ffmpeg-n6.1.2-27-ge16ff06adb/libavcodec")]

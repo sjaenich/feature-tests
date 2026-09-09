@@ -77,19 +77,19 @@ def save_groundtruth_to_separate_file(project):
 
 def run_project_safe(project):
     setup_logging(project)
-    try:
-        result = run_project(project)
-        return {
-                "project": project.name,
-                "status": "ok",
-                "result": result,
-        }   
-    except Exception as e:
-        return {
-            "project": project.name,
-            "status": "error",
-            "error": str(e),
-        }
+    # try:
+    result = run_project(project)
+        # return {
+                # "project": project.name,
+                # "status": "ok",
+                # "result": result,
+        # }   
+    # except Exception as e:
+        # return {
+            # "project": project.name,
+            # "status": "error",
+            # "error": str(e),
+        # }
 
 
 
@@ -165,7 +165,7 @@ def run_project(project):
         if flags_key in seen_flags:
             print(f"[-] Duplicate flags skipped: {flags_key}")
             run_id += 1
-            if run_id > 22:  # safety check to prevent infinite loops
+            if run_id > 32:  # safety check to prevent infinite loops
                 print("Too many runs without enough unique configs. Stopping.")
                 return project.name
             continue
@@ -176,7 +176,7 @@ def run_project(project):
         # stages = ["initial", "filter"]
         stages = ["filter"]
         for stage in stages:
-            log_file = f"{project.name}_{run_id}.log"
+            log_file = f"{project.name}_{run_id}.log.test"
             log_file = os.path.join(log_dir, log_file)
             with open(log_file, "w") as f, redirect_stdout(f):
                 print(f"*** Run {run_id} for project: {project.name} ***")
@@ -228,19 +228,19 @@ if __name__ == "__main__":
     #               "include": "/workspaces/RevEng/libcurl-7.29.0/include/"              
     # },  
     # ) 
-    Project(
-        name = "libcurl",
-        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
-        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
-                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
-                  "cflags": "",
-                  "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
-    },  
-    )
+    # Project(
+    #     name = "libcurl",
+    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/"),
+    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/.libs/libcurl.so"),
+    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/lib/curl_config.h"),
+    #               "cflags": "",
+    #               "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/libcurl-7.71.1/include/"              
+    # },  
+    # )
 
-    # ,
+    # # ,
     # Project(
     #     name = "dbus",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
@@ -252,7 +252,7 @@ if __name__ == "__main__":
     #                "include": ""
     #                },
     # )
-    # ,
+    # # ,
     # Project(
     #     name = "dropbear",
     #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
@@ -304,16 +304,16 @@ if __name__ == "__main__":
 
 
     # ,
-    # Project(
-    #     name = "nano",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/nano"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/config.h"),
-    #               "cflags": "",
-    #                "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/lib/"},
-    # )  
+    Project(
+        name = "nano",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/nano-8.2/src/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/nano-8.2/src/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/nano-8.2/src/nano"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/nano-8.2/config.h"),
+                  "cflags": "",
+                   "include": "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/nano-8.2/lib/"},
+    )  
 
     # ,
     # Project(

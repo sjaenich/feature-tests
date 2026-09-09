@@ -1,4 +1,5 @@
-from .config_truth import GroundTruthExtractor
+import random
+from .config_truth import GroundTruthExtractor, dict_to_set, set_to_dict
 import subprocess
 import re
 import shutil
@@ -30,6 +31,23 @@ class RsyncGroundTruth(GroundTruthExtractor):
 
         self.flags.add(("INET6", "True"))                 # --enable-ipv6
         # self.flags.add(("ICONV_OPTION", "False"))  
+
+
+    def mix (self):
+        flags = set_to_dict(self.flags)
+                
+        for key in flags:
+            flags[key] = random.choice([True, False])
+
+        flags["SUPPORT_LZ4"] = False
+        flags["SUPPORT_ZSTD"] = False
+        flags["SUPPORT_ACLS"] = False
+        
+        
+        self.flags = dict_to_set(flags)
+        
+
+
 
     def extract(self, config_h, name, src_dir):
         flags = self.flags
@@ -87,7 +105,7 @@ class RsyncGroundTruth(GroundTruthExtractor):
                     if m_other:
                         out.write(line)
 
-        shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
+        # shutil.move(path, f"/workspaces/RevEng/header/libraries/{name}.old.h")
         return updated_flags
 
     def remove_dead_macros(self, src_dir: Path, macros) -> set:

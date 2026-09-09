@@ -96,7 +96,7 @@ class DbusGroundTruth(GroundTruthExtractor):
 
 
     def extract(self, config_h, name, src_dir):
-        print("DID THIS WORK", self.flags)
+        # print("DID THIS WORK", self.flags)
         flags = self.flags
         
         # --- D-Bus Configure-Controllable Flags ---

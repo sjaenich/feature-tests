@@ -38,11 +38,14 @@ def load_strings(path: str) -> set[str]:
     with open(p, "r", errors="ignore") as f:
         return {line.rstrip("\r\n") for line in f if line.strip()}
 
-def append_new_strings(path: str, strings: set[str]) -> int:
+def append_new_strings(path: str, strings: set[str], iteration: int) -> int:
     p = Path(path)
     existing = load_strings(str(p))
     print(f"Existing strings in {p}: {len(existing)}, {existing}")
+    
     new_strings = [s for s in strings if s not in existing]
+    if iteration ==2 and len(new_strings) > 400:
+        new_strings = new_strings[:400]
     print(f"New strings to add to {p}: {len(new_strings)}, {new_strings}")
     if new_strings:
         with open(p, "a") as f:
@@ -119,6 +122,7 @@ class ExperimentRunner:
         while True:
             iteration += 1
             print(f"\n=== Iteration {iteration} ===")
+            # self.truth_extractor.clean_conflicts()
 
             build_res = self.build_manager.build(project, self.truth_extractor, iteration)
 
@@ -162,8 +166,8 @@ class ExperimentRunner:
                 negative_strings = self_compiled_strings - recreate_binary_strings
                 positive_strings = recreate_binary_strings - self_compiled_strings
 
-                added_negative = append_new_strings(negative_path, negative_strings)
-                added_positive = append_new_strings(positive_path, positive_strings)
+                added_negative = append_new_strings(negative_path, negative_strings, iteration)
+                added_positive = append_new_strings(positive_path, positive_strings, iteration)
 
                 print(f"Added {added_negative} negative strings")
                 print(f"Added {added_positive} positive strings")
