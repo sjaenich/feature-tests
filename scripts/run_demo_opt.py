@@ -232,43 +232,43 @@ if __name__ == "__main__":
     },  
     )
 
-    # ,
-    # Project(
-    #     name = "dbus",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
-    #                "cflags": "",
-    #                "include": ""
-    #                },
-    # )
-    # ,
-    # Project(
-    #     name = "dropbear",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
-    #               "cflags": "",
-    #                "include": ""
-    #                },
-    # )
+    ,
+    Project(
+        name = "dbus",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/dbus/.libs/libdbus-1.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/dbus-1.14.10/config.h"),
+                   "cflags": "",
+                   "include": ""
+                   },
+    )
+    ,
+    Project(
+        name = "dropbear",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/dropbearmulti"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/dropbear-2025.88/src/default_options.h"),
+                  "cflags": "",
+                   "include": ""
+                   },
+    )
 
-    # ,
-    # Project(
-    #     name = "expat",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/.libs/libexpat.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/expat_config.h"),
-    #               "cflags": "",
-    #                "include": ""
-    #                },
-    # )    
+    ,
+    Project(
+        name = "expat",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/lib/.libs/libexpat.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/expat-2.7.1/expat_config.h"),
+                  "cflags": "",
+                   "include": ""
+                   },
+    )    
 
     # # # , 
     # # # Project(
@@ -282,71 +282,71 @@ if __name__ == "__main__":
     # # # # )
 
 
-    # ,
-    # Project(
-    #     name = "libpcap",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/libpcap.so.1.10.5"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/config.h"),
-    #                "cflags": "",
-    #                "include": ""},
-    # )  
+    ,
+    Project(
+        name = "libpcap",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/libpcap.so.1.10.5"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libpcap-1.10.5/config.h"),
+                   "cflags": "",
+                   "include": ""},
+    )  
 
 
-    # ,
-    # Project(
-    #     name = "nano",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/nano"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/config.h"),
-    #               "cflags": "",
-    #                "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/lib/"},
-    # )  
+    ,
+    Project(
+        name = "nano",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/src/nano"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/config.h"),
+                  "cflags": "",
+                   "include": "/workspaces/RevEng/buildroot-2025.02.4/output/build/nano-8.2/lib/"},
+    )  
 
-    # ,
-    # Project(
-    #     name = "ncurses",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/ncurses/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/ncurses/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/lib/libncurses.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/include/ncurses_cfg.h"),
-    #               "cflags":"",
-    #                "include": "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/include/"},
-    # )  
+    ,
+    Project(
+        name = "ncurses",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/ncurses/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/ncurses/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/lib/libncurses.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/include/ncurses_cfg.h"),
+                  "cflags":"",
+                   "include": "/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/ncurses-6.4-20230603/include/"},
+    )  
 
    
     
-    # ,
-    # Project(
-    #     name = "pcre2",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/config.h"),
-    #                "cflags": "",
-    #                "include": ""},
-    # )  
+    ,
+    Project(
+        name = "pcre2",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/src/config.h"),
+                   "cflags": "",
+                   "include": ""},
+    )  
 
 
 
-    # ,
-    # Project(
-    #     name = "rsync",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/rsync"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/config.h"),
-    #                "cflags": "",
-    #                 "include": ""
-    #               },
-    # )  
+    ,
+    Project(
+        name = "rsync",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/rsync"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.copy-optimization/output/build/rsync-3.4.1/config.h"),
+                   "cflags": "",
+                    "include": ""
+                  },
+    )  
 
 
     # # ,
@@ -361,17 +361,17 @@ if __name__ == "__main__":
     # #                "include": ""
     # #               },
     # # )  
-    # ,
-    # Project(
-    #     name = "xz",
-    #     source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/"),
-    #     build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    #     include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/common/"),
-    #     metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/.libs/liblzma.so"),
-    #               "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/config.h"),
-    #                "cflags": "",
-    #                "include": ""}
-    # )  
+    ,
+    Project(
+        name = "xz",
+        source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/"),
+        build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+        include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/common/"),
+        metadata={"binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/src/liblzma/.libs/liblzma.so"),
+                  "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/xz-5.6.4/config.h"),
+                   "cflags": "",
+                   "include": ""}
+    )  
 
     # ,
     # Project(
@@ -453,18 +453,18 @@ if __name__ == "__main__":
     #               }
     # )
 
-    # ,
-    # Project(
-    # name="libopenssl",
-    # source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
-    # build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
-    # include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
-    # metadata={
-    #     "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
-    #     "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/configuration.h"),
-    #     "cflags": "",
-    #     "include": ""
-    # })
+    ,
+    Project(
+    name="libopenssl",
+    source_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/crypto/"),
+    build_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/"),
+    include_dir=Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/"),
+    metadata={
+        "binary": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/libcrypto.so"),
+        "config_h": Path("/workspaces/RevEng/buildroot-2025.02.4/output/build/libopenssl-3.4.1/include/openssl/configuration.h"),
+        "cflags": "",
+        "include": ""
+    })
     # # ,
     # Project(
     # name="libopenssl",

@@ -1,9 +1,0 @@
-*** Run 13 for project: pcre2 ***
-FLAGS: {('SUPPORT_LIBREADLINE', 'False'), ('PCRE2_DEBUG', 'False'), ('SUPPORT_PCRE2_8', 'True'), ('EBCDIC', 'False'), ('SUPPORT_LIBEDIT', 'False'), ('EBCDIC_NL25', 'True'), ('SUPPORT_JIT', 'False'), ('SUPPORT_LIBBZ2', 'False'), ('SUPPORT_PCRE2_16', 'True'), ('SUPPORT_VALGRIND', 'False'), ('SUPPORT_PCRE2_32', 'False'), ('SUPPORT_LIBZ', 'False'), ('SUPPORT_UNICODE', 'False')}
-Running experiment...
-
-=== Iteration 1 ===
-Ground truth flags for project pcre2 : {('SUPPORT_LIBREADLINE', 'False'), ('PCRE2_DEBUG', 'False'), ('SUPPORT_PCRE2_8', 'True'), ('EBCDIC', 'False'), ('SUPPORT_LIBEDIT', 'False'), ('EBCDIC_NL25', 'True'), ('SUPPORT_JIT', 'False'), ('SUPPORT_LIBBZ2', 'False'), ('SUPPORT_PCRE2_16', 'True'), ('SUPPORT_VALGRIND', 'False'), ('SUPPORT_PCRE2_32', 'False'), ('SUPPORT_LIBZ', 'False'), ('SUPPORT_UNICODE', 'False')}
-Build completed in 28.81 seconds. Success: False. Binaries: [PosixPath('/workspaces/RevEng/buildroot-2025.02.4/output/build/pcre2-10.44/.libs/libpcre2-8.so'), None]
-Result: ExperimentResult(project='pcre2', build_success=False, config_found=False, precision=None, recall=None, f1=None, notes='build failed')
-Building package pcre2 with ground truth flags: {('SUPPORT_LIBREADLINE', 'False'), ('PCRE2_DEBUG', 'False'), ('SUPPORT_PCRE2_8', 'True'), ('EBCDIC', 'False'), ('SUPPORT_LIBEDIT', 'False'), ('EBCDIC_NL25', 'True'), ('SUPPORT_JIT', 'False'), ('SUPPORT_LIBBZ2', 'False'), ('SUPPORT_PCRE2_16', 'True'), ('SUPPORT_VALGRIND', 'False'), ('SUPPORT_PCRE2_32', 'False'), ('SUPPORT_LIBZ', 'False'), ('SUPPORT_UNICODE', 'False')}

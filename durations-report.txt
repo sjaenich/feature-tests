@@ -1,0 +1,366 @@
+
+dbus
+  dbus_3.log: unknown (first completion)
+  dbus_6.log: 0d 00h 05m 34s
+  dbus_7.log: 0d 00h 03m 51s
+  dbus_8.log: 0d 00h 03m 51s
+  dbus_9.log: 0d 00h 03m 12s
+  dbus_0.log: 7d 03h 04m 40s
+  dbus_0.log.test: 0d 00h 05m 14s
+  dbus_1.log.test: 0d 00h 00m 57s
+  dbus_2.log.test: 0d 00h 00m 56s
+  dbus_4.log.test: 0d 00h 01m 23s
+  dbus_5.log.test: 0d 00h 02m 40s
+  dbus_6.log.test: 0d 00h 00m 55s
+  dbus_7.log.test: 0d 00h 00m 57s
+  dbus_9.log.test: 0d 00h 00m 56s
+  dbus_10.log.test: 0d 00h 02m 37s
+  dbus_11.log.test: 0d 00h 02m 07s
+  dbus_12.log.test: 0d 00h 00m 55s
+  dbus_13.log.test: 0d 00h 00m 55s
+  dbus_15.log.test: 0d 00h 00m 56s
+  dbus_18.log.test: 0d 00h 04m 20s
+  dbus_21.log.test: 0d 00h 00m 56s
+  dbus_22.log.test: 0d 00h 00m 57s
+  dbus_16.log.test: 0d 00h 58m 01s
+  Count: 22
+  Mean:  0d 07h 51m 13.18s
+  Min:   0d 00h 00m 55.00s
+  Max:   7d 03h 04m 40.00s
+
+dropbear
+  dropbear_0.log: unknown (first completion)
+  dropbear_1.log: 0d 00h 03m 28s
+  dropbear_2.log: 0d 00h 03m 29s
+  dropbear_3.log: 0d 00h 03m 34s
+  dropbear_4.log: 0d 00h 03m 38s
+  dropbear_0.log.test: 7d 04h 18m 00s
+  dropbear_1.log.test: 0d 00h 04m 23s
+  dropbear_2.log.test: 0d 00h 04m 22s
+  dropbear_3.log.test: 0d 00h 04m 20s
+  dropbear_4.log.test: 0d 00h 04m 18s
+  Count: 9
+  Mean:  0d 19h 12m 10.22s
+  Min:   0d 00h 03m 28.00s
+  Max:   7d 04h 18m 00.00s
+
+expat
+  expat_0.log: unknown (first completion)
+  expat_2.log: 0d 00h 02m 06s
+  expat_3.log: 0d 00h 01m 48s
+  expat_12.log: 0d 00h 06m 51s
+  expat_19.log: 0d 00h 04m 56s
+  Count: 4
+  Mean:  0d 00h 03m 55.25s
+  Min:   0d 00h 01m 48.00s
+  Max:   0d 00h 06m 51.00s
+
+flac
+  flac_0.log: unknown (first completion)
+  No measurable durations (need at least two files).
+
+libarchive
+  libarchive_1.log: unknown (first completion)
+  libarchive_2.log: 0d 00h 00m 11s
+  libarchive_3.log: 0d 00h 00m 11s
+  libarchive_4.log: 0d 00h 00m 11s
+  libarchive_5.log: 0d 00h 00m 11s
+  libarchive_6.log: 0d 00h 00m 11s
+  libarchive_7.log: 0d 00h 00m 10s
+  libarchive_8.log: 0d 00h 00m 11s
+  libarchive_9.log: 0d 00h 00m 11s
+  libarchive_10.log: 0d 00h 00m 11s
+  libarchive_12.log: 0d 00h 00m 22s
+  libarchive_11.log: 43d 14h 04m 54s
+  libarchive_0.log: 18d 02h 01m 31s
+  Count: 12
+  Mean:  5d 03h 20m 42.08s
+  Min:   0d 00h 00m 10.00s
+  Max:   43d 14h 04m 54.00s
+
+libcurl
+  libcurl_0.log: unknown (first completion)
+  libcurl_1.log: 0d 00h 22m 15s
+  libcurl_2.log: 0d 02h 05m 21s
+  libcurl_3.log: 0d 00h 04m 48s
+  libcurl_5.log: 0d 01h 46m 30s
+  Count: 4
+  Mean:  0d 01h 04m 43.50s
+  Min:   0d 00h 04m 48.00s
+  Max:   0d 02h 05m 21.00s
+
+libopenssl
+  count.txt: unknown (first completion)
+  count.sh: 0d 23h 13m 12s
+  libopenssl_0.log: 8d 07h 46m 15s
+  libopenssl_1.log: 0d 00h 17m 09s
+  libopenssl_2.log: 0d 00h 13m 28s
+  libopenssl_3.log: 0d 00h 18m 42s
+  libopenssl_4.log: 0d 00h 09m 53s
+  Count: 6
+  Mean:  1d 13h 19m 46.50s
+  Min:   0d 00h 09m 53.00s
+  Max:   8d 07h 46m 15.00s
+
+libpcap
+  libpcap_0.log: unknown (first completion)
+  libpcap_1.log: 0d 00h 02m 14s
+  libpcap_2.log: 0d 00h 05m 55s
+  libpcap_3.log: 0d 00h 02m 50s
+  libpcap_4.log: 0d 00h 04m 43s
+  libpcap_0.log.test: 8d 00h 43m 31s
+  libpcap_1.log.test: 0d 00h 02m 37s
+  libpcap_2.log.test: 0d 00h 02m 31s
+  libpcap_3.log.test: 0d 00h 02m 41s
+  libpcap_4.log.test: 0d 00h 02m 33s
+  Count: 9
+  Mean:  0d 21h 27m 43.89s
+  Min:   0d 00h 02m 14.00s
+  Max:   8d 00h 43m 31.00s
+
+libssh2
+  libssh2_2.log: unknown (first completion)
+  libssh2_17.log: 0d 00h 03m 54s
+  Count: 1
+  Mean:  0d 00h 03m 54.00s
+  Min:   0d 00h 03m 54.00s
+  Max:   0d 00h 03m 54.00s
+
+libvpx
+  libvpx_0.log: unknown (first completion)
+  No measurable durations (need at least two files).
+
+libxml2
+  libxml2_0.result: unknown (first completion)
+  libxml2_1.result: 0d 00h 00m 10s
+  libxml2_2.result: 0d 00h 00m 13s
+  libxml2_3.result: 0d 00h 00m 07s
+  libxml2_4.result: 0d 00h 00m 07s
+  libxml2_0.log: 3d 07h 10m 03s
+  libxml2_4.log: 0d 04h 17m 33s
+  libxml2_9.log: 2d 02h 43m 39s
+  libxml2_11.log: 0d 00h 37m 46s
+  libxml2_12.log: 0d 00h 16m 03s
+  Count: 9
+  Mean:  0d 15h 00m 37.89s
+  Min:   0d 00h 00m 07.00s
+  Max:   3d 07h 10m 03.00s
+
+libxslt
+  libxslt_18.log: unknown (first completion)
+  libxslt_29.log: 0d 21h 41m 37s
+  libxslt_14.log: 2d 22h 58m 26s
+  libxslt_11.log: 3d 18h 28m 22s
+  libxslt_15.log: 0d 00h 00m 11s
+  libxslt_17.log: 0d 01h 53m 46s
+  libxslt_4.log: 0d 04h 12m 58s
+  libxslt_5.log: 0d 00h 00m 10s
+  libxslt_8.log: 0d 00h 00m 22s
+  libxslt_12.log: 0d 00h 00m 22s
+  libxslt_0.log: 1d 05h 49m 26s
+  libxslt_1.log: 0d 00h 00m 11s
+  libxslt_2.log: 0d 00h 00m 11s
+  libxslt_3.log: 0d 00h 00m 11s
+  libxslt_6.log: 0d 00h 00m 11s
+  libxslt_7.log: 0d 00h 00m 11s
+  libxslt_9.log: 0d 00h 00m 11s
+  libxslt_10.log: 0d 00h 00m 10s
+  Count: 17
+  Mean:  0d 12h 53m 20.94s
+  Min:   0d 00h 00m 10.00s
+  Max:   3d 18h 28m 22.00s
+
+nano
+  nano_0.log: unknown (first completion)
+  nano_1.log: 0d 00h 08m 14s
+  nano_5.log: 0d 00h 27m 44s
+  nano_8.log: 0d 00h 12m 18s
+  nano_18.log: 0d 00h 21m 06s
+  nano_12.log.test: 8d 07h 27m 25s
+  nano_13.log.test: 0d 00h 01m 43s
+  nano_14.log.test: 0d 00h 01m 01s
+  nano_15.log.test: 0d 00h 01m 00s
+  nano_16.log.test: 0d 00h 01m 01s
+  nano_17.log.test: 0d 00h 01m 01s
+  nano_18.log.test: 0d 00h 01m 00s
+  nano_19.log.test: 0d 00h 01m 00s
+  nano_20.log.test: 0d 00h 01m 00s
+  nano_21.log.test: 0d 00h 01m 00s
+  nano_22.log.test: 0d 00h 01m 00s
+  nano_0.log.test: 0d 13h 42m 22s
+  nano_1.log.test: 0d 00h 01m 02s
+  nano_2.log.test: 0d 00h 01m 00s
+  nano_3.log.test: 0d 00h 20m 50s
+  nano_4.log.test: 0d 00h 02m 17s
+  nano_5.log.test: 0d 00h 01m 01s
+  nano_6.log.test: 0d 00h 01m 01s
+  nano_7.log.test: 0d 00h 01m 02s
+  nano_8.log.test: 0d 00h 01m 58s
+  nano_9.log.test: 0d 00h 01m 00s
+  nano_10.log.test: 0d 00h 07m 39s
+  nano_11.log.test: 0d 00h 35m 57s
+  Count: 27
+  Mean:  0d 07h 59m 26.00s
+  Min:   0d 00h 01m 00.00s
+  Max:   8d 07h 27m 25.00s
+
+ncurses
+  ncurses_0.log: unknown (first completion)
+  ncurses_1.log: 0d 01h 14m 30s
+  ncurses_3.log: 0d 01h 03m 54s
+  ncurses_4.log: 0d 01h 03m 23s
+  ncurses_6.log: 0d 00h 52m 19s
+  ncurses_0.log.test: 7d 20h 55m 25s
+  ncurses_1.log.test: 0d 00h 21m 20s
+  ncurses_3.log.test: 0d 00h 40m 55s
+  ncurses_4.log.test: 0d 00h 21m 40s
+  ncurses_6.log.test: 0d 00h 41m 15s
+  Count: 9
+  Mean:  0d 21h 41m 37.89s
+  Min:   0d 00h 21m 20.00s
+  Max:   7d 20h 55m 25.00s
+
+openssl
+  openssl_1.log: unknown (first completion)
+  openssl_2.log: 0d 00h 00m 52s
+  openssl_3.log: 0d 00h 01m 08s
+  openssl_4.log: 0d 00h 00m 52s
+  openssl_5.log: 0d 00h 01m 10s
+  openssl_0.log: 0d 18h 27m 33s
+  Count: 5
+  Mean:  0d 03h 42m 19.00s
+  Min:   0d 00h 00m 52.00s
+  Max:   0d 18h 27m 33.00s
+
+pcre2
+  pcre2_3.log: unknown (first completion)
+  pcre2_6.log: 0d 00h 05m 18s
+  pcre2_8.log: 0d 00h 03m 17s
+  pcre2_14.log: 0d 00h 06m 20s
+  pcre2_17.log: 0d 00h 04m 30s
+  pcre2_0.log.test: 8d 03h 24m 41s
+  pcre2_1.log.test: 0d 00h 00m 55s
+  pcre2_2.log.test: 0d 00h 00m 55s
+  pcre2_3.log.test: 0d 00h 02m 21s
+  pcre2_4.log.test: 0d 00h 02m 22s
+  pcre2_6.log.test: 0d 00h 00m 58s
+  pcre2_7.log.test: 0d 00h 02m 23s
+  pcre2_8.log.test: 0d 00h 00m 57s
+  pcre2_9.log.test: 0d 00h 00m 58s
+  pcre2_10.log.test: 0d 00h 02m 24s
+  pcre2_11.log.test: 0d 00h 00m 58s
+  pcre2_12.log.test: 0d 00h 02m 22s
+  pcre2_13.log.test: 0d 00h 00m 55s
+  pcre2_14.log.test: 0d 00h 00m 56s
+  pcre2_15.log.test: 0d 00h 00m 56s
+  pcre2_16.log.test: 0d 00h 00m 56s
+  pcre2_19.log.test: 0d 00h 00m 55s
+  pcre2_20.log.test: 0d 00h 00m 56s
+  pcre2_21.log.test: 0d 00h 00m 57s
+  pcre2_22.log.test: 0d 00h 00m 57s
+  Count: 24
+  Mean:  0d 08h 10m 22.79s
+  Min:   0d 00h 00m 55.00s
+  Max:   8d 03h 24m 41.00s
+
+rsync
+  rsync_9.log: unknown (first completion)
+  rsync_14.log: 0d 00h 04m 54s
+  rsync_19.log: 0d 00h 06m 04s
+  rsync_20.log: 0d 00h 01m 14s
+  rsync_21.log: 0d 00h 01m 12s
+  rsync_22.log: 0d 00h 01m 14s
+  rsync_7.log: 0d 00h 14m 58s
+  rsync_10.log: 0d 00h 02m 40s
+  rsync_12.log: 0d 00h 02m 38s
+  rsync_13.log: 0d 00h 01m 19s
+  rsync_15.log: 0d 00h 01m 19s
+  rsync_16.log: 0d 00h 01m 19s
+  rsync_17.log: 0d 00h 01m 19s
+  rsync_18.log: 0d 00h 00m 00s
+  rsync_0.log: 0d 00h 12m 04s
+  rsync_1.log: 0d 00h 03m 38s
+  rsync_2.log: 0d 00h 01m 19s
+  rsync_3.log: 0d 00h 01m 20s
+  rsync_4.log: 0d 00h 04m 43s
+  rsync_5.log: 0d 00h 04m 23s
+  rsync_6.log: 0d 00h 01m 19s
+  rsync_8.log: 0d 00h 01m 20s
+  rsync_11.log: 0d 00h 04m 24s
+  rsync_0.log.test: 3d 06h 56m 44s
+  rsync_1.log.test: 0d 00h 01m 23s
+  rsync_2.log.test: 0d 00h 04m 01s
+  rsync_4.log.test: 0d 00h 01m 23s
+  rsync_5.log.test: 0d 00h 08m 58s
+  rsync_6.log.test: 0d 00h 01m 21s
+  rsync_8.log.test: 0d 00h 01m 20s
+  rsync_9.log.test: 0d 00h 04m 00s
+  rsync_10.log.test: 0d 00h 01m 20s
+  rsync_11.log.test: 0d 00h 08m 41s
+  Count: 32
+  Mean:  0d 02h 31m 22.22s
+  Min:   0d 00h 00m 00.00s
+  Max:   3d 06h 56m 44.00s
+
+sqlite
+  sqlite_6.log: unknown (first completion)
+  sqlite_7.log: 0d 00h 00m 42s
+  sqlite_8.log: 0d 00h 10m 19s
+  sqlite_5.log: 7d 17h 57m 13s
+  sqlite_11.log: 39d 10h 30m 55s
+  sqlite_0.log: 65d 08h 43m 04s
+  sqlite_1.log: 0d 00h 55m 17s
+  sqlite_2.log: 0d 00h 57m 08s
+  sqlite_3.log: 0d 01h 02m 06s
+  sqlite_4.log: 0d 00h 55m 51s
+  Count: 9
+  Mean:  12d 12h 34m 43.89s
+  Min:   0d 00h 00m 42.00s
+  Max:   65d 08h 43m 04.00s
+
+tcpdump
+  tcpdump_10.log: unknown (first completion)
+  tcpdump_12.log: 0d 00h 00m 41s
+  tcpdump_9.log: 0d 00h 03m 25s
+  tcpdump_11.log: 0d 00h 00m 20s
+  tcpdump_14.log: 0d 00h 00m 20s
+  tcpdump_8.log: 0d 00h 04m 23s
+  tcpdump_13.log: 0d 00h 00m 20s
+  tcpdump_0.log: 100d 00h 14m 57s
+  tcpdump_1.log: 0d 00h 00m 32s
+  tcpdump_2.log: 0d 00h 00m 30s
+  tcpdump_3.log: 0d 00h 00m 27s
+  tcpdump_4.log: 0d 00h 00m 29s
+  tcpdump_5.log: 0d 00h 00m 31s
+  tcpdump_6.log: 0d 00h 00m 26s
+  tcpdump_7.log: 0d 00h 00m 00s
+  Count: 14
+  Mean:  7d 03h 27m 40.07s
+  Min:   0d 00h 00m 00.00s
+  Max:   100d 00h 14m 57.00s
+
+xz
+  xz_3.log: unknown (first completion)
+  xz_4.log: 0d 00h 03m 09s
+  xz_6.log: 0d 00h 04m 12s
+  xz_8.log: 0d 00h 04m 08s
+  xz_10.log: 0d 00h 04m 11s
+  xz_0.log.test: 8d 04h 10m 27s
+  xz_1.log.test: 0d 00h 01m 04s
+  xz_2.log.test: 0d 00h 02m 35s
+  xz_3.log.test: 0d 00h 01m 04s
+  xz_4.log.test: 0d 00h 02m 33s
+  xz_5.log.test: 0d 00h 01m 04s
+  xz_6.log.test: 0d 00h 02m 33s
+  xz_7.log.test: 0d 00h 02m 36s
+  xz_8.log.test: 0d 00h 02m 33s
+  Count: 13
+  Mean:  0d 15h 07m 51.46s
+  Min:   0d 00h 01m 04.00s
+  Max:   8d 04h 10m 27.00s
+
+ALL LIBRARIES
+  Count: 226
+  Mean:  1d 14h 05m 58.44s
+  Min:   0d 00h 00m 00.00s
+  Max:   100d 00h 14m 57.00s
